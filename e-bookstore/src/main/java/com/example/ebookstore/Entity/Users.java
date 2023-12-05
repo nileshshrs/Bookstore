@@ -21,6 +21,8 @@ public class Users {
     private Roles roles = Roles.users;
 
     private String image;
+    @Transient
+    private String usernameOrEmail;
 
     //Enum representing roles
     public enum Roles{
@@ -85,4 +87,13 @@ public class Users {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public String getUsernameOrEmail() {
+        return usernameOrEmail;
+    }
+
+    public void setUsernameOrEmail(String usernameOrEmail) {
+        this.usernameOrEmail = usernameOrEmail;
+    }
 }
+
