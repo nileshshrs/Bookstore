@@ -23,4 +23,24 @@ public class UserService {
         }
         return userRepository.save(users);
     }
+
+    public Users loginUser(String usernameOrEmail, String password) {
+        System.out.println("Attempting login with usernameOrEmail: " + usernameOrEmail);
+
+        Optional<Users> optionalUser = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+
+            // Simple password check (without encryption)
+            if (password.equals(user.getPassword())) {
+                System.out.println("Login successful for user: " + user.getUsername());
+                return user;
+            }
+        }
+
+        // Either user not found or password doesn't match
+        System.out.println("Invalid username or password");
+        throw new IllegalArgumentException("Invalid username or password");
+    }
 }

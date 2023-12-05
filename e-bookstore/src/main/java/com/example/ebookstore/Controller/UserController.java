@@ -44,4 +44,29 @@ public class UserController {
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<Object> loginUser(@RequestBody Users loginUser) {
+        try {
+            // Log the received values
+            System.out.println("Received username: " + loginUser.getUsernameOrEmail());
+            System.out.println("Received password: " + loginUser.getPassword());
+
+            // Use the loginUser method from the UserService with both username and email
+            Users user = userService.loginUser(loginUser.getUsernameOrEmail(), loginUser.getPassword());
+
+            // Create a response map with user information appearing first
+            Map<String, Object> response = new HashMap<>();
+            response.put("user", user);
+            response.put("message", "Login successful");
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // Create an error response map
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Login failed: " + e.getMessage());
+
+            return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        }
+    }
 }
