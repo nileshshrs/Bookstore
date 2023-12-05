@@ -45,7 +45,6 @@ public class UserController {
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
         }
     }
-
     @PostMapping("/login")
     public ResponseEntity<Object> loginUser(@RequestBody Users loginUser) {
         try {
@@ -79,5 +78,13 @@ public class UserController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    // api for getting all users
+
+    @GetMapping("get-all-users")
+    public ResponseEntity<List<Users>> getAllUsers() {
+        List<Users> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

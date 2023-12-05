@@ -48,4 +48,10 @@ public class UserService {
     public Optional<Users> getUsersById(long id){
         return userRepository.findById(id);
     }
+
+    //get all users
+    public List<Users> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }
