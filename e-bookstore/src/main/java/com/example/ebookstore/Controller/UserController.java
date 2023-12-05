@@ -69,4 +69,14 @@ public class UserController {
             return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<Object> getUserById(@PathVariable Long userId) {
+        try {
+            Users user = userService.getUsersById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

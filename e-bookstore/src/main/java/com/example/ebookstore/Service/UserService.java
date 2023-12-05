@@ -43,4 +43,8 @@ public class UserService {
         System.out.println("Invalid username or password");
         throw new IllegalArgumentException("Invalid username or password");
     }
+
+    public Optional<Users> getUsersById(long id){
+        return userRepository.findById(id);
+    }
 }
