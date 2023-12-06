@@ -1,10 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Felipa&family=Prata&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*, ::before, ::after{
+:root {
+  --fz-heading: 55px;
+  --black: #121212;
+  --biege: #c5a992;
+  --easing: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+*,
+::before,
+::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   line-height: 1.5;
+}
+html {
+  scroll-behavior: smooth;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.1;
+  color: var(--black);
+}
+.carousel-control-next-icon{
+  background-color: var(--black);
+}
+body {
+  background-color: #f3f2ec;
+  #root {
+    .heading {
+      font-size: clamp(26px, 5vw, var(--fz-heading));
+      font-weight: 400;
+      margin-bottom: 10px;
+      font-family: "Prata";
+      color: var(--black);
+    }
+    p {
+      margin: 20px 0px 15px;
+      max-width: 540px;
+      line-height: 2;
+      font-family: "Segoe UI";
+      color: var(--black);
+    }
+    button {
+      border: 1px solid var(--biege);
+      padding: 11px 22px;
+      color: var(--biege);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      transition: gap 0.3s ease;
+      &:hover {
+        padding-right: 25px;
+        gap: 20px;
+        color: var(--black);
+        border: 1px solid var(--black);
+      }
+    }
+    .holders{
+      background-color: #EDEBE4;
+      min-height: 300px;
+      margin-bottom: 3rem;
+      .img-holder{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr) );
+        padding: 0 30px;
+        place-content: center;
+        gap: 10px;
+        place-items: center;
+      }
+    }
+  }
 }
