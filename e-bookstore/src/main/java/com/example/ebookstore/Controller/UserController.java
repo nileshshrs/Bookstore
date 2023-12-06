@@ -79,4 +79,23 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/edit/{userId}")
+    public ResponseEntity<Object> putUser(@PathVariable Long userId, @RequestBody Users updatedUser) {
+        try {
+            // Check if 'username' or 'email' is provided in the updatedUser, and throw an exception if they are
+            if (updatedUser.getUsername() != null || updatedUser.getEmail() != null) {
+                throw new IllegalArgumentException("Username or email cannot be updated");
+            }
+
+            Users savedUser = userService.putUser(userId, updatedUser);
+            return new ResponseEntity<>(savedUser, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // If the update fails, return a JSON response with the error message
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

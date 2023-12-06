@@ -47,4 +47,23 @@ public class UserService {
     public Optional<Users> getUsersById(long id){
         return userRepository.findById(id);
     }
+
+    public Users putUser(Long userId, Users updatedUser) {
+        Users existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Check if 'username' or 'email' is provided in the updatedUser, and throw an exception if they are
+        if (updatedUser.getUsername() != null || updatedUser.getEmail() != null) {
+            throw new IllegalArgumentException("Username or email cannot be updated");
+        }
+
+        // Copy the fields from updatedUser to existingUser
+        existingUser.setName(updatedUser.getName());
+        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setRoles(updatedUser.getRoles());
+        existingUser.setImage(updatedUser.getImage());
+
+        return userRepository.save(existingUser);
+    }
+
 }
