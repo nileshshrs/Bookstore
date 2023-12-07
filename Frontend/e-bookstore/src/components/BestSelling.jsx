@@ -5,7 +5,8 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 
 const BestSelling = () => {
   return (
-    <section className="bestselling my-12 bg-[#EDEBE4] py-24 ">
+    <section className="bestselling my-12 py-24">
+   
       <div className="w-[80%] mx-auto flex gap-5 justify-center items-center">
         <div className="">
           <img src={img1} alt="" />

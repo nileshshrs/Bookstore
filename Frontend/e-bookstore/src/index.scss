@@ -12,6 +12,7 @@
   --easing: cubic-bezier(0.645, 0.045, 0.355, 1);
   --fz-xxl: 32px;
   --text-color: #757575;
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)
 }
 
 *,
@@ -34,9 +35,61 @@ h6 {
   line-height: 1.1;
   color: var(--black);
 }
-p{
-  max-width: 540px;
+.form-btn {
+  background-color: #4f4f52 !important;
+  color: white !important;
+  border: 0.5px solid #0c0d13 !important;
+  display: block !important;
+  padding-right: 0 !important;
+  transition: var(--transition);
+  &:hover {
+    background-color: #0c0d13 !important;
+    color: white !important;
+    padding: none;
+    padding-right: 0 !important;
+    transition: none !important;
+  }
 }
+p {
+  max-width: 540px;
+  font-family: "Segoe UI";
+}
+//form validation css
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.offscreen {
+  display: none;
+}
+.hide {
+  display: none;
+}
+.valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+//form validation css
 .carousel-control-next-icon {
   background-color: var(--black);
 }
@@ -153,15 +206,15 @@ body {
         position: relative;
         padding: 0 0 10px 0;
       }
-      h2::after{
+      h2::after {
         position: absolute;
         content: "";
-        border: .5px solid;
+        border: 0.5px solid;
         bottom: 0;
         width: 10%;
         left: 0;
       }
-      h3{
+      h3 {
         font-size: clamp(26px, 5vw, var(--fz-xxl));
         font-family: "Prata";
       }

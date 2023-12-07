@@ -1,84 +1,51 @@
-
-.bg{
+.bg {
   display: flex;
   height: 100vh;
   width: 100%;
   background-color: aliceblue;
   justify-content: center;
   align-items: center;
-
+}
+.form-section {
+  background-image: url("/src/assets/front-view-stacked-books-ladders-education-day_23-2149241046.jpg");
+  background-size: cover;
+  background-color: rgba(243, 242, 236, 0.9);
+  background-repeat: no-repeat;
+}
+.translucent {
+  background-color: rgba(243, 242, 236, 0.9);
 }
 form {
-  background-color: white;
-  padding: 20px;
+  background-color: #edebe4;
+  padding: 0 3rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
 }
-h1{
-  text-align: center;
-  
+h2 {
+  font-family: "Prata";
 }
-.login{
+.login {
   display: flex;
   justify-content: center;
   margin: 30px;
   align-items: center;
 }
 
-
-
-input[type='text'],
-input[type='password'] {
+input[type="text"],
+input[type="password"],
+input[type="email"] {
   width: 100%;
   padding: 10px;
-  border-radius: 5px;
   border: 1px solid #ccc;
 }
-  .my-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: green;
-    border:black;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    outline: none;
-    transition: background-color 0.3s ease;
-    text-align: center;
-
+@media (max-width: 576px) {
+  .form-section {
+    padding: 0 20px;
+    .registration-form {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
-  .btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    outline: none;
-    transition: background-color 0.3s ease;
-
-  }
-  
-  .my-button:hover {
-    background-color: #0056b3;
-  }
-
-.register{
-
-  text-align: center;
-  margin-top: 10px;
 }
-
-.register a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.register a:hover {
-  text-decoration: underline;
-}
-
-
