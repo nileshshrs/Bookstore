@@ -4,7 +4,6 @@ import Register from "./Pages/Register"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import Login from "./Pages/Login";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
