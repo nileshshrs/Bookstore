@@ -24,10 +24,18 @@ public class Users {
     @Transient
     private String usernameOrEmail;
 
+    // sending data to test in test directory
+    public Users(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     //Enum representing roles
     public enum Roles{
         admin, users
     }
+
+//     Constructor with parameters
 
     //Getters and Setters
 
