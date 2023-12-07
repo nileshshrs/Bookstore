@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Felipa&family=Prata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +10,8 @@
   --black: #121212;
   --biege: #c5a992;
   --easing: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --fz-xxl: 32px;
+  --text-color: #757575;
 }
 
 *,
@@ -31,7 +34,10 @@ h6 {
   line-height: 1.1;
   color: var(--black);
 }
-.carousel-control-next-icon{
+p{
+  max-width: 540px;
+}
+.carousel-control-next-icon {
   background-color: var(--black);
 }
 body {
@@ -40,16 +46,16 @@ body {
     .heading {
       font-size: clamp(26px, 5vw, var(--fz-heading));
       font-weight: 400;
-      margin-bottom: 10px;
+      margin-bottom: 1.5rem;
       font-family: "Prata";
       color: var(--black);
     }
     p {
       margin: 20px 0px 15px;
-      max-width: 540px;
+
       line-height: 2;
       font-family: "Segoe UI";
-      color: var(--black);
+      color: var(--text-color);
     }
     button {
       border: 1px solid var(--biege);
@@ -60,25 +66,104 @@ body {
       align-items: center;
       gap: 10px;
       transition: gap 0.3s ease;
+      font-weight: bold;
       &:hover {
         padding-right: 25px;
         gap: 20px;
-        color: var(--black);
+        color: white;
         border: 1px solid var(--black);
+        background-color: var(--black);
       }
     }
-    .holders{
-      background-color: #EDEBE4;
-      min-height: 300px;
-      margin-bottom: 3rem;
-      .img-holder{
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr) );
-        padding: 0 30px;
-        place-content: center;
-        gap: 10px;
-        place-items: center;
+    .featured-books-container {
+      .all-book-link {
+        width: 80%;
+        margin: 0 auto;
+      }
+      .book-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .title-container {
+          h2 {
+            font-size: clamp(26px, 5vw, var(--fz-xxl));
+            font-family: "Prata";
+            position: relative;
+            padding: 0 0 10px 0;
+          }
+          h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+            right: 30%;
+            border-bottom: 1px solid gray;
+          }
+        }
+        .featured-books {
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          place-content: center;
+          place-items: center;
+          width: 80%;
+          .books {
+            .img-container {
+              position: relative;
+              button {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px;
+                background-color: #333; /* Adjust the background color as needed */
+                color: white;
+                border: none;
+                opacity: 0;
+                transition: opacity 0.3s ease, transform 0.3s ease; /* Add smooth transitions for opacity and transform */
+              }
+              &:hover {
+                button {
+                  opacity: 1;
+                  transform: translateX(-50%) translateY(-10%);
+                }
+              }
+            }
+            h3 {
+              font-family: "prata";
+              font-weight: 500;
+            }
+            p {
+              color: var(--text-color);
+              font-weight: 500;
+            }
+            div {
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+    .bestselling {
+      h2 {
+        font-size: clamp(26px, 5vw, var(--fz-heading));
+        font-family: "Prata";
+        position: relative;
+        padding: 0 0 10px 0;
+      }
+      h2::after{
+        position: absolute;
+        content: "";
+        border: .5px solid;
+        bottom: 0;
+        width: 10%;
+        left: 0;
+      }
+      h3{
+        font-size: clamp(26px, 5vw, var(--fz-xxl));
+        font-family: "Prata";
       }
     }
   }
