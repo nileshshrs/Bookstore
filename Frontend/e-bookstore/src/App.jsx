@@ -1,9 +1,13 @@
 import {Routes, Route} from "react-router-dom"
 import Home from "./components/Home"
+<<<<<<< HEAD
 import Register from "./Pages/Register"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import Login from "./Pages/Login";
+=======
+import 'bootstrap/dist/css/bootstrap.min.css';
+>>>>>>> refs/remotes/origin/main
 
 
 
