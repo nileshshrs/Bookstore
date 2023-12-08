@@ -37,7 +37,7 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
         }catch (Exception e)  {
-            String errorMessage = "Registration failed: " + e.getMessage();
+            String errorMessage = e.getMessage();
             // Construct the error response as a Map
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("message", errorMessage);
