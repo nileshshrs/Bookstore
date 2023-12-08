@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-// import "../css/register.css";
+import axios from 'axios';
 import { FaCheck, FaInfoCircle, FaTimes } from "react-icons/fa";
-// import signinImage from "../assets/signin1.png"; // Import the image
 import "../css/login.css";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -35,23 +34,17 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  //useeffects
-
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
     setValidname(result);
   }, [user]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -59,14 +52,36 @@ const Register = () => {
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
-    setValidEmail(email);
+    setValidEmail(result);
   }, [email]);
 
   useEffect(() => {
     setErrMsg("");
   }, [user, pwd, email, matchPwd]);
+
+  const registerUser = async (e) => {
+    e.preventDefault()
+    try {
+     const response = await axios.post('http://localhost:8080/api/v2/users/register', {
+  username: user,
+  email: email,
+  password: pwd,
+});
+
+      
+      console.log(response.data);
+      alert('Login successful!');
+      setSuccess(true);
+
+      setUser('');
+      setPwd('');
+      setMatchPwd('');
+      setEmail('');
+    } catch (error) {
+      console.error('Error registering user:', error.message);
+      setErrMsg('Error registering user. Please try again.');
+    }
+  };
 
   return (
     <>
@@ -80,22 +95,17 @@ const Register = () => {
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
             {errMsg}
           </p>
-          {/*username*/}
-
           <input
             placeholder="username"
             type="text"
             id="username"
             ref={userRef}
             autoComplete="off"
-            onChange={(e) => {
-              setUser(e.target.value.toLowerCase());
-            }}
+            onChange={(e) => setUser(e.target.value.toLowerCase())}
             onFocus={() => setUserFocus(true)}
             onBlur={() => setUserFocus(false)}
             className="rounded"
           />
-
           <p
             className={
               userFocus && user && !validName
@@ -106,8 +116,6 @@ const Register = () => {
             4 to 24 characters. Must begin with a letter. Letters, numbers,
             underscores, hyphens allowed.
           </p>
-          {/*email*/}
-
           <input
             type="email"
             id="email"
@@ -120,7 +128,6 @@ const Register = () => {
             onBlur={() => setEmailFocus(false)}
             className="rounded"
           />
-
           <p
             className={
               emailFocus && email && !validEmail
@@ -130,8 +137,6 @@ const Register = () => {
           >
             Email address is invalid.
           </p>
-          {/*password*/}
-
           <input
             type="password"
             required
@@ -143,7 +148,6 @@ const Register = () => {
             onBlur={() => setPwdFocus(false)}
             className="rounded"
           />
-
           <p
             className={
               pwdFocus && pwd && !validPwd
@@ -154,8 +158,6 @@ const Register = () => {
             8-24 characters. Must include one uppercase and lowercase letters, a
             number and a special character.
           </p>
-          {/** confirm-password**/}
-
           <input
             type="password"
             required
@@ -167,7 +169,6 @@ const Register = () => {
             placeholder="confirm-password"
             className="rounded"
           />
-
           <p
             className={
               matchFocus && matchPwd && !validMatch
@@ -177,7 +178,9 @@ const Register = () => {
           >
             Password does not match
           </p>
-          <button className="form-btn rounded">Sign up</button>
+          <button className="form-btn rounded" onClick={registerUser}>
+            Sign up
+          </button>
         </form>
       </section>
     </>
@@ -185,55 +188,3 @@ const Register = () => {
 };
 
 export default Register;
-
-{
-  /* <div className="row border rounded-5 p-3 bg-white shadow box-area"> */
-}
-
-{
-  /* <!--Left Box --> */
-}
-
-{
-  /* <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-  <div className="featured-image mb-3">
-    <img src={signinImage} className="img-fluid" alt="Signin" style={{ width: '1000px' }} />
-  </div>
-</div> */
-}
-
-{
-  /* <!--Right Box --> */
-}
-
-{
-  /* <div className="col-md-6 right-box">
-  <div className="row align-items-center">
-    <div className="header-text mb-4">
-    <h2 style={{ fontWeight: 'bold',fontSize:'30px',paddingBottom:'5px'}}>Sign Up</h2>
-      <p>Start your journey with us.</p>
-    </div>
-    <div className="input-group mb-3 box">
-      <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Username" />
-    </div>
-    <div className="input-group mb-3">
-      <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Email address" />
-    </div>
-    <div className="input-group mb-3">
-      <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Password" />
-    </div>
-    <div className="input-group mb-3">
-      <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Confirm Password" />
-    </div>
-    <div className="input-group mb-3">
-      <button className="btn btn-lg  w-100 fs-6"  style={{ fontWeight: 'bold',backgroundColor:'green',color:'white'}}>Sign Up </button>
-    </div>
-
-    <div className="row">
-      <small>Already have an account? <a href="./login" style={{ color:'green' ,textDecoration: 'underline'}}>Log In</a></small>
-    </div>
-  </div>
-</div>
-
-</div> */
-}

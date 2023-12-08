@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v2/users")
-@CrossOrigin(origins = "http://localhost:3000")// change the url value for it to work on your server
+@CrossOrigin(origins = "http://localhost:5173")// change the url value for it to work on your server
 public class UserController {
     private final UserService userService;
 

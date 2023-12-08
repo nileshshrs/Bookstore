@@ -1,18 +1,42 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../css/login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  //use this for setting error when creating login api do a setErrMsg(errMsg) inside the api calling function
   const [errMsg, setErrMsg] = useState("");
-  function handleSubmit(event) {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(email, password);
-    setEmail("");
-    setPassword("");
-  }
+
+    // Basic validation
+    if (!email || !password) {
+      setErrMsg("Both email and password are required.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your login endpoint
+      const response = await axios.post("localhost:8080/api/v2/users/login", {
+        email,
+        password,
+      });
+
+      // Handle the success response from the server
+      console.log(response.data);
+      alert('Login successful!');
+
+      // Clear the form fields
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      // Handle the error response from the server
+      console.error("Error logging in:", error.message);
+      setErrMsg("Error logging in. Please check your credentials and try again.");
+    }
+  };
+
   return (
     <>
       <section className="h-screen flex justify-center items-center form-section relative">
@@ -23,16 +47,14 @@ const Login = () => {
             <p>Start your journey with us.</p>
           </div>
           <p className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
-          {/*username*/}
 
           <input
             placeholder="username or email"
             type="text"
             id="username"
             autoComplete="off"
-            onChange={(e) => {
-              setEmail(e.target.value.toLowerCase());
-            }}
+            value={email}
+            onChange={(e) => setEmail(e.target.value.toLowerCase())}
             className="rounded"
           />
 
@@ -42,12 +64,13 @@ const Login = () => {
             placeholder="password"
             id="password"
             autoComplete="off"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="rounded"
           />
 
           <button className="form-btn rounded" onClick={handleSubmit}>
-            Sign up
+            Sign in
           </button>
         </form>
       </section>
