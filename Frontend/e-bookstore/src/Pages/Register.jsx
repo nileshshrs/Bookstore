@@ -86,7 +86,7 @@ const Register = () => {
           navigate("/login");
         }, 2500);
       }
-      e.target.reset()
+      e.target.reset();
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
       // console.log(errorMessage);
@@ -193,7 +193,10 @@ const Register = () => {
             Sign up
           </button>
           <p>
-            Already have an account ? <Link to="/login" className="font-bold text-black underline">Sign in.</Link>
+            Already have an account ?{" "}
+            <Link to="/login" className="font-bold text-black underline">
+              Sign in.
+            </Link>
           </p>
         </form>
         <ToastContainer />
