@@ -3,7 +3,7 @@ import axios from "axios";
 import "../css/login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
@@ -192,6 +192,9 @@ const Register = () => {
           <button className="form-btn rounded" onClick={registerUser}>
             Sign up
           </button>
+          <p>
+            Already have an account ? <Link to="/login" className="font-bold text-black underline">Sign in.</Link>
+          </p>
         </form>
         <ToastContainer />
       </section>
