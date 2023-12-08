@@ -1,0 +1,52 @@
+.bg {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: aliceblue;
+  justify-content: center;
+  align-items: center;
+}
+.form-section {
+  background-image: url("/src/assets/front-view-stacked-books-ladders-education-day_23-2149241046.jpg");
+  background-size: cover;
+  background-color: rgba(243, 242, 236, 0.9);
+  background-repeat: no-repeat;
+  
+}
+.translucent {
+  background-color: rgba(243, 242, 236, 0.9);
+}
+form {
+  background-color: #edebe4;
+  padding: 0 3rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+h2 {
+  font-family: "Prata";
+}
+.login {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  align-items: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+@media (max-width: 576px) {
+  .form-section {
+    padding: 0 20px;
+    .registration-form {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+}

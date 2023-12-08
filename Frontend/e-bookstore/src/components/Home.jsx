@@ -1,8 +1,16 @@
 import React from 'react'
+import Carousel from './Carousels'
+import Featured from './Featured'
+import BestSelling from './BestSelling'
+
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+      <Carousel/>
+      <Featured/>
+      <BestSelling/>
+    </>
   )
 }
 

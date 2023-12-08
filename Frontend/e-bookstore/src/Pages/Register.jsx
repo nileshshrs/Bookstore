@@ -1,46 +1,190 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from "react";
+import axios from 'axios';
+import { FaCheck, FaInfoCircle, FaTimes } from "react-icons/fa";
+import "../css/login.css";
+
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,30}))$/;
 
 const Register = () => {
+  const userRef = useRef();
+  const errRef = useRef();
+
+  //for username input
+  const [user, setUser] = useState("");
+  const [validName, setValidname] = useState(false);
+  const [userFocus, setUserFocus] = useState(false);
+
+  //for password input
+  const [pwd, setPwd] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+
+  //for confirm-password
+  const [matchPwd, setMatchPwd] = useState("");
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    const result = USER_REGEX.test(user);
+    setValidname(result);
+  }, [user]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(pwd);
+    setValidPwd(result);
+    const match = pwd === matchPwd;
+    setValidMatch(match);
+  }, [pwd, matchPwd]);
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    setValidEmail(result);
+  }, [email]);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [user, pwd, email, matchPwd]);
+
+  const registerUser = async (e) => {
+    e.preventDefault()
+    try {
+     const response = await axios.post('http://localhost:8080/api/v2/users/register', {
+  username: user,
+  email: email,
+  password: pwd,
+});
+
+      
+      console.log(response.data);
+      alert('Login successful!');
+      setSuccess(true);
+
+      setUser('');
+      setPwd('');
+      setMatchPwd('');
+      setEmail('');
+    } catch (error) {
+      console.error('Error registering user:', error.message);
+      setErrMsg('Error registering user. Please try again.');
+    }
+  };
+
   return (
     <>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"/></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
+      <section className="h-screen flex justify-center items-center form-section relative">
+        <div className="absolute w-full h-full top-0 translucent"></div>
+        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form py-14 z-[99]">
+          <div>
+            <h2 className="font-bold text-[50px]">Sign up</h2>
+            <p>Start your journey with us.</p>
+          </div>
+          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
+            {errMsg}
+          </p>
+          <input
+            placeholder="username"
+            type="text"
+            id="username"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setUser(e.target.value.toLowerCase())}
+            onFocus={() => setUserFocus(true)}
+            onBlur={() => setUserFocus(false)}
+            className="rounded"
+          />
+          <p
+            className={
+              userFocus && user && !validName
+                ? "instructions m-0 text-white rounded"
+                : "offscreen m-0 text-white rounded"
+            }
+          >
+            4 to 24 characters. Must begin with a letter. Letters, numbers,
+            underscores, hyphens allowed.
+          </p>
+          <input
+            type="email"
+            id="email"
+            placeholder="e-mail"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)}
+            className="rounded"
+          />
+          <p
+            className={
+              emailFocus && email && !validEmail
+                ? "instructions m-0 text-white rounded"
+                : "offscreen m-0 text-white rounded"
+            }
+          >
+            Email address is invalid.
+          </p>
+          <input
+            type="password"
+            required
+            placeholder="password"
+            id="password"
+            autoComplete="off"
+            onChange={(e) => setPwd(e.target.value)}
+            onFocus={() => setPwdFocus(true)}
+            onBlur={() => setPwdFocus(false)}
+            className="rounded"
+          />
+          <p
+            className={
+              pwdFocus && pwd && !validPwd
+                ? "instructions m-0 text-white rounded"
+                : "offscreen m-0 text-white rounded"
+            }
+          >
+            8-24 characters. Must include one uppercase and lowercase letters, a
+            number and a special character.
+          </p>
+          <input
+            type="password"
+            required
+            id="password"
+            autoComplete="off"
+            onChange={(e) => setMatchPwd(e.target.value)}
+            onFocus={() => setMatchFocus(true)}
+            onBlur={() => setMatchFocus(false)}
+            placeholder="confirm-password"
+            className="rounded"
+          />
+          <p
+            className={
+              matchFocus && matchPwd && !validMatch
+                ? "instructions m-0 text-white rounded"
+                : "offscreen m-0 text-white rounded"
+            }
+          >
+            Password does not match
+          </p>
+          <button className="form-btn rounded" onClick={registerUser}>
+            Sign up
+          </button>
+        </form>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
