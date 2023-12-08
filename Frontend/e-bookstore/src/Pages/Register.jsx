@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import axios from 'axios';
-import { FaCheck, FaInfoCircle, FaTimes } from "react-icons/fa";
+import axios from "axios";
 import "../css/login.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
@@ -9,6 +11,7 @@ const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,30}))$/;
 
 const Register = () => {
+  const navigate = useNavigate();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -32,7 +35,6 @@ const Register = () => {
   const [emailFocus, setEmailFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -59,27 +61,36 @@ const Register = () => {
     setErrMsg("");
   }, [user, pwd, email, matchPwd]);
 
+  const url = "http://localhost:8080/api/v2/users/register";
+
   const registerUser = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-     const response = await axios.post('http://localhost:8080/api/v2/users/register', {
-  username: user,
-  email: email,
-  password: pwd,
-});
+      const response = await axios.post(url, {
+        username: user,
+        email: email,
+        password: pwd,
+      });
 
-      
-      console.log(response.data);
-      alert('Login successful!');
-      setSuccess(true);
+      console.log(response);
+      if (response.status === 201) {
+        // console.log("Sign Up Successful. Redirecting to /login...");
+        toast.success("Sign Up Successful. Please login!", {
+          position: "top-right",
+        });
 
-      setUser('');
-      setPwd('');
-      setMatchPwd('');
-      setEmail('');
+        setTimeout(() => {
+          console.log("Sign Up Successful. Redirecting to /login...");
+          // Use navigate to navigate to /login
+          // window.location = "/login";
+          navigate("/login");
+        }, 2500);
+      }
+      e.target.reset();
     } catch (error) {
-      console.error('Error registering user:', error.message);
-      setErrMsg('Error registering user. Please try again.');
+      const errorMessage = error?.response?.data?.message;
+      // console.log(errorMessage);
+      setErrMsg(errorMessage);
     }
   };
 
@@ -161,7 +172,7 @@ const Register = () => {
           <input
             type="password"
             required
-            id="password"
+            id="confirm-password"
             autoComplete="off"
             onChange={(e) => setMatchPwd(e.target.value)}
             onFocus={() => setMatchFocus(true)}
@@ -181,7 +192,14 @@ const Register = () => {
           <button className="form-btn rounded" onClick={registerUser}>
             Sign up
           </button>
+          <p>
+            Already have an account ?{" "}
+            <Link to="/login" className="font-bold text-black underline">
+              Sign in.
+            </Link>
+          </p>
         </form>
+        <ToastContainer />
       </section>
     </>
   );

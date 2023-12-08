@@ -54,6 +54,13 @@ p {
   max-width: 540px;
   font-family: "Segoe UI";
 }
+.Toastify{
+  button{
+    background: none !important;
+    color: #4f4f52 !important;
+    border: none !important;
+  }
+}
 //form validation css
 .instructions {
   font-size: 0.75rem;
@@ -83,7 +90,7 @@ p {
 
 .errmsg {
   background-color: lightpink;
-  color: firebrick;
+  color: firebrick !important;
   font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
