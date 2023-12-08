@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4f9351-28c2-4975-b91f-919c28cb6ead" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/81b5823b-fd6f-44eb-99b8-edca1472f902.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/81b5823b-fd6f-44eb-99b8-edca1472f902.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-bookstore/src/main/java/com/example/ebookstore/Entity/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/e-bookstore/src/main/java/com/example/ebookstore/Entity/Users.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/e-bookstore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/e-bookstore/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,13 +47,13 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Rohan",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/rohan-manandhar/College Every Semester Data/Semester 3/Online BookStore/Bookstore/e-bookstore",
+    "last_opened_file_path": "/home/rohan-manandhar/College Every Semester Data/Semester 3/Online BookStore/Bookstore",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.scopes",
@@ -94,6 +94,13 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <configuration name="Unnamed" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Bookstore" />
+      <option name="SPRING_BOOT_MAIN_CLASS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Bookstore" />
       <option name="SPRING_BOOT_MAIN_CLASS" />
@@ -105,6 +112,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-3183f394aec4-86fc8109" />
+        <option value="jdk-21.0.1-corretto-21.0.1-3183f394aec4-8170b3b1" />
         <option value="jdk-21.0.1-openjdk-21.0.1-3183f394aec4-920bfa72" />
       </set>
     </attachedChunks>
@@ -120,6 +129,8 @@
       <workItem from="1701691548041" duration="8000" />
       <workItem from="1701869124080" duration="2966000" />
       <workItem from="1701872175350" duration="3611000" />
+      <workItem from="1702038950530" duration="235000" />
+      <workItem from="1702039330505" duration="90000" />
     </task>
     <servers />
   </component>
