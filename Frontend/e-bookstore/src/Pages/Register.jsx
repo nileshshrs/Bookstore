@@ -4,9 +4,8 @@ import "../css/login.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
-
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
+const PWD_REGEX = /^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
 const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,30}))$/;
 
@@ -98,7 +97,7 @@ const Register = () => {
     <>
       <section className="h-screen flex justify-center items-center form-section relative">
         <div className="absolute w-full h-full top-0 translucent"></div>
-        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form py-14 z-[99]">
+        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form  z-[99]">
           <div>
             <h2 className="font-bold text-[50px]">Sign up</h2>
             <p>Start your journey with us.</p>
