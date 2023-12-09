@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body{ 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background: #ececec;
+}
+
+/*Login container*/
+
+.box-area{
+    width: 930px;
+}
+
+/*Right box*/
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+/*.right-box .row .input-group .form-control {
+    border: none; /* Remove all borders 
+    border-bottom: 2px solid rgb(211, 208, 208); Add a bottom border
+    border-radius: 0; /* Remove border-radius if needed
+    box-shadow: 0px 0px 0px 0px;
+}
+*/
+
+
+/*Custom Placeholder*/
+
+::placeholder{
+    font-size: 16px;
+}
+
+.rounded-4{
+    border-radius: 20px;
+}
+.rounded-5{
+    border-radius: 30px;
+}
+
+
+
+/*responsive*/
+
+@media only screen and (max-width: 768px){
+
+     .box-area{
+        margin: 0 10px;
+
+     }
+     .left-box{
+        height: 100px;
+        overflow: hidden;
+     }
+     .right-box{
+        padding: 20px;
+     }
+
+}

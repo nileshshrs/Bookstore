@@ -1,0 +1,254 @@
+:root {
+  --easing: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --navy-shadow: rgba(2, 12, 27, 0.7);
+}
+.fixed-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  z-index: 1000; /* Ensure the header stays on top of other elements */
+}
+
+header {
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth cubic-bezier transition */
+  .sidebar-nav {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    max-width: min(75vw, 400px);
+    box-shadow: -10px 0px 30px -15px var(--navy-shadow);
+    right: 0;
+    z-index: 100;
+    background-color: #edebe4;
+    backdrop-filter: blur(1rem);
+    transform: translateX(100vw);
+    transition: var(--transition);
+    display: flex;
+    justify-content: center;
+    padding: 20px 50px;
+    align-items: center;
+    .account-btn {
+      width: 100%;
+      background-color: black;
+      border: 1px solid black;
+      color: white;
+      transition: 0.2s ease-in; /* Smooth cubic-bezier transition */
+      font-weight: 500;
+      padding: 5px 15px;
+      border-radius: 25px;
+      &:hover {
+        background-color: #edebe4;
+        color: black;
+      }
+    }
+    .login-btn {
+      width: 100%;
+      border: 1px solid black;
+      padding: 5px 10px;
+      border-radius: 20px;
+      transition: 0.2s ease-in; /* Smooth cubic-bezier transition */
+      font-weight: 500;
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+    nav {
+      padding: 20px 75px;
+      ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 2rem;
+        padding: 10px;
+        li {
+          padding: 10px;
+          a {
+            padding: 5px;
+          }
+        }
+        li:last-child {
+          a:hover::after {
+            width: 0;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+  .hamburger-menu {
+    font-size: 25px;
+    display: none;
+  }
+  nav {
+    ul {
+      li {
+        form {
+          position: relative;
+          input {
+            width: 225px;
+            height: 30px;
+            border: 1px solid black;
+            border-radius: 30px;
+            padding: 0 15px;
+          }
+          button {
+            position: absolute;
+            border: none;
+            top: 20%;
+            padding: 0;
+            right: 5%;
+          }
+        }
+        a {
+          position: relative;
+        }
+        a::after {
+          content: "";
+          position: absolute;
+          bottom: -10%;
+          left: 40%;
+          width: 5px;
+          transition: width 0.3s; /* Add a smooth transition effect */
+        }
+
+        a:hover::after {
+          width: 10px; /* Increase the width on hover */
+          border: 1px solid black;
+        }
+      }
+    }
+    .login-btn {
+      border: 1px solid black;
+      padding: 5px 10px;
+      border-radius: 20px;
+      transition: 0.2s ease-in; /* Smooth cubic-bezier transition */
+      font-weight: 500;
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+    .cart {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+    }
+    .account-btn {
+      background-color: black;
+      border: 1px solid black;
+      color: white;
+      transition: 0.2s ease-in; /* Smooth cubic-bezier transition */
+      font-weight: 500;
+      padding: 5px 15px;
+      border-radius: 25px;
+      &:hover {
+        background-color: #edebe4;
+        color: black;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  header {
+    .hamburger-menu {
+      display: block;
+    }
+    nav {
+      ul {
+        li {
+          display: none;
+        }
+        li:last-child {
+          display: block;
+        }
+      }
+    }
+    .btn-div {
+      display: none;
+    }
+    .slide {
+      transform: translateX(0vw);
+      transition: var(--transition);
+      nav {
+        ul {
+          li {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  header {
+    .hamburger-menu {
+      display: block;
+    }
+    nav {
+      ul {
+        li {
+          display: none;
+        }
+        li:last-child {
+          display: block;
+        }
+      }
+    }
+    .btn-div {
+      display: none;
+    }
+    .slide {
+      transform: translateX(0vw);
+      transition: var(--transition);
+      nav {
+        ul {
+          li {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  header {
+    .nav-bar {
+      gap: 0 !important;
+      nav {
+        padding: 0 !important;
+      }
+    }
+    .hamburger-menu {
+      display: block;
+    }
+    nav {
+      ul {
+        li {
+          display: none;
+        }
+        li:last-child {
+          display: block;
+        }
+      }
+    }
+    .btn-div {
+      display: none;
+    }
+    .slide {
+      transform: translateX(0vw);
+      transition: var(--transition);
+      nav {
+        ul {
+          li {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

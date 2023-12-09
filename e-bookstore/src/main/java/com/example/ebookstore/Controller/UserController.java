@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v2/users")
-@CrossOrigin(origins = "http://localhost:3000")// change the url value for it to work on your server
+@CrossOrigin(origins = "http://localhost:5173")// change the url value for it to work on your server
 public class UserController {
     private final UserService userService;
 
@@ -37,7 +37,7 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
         }catch (Exception e)  {
-            String errorMessage = "Registration failed: " + e.getMessage();
+            String errorMessage = e.getMessage();
             // Construct the error response as a Map
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("message", errorMessage);
@@ -87,4 +87,36 @@ public class UserController {
         List<Users> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    //patch users api
+    @PatchMapping("/edit/{userId}")
+    public ResponseEntity<Object> patchUser(@PathVariable Long userId, @RequestBody Map<String, Object> updates) {
+        try {
+            // Check if updates contain 'username' or 'email', and throw an exception if they do
+            if (updates.containsKey("username") || updates.containsKey("email")) {
+                throw new IllegalArgumentException("Username or email cannot be updated");
+            }
+
+            Users updatedUser = userService.patchUser(userId, updates);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // If the patching fails, return a JSON response with the error message
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+    //delete users api
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Object> deleteUser(@PathVariable Long userId) {
+        try {
+            userService.deleteUser(userId);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // If the deletion fails, return a JSON response with the error message
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
