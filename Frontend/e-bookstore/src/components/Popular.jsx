@@ -1,17 +1,86 @@
-import React from "react";
-import img1 from "../assets/tab-item1.jpg";
-import img2 from "../assets/tab-item2.jpg";
-import img3 from "../assets/tab-item3.jpg";
-import img4 from "../assets/tab-item4.jpg";
-import img5 from "../assets/tab-item5.jpg";
-import img6 from "../assets/tab-item6.jpg";
-import img7 from "../assets/tab-item7.jpg";
-import img8 from "../assets/tab-item8.jpg";
+import React, { useState } from "react";
+
+import Tabview1 from "./Tabview1";
 
 const Popular = () => {
+  const [toggle, setToggle] = useState(1);
+
+  console.log(toggle);
+  const switchTab = (index) => {
+    setToggle(index);
+  };
   return (
     <section className="popular-books-container  bg-[#EDEBE4] py-5">
       <div className="popular-container">
+        <div className="popular-title-container">
+          <h2>Popular Books</h2>
+        </div>
+        <div className="tab-switch-btn">
+          <button
+            className={toggle === 1 ? "tabs active-tab" : "tabs"}
+            onClick={() => switchTab(1)}
+          >
+            All Genres
+          </button>
+          <button
+            className={toggle === 2 ? "tabs active-tab" : "tabs"}
+            onClick={() => switchTab(2)}
+          >
+            Business
+          </button>
+          <button
+            className={toggle === 3 ? "tabs active-tab" : "tabs"}
+            onClick={() => switchTab(3)}
+          >
+            Technology
+          </button>
+          <button
+            className={toggle === 4 ? "tabs active-tab" : "tabs"}
+            onClick={() => switchTab(4)}
+          >
+            Romantic
+          </button>
+          <button
+            className={toggle === 5 ? "tabs active-tab" : "tabs"}
+            onClick={() => switchTab(5)}
+          >
+            Adventure
+          </button>
+          <button
+            className={toggle === 6 ? "tabs active-tab" : "tabs"}
+            onClick={() => switchTab(6)}
+          >
+            Fictional
+          </button>
+        </div>
+        <div className="tab-container">
+          <div className={toggle === 1 ? "content active-content" : "content"}>
+            <Tabview1/>
+          </div>
+          <div className={toggle === 2 ? "content active-content" : "content"}>
+            2
+          </div>
+          <div className={toggle === 3 ? "content active-content" : "content"}>
+            3
+          </div>
+          <div className={toggle === 4 ? "content active-content" : "content"}>
+            4
+          </div>
+          <div className={toggle === 5 ? "content active-content" : "content"}>
+            5
+          </div>
+          <div className={toggle === 6 ? "content active-content" : "content"}>
+            6
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Popular;
+{
+  /* <div className="popular-container">
         <div className="popular-title-container">
           <h2>Popular Books</h2>
         </div>
@@ -121,9 +190,5 @@ const Popular = () => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
-
-export default Popular;
+      </div> */
+}
