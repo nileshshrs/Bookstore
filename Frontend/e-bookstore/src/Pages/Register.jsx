@@ -98,7 +98,7 @@ const Register = () => {
     <>
       <section className="h-screen flex justify-center items-center form-section relative">
         <div className="absolute w-full h-full top-0 translucent"></div>
-        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form py-14 z-[99]">
+        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form  z-[99]">
           <div>
             <h2 className="font-bold text-[50px]">Sign up</h2>
             <p>Start your journey with us.</p>

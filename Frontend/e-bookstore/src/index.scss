@@ -39,14 +39,13 @@ h6 {
   background-color: #4f4f52 !important;
   color: white !important;
   border: 0.5px solid #0c0d13 !important;
-  display: block !important;
-  padding-right: 0 !important;
+  padding: 11px 22px;
   transition: var(--transition);
   &:hover {
     background-color: #0c0d13 !important;
     color: white !important;
     padding: none;
-    padding-right: 0 !important;
+
     transition: none !important;
   }
 }
@@ -54,8 +53,8 @@ p {
   max-width: 540px;
   font-family: "Segoe UI";
 }
-.Toastify{
-  button{
+.Toastify {
+  button {
     background: none !important;
     color: #4f4f52 !important;
     border: none !important;
@@ -117,22 +116,24 @@ body {
       font-family: "Segoe UI";
       color: var(--text-color);
     }
-    button {
-      border: 1px solid var(--biege);
-      padding: 11px 22px;
-      color: var(--biege);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      transition: gap 0.3s ease;
-      font-weight: bold;
-      &:hover {
-        padding-right: 25px;
-        gap: 20px;
-        color: white;
-        border: 1px solid var(--black);
-        background-color: var(--black);
+    .carousel {
+      button {
+        border: 1px solid var(--biege);
+        padding: 11px 22px;
+        color: var(--biege);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transition: gap 0.3s ease;
+        font-weight: bold;
+        &:hover {
+          padding-right: 25px;
+          gap: 20px;
+          color: white;
+          border: 1px solid var(--black);
+          background-color: var(--black);
+        }
       }
     }
     .featured-books-container {

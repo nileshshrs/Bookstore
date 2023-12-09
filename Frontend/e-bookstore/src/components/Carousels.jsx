@@ -6,7 +6,7 @@ import img2 from "../assets/main-banner2.jpg";
 import { FaLongArrowAltRight } from "react-icons/fa";
 const Carousels = () => {
   return (
-    <section className="mb-5 bg-[#EDEBE4]">
+    <section className="mb-5 bg-[#EDEBE4] carousel">
       <Carousel slide={true} interval={3000} indicators={false} controls={false} className="mb-5">
         <Carousel.Item>
           <div className="flex gap-5 m-auto w-[70%] justify-center items-center min-h-[80vh]">
