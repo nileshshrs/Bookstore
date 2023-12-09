@@ -7,7 +7,7 @@ const BestSelling = () => {
   return (
     <section className="bestselling my-12 py-24">
    
-      <div className="w-[80%] mx-auto flex gap-5 justify-center items-center">
+      <div className="w-[80%] mx-auto flex gap-5 justify-center items-center bestselling-books">
         <div className="">
           <img src={img1} alt="" />
         </div>

@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import "../css/navigation.scss";
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { useAuthContext } from "../context/useAuthContext";
 
 const Navigation = () => {
+  //  const { logout } = useLogout();
+
+  const { user } = useAuthContext();
+
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [nav, setNav] = useState(false);
-
 
   const handleNav = () => {
     setNav(!nav);
@@ -29,7 +33,7 @@ const Navigation = () => {
   }, []);
   return (
     <header className={`bg-[#EDEBE4] ${isHeaderFixed ? "fixed-header" : ""}`}>
-      <div className="px-2 py-3 flex justify-evenly items-center w-full gap-3 nav-bar">
+      <div className="px-2 py-3 flex justify-evenly items-center w-full gap-3 nav-bar sm:gap-0">
         <div className="px-2">
           <Link to="/">
             <h2 className="text-[22px]">Bookstore</h2>
@@ -68,24 +72,33 @@ const Navigation = () => {
           </ul>
           <div className="flex justify-between items-center gap-3 btn-div">
             <div>
-              <Link to="/login">
-                <button className="login-btn">Login</button>
-              </Link>
+              {user ? (
+                <button className="login-btn">Logout</button>
+              ) : (
+                <Link to="/login">
+                  <button className="login-btn">Login</button>
+                </Link>
+              )}
             </div>
             <div>
-              <Link to="">
-                <button className="account-btn">Account</button>
-              </Link>
+              {user ? (
+                <Link to="/account">
+                  <button className="account-btn">{user.username}</button>
+                </Link>
+              ) : null}
             </div>
             <div>
-              <Link to="">
-                <button className="cart">
-                  <FaShoppingBag />
-                </button>
-              </Link>
+              {user ? (
+                <Link to="">
+                  <button className="cart">
+                    <FaShoppingBag />
+                  </button>
+                </Link>
+              ) : null}
             </div>
           </div>
         </nav>
+
         <div
           className={
             nav
@@ -132,8 +145,17 @@ const Navigation = () => {
             </ul>
           </nav>
           <div className=" flex flex-col items-center jusify-center gap-2 my-10 w-full px-3">
-            <button className="account-btn">Account</button>
-            <button className="login-btn">Login</button>
+            {user ? (
+              <>
+                <button className="account-btn">Account</button>
+                <button className="login-btn">Sign out</button>
+              </>
+            ) : (
+              <>
+                <button className="account-btn">Sign In</button>
+                <button className="login-btn">Sign Up</button>
+              </>
+            )}
           </div>
         </div>
         <div className="hamburger-menu">

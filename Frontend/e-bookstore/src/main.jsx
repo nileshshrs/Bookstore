@@ -5,9 +5,6 @@ import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 
-import './index.scss'; // Import styles
-import { BrowserRouter } from 'react-router-dom';
-import { AuthContextProvider } from "./context/AuthContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

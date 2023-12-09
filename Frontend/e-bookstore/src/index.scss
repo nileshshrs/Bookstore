@@ -228,6 +228,73 @@ body {
         font-family: "Prata";
       }
     }
+    .popular-books-container {
+      .popular-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .popular-title-container {
+        h2 {
+          font-size: clamp(26px, 5vw, var(--fz-xxl));
+          font-family: "Prata";
+          position: relative;
+          padding: 0 0 10px 0;
+        }
+        h2::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          width: 50%;
+          right: 30%;
+          border-bottom: 1px solid gray;
+        }
+      }
+      .popular-books {
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        place-content: center;
+        place-items: center;
+        width: 80%;
+        .popularbooks {
+          .img-container {
+            position: relative;
+            button {
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              left: 50%;
+              transform: translateX(-50%);
+              padding: 10px;
+              background-color: #333; /* Adjust the background color as needed */
+              color: white;
+              border: none;
+              opacity: 0;
+              transition: opacity 0.3s ease, transform 0.3s ease; /* Add smooth transitions for opacity and transform */
+            }
+            &:hover {
+              button {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-10%);
+              }
+            }
+          }
+          h3 {
+            font-family: "prata";
+            font-weight: 500;
+          }
+          p {
+            color: var(--text-color);
+            font-weight: 500;
+          }
+          div {
+            font-weight: 500;
+          }
+        }
+      }
+    }
     footer {
       border-top: 1px solid rgb(228, 225, 225);
       padding: 3rem 2rem;
@@ -246,6 +313,30 @@ body {
   footer {
     .footer-links {
       grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .carousel {
+    .carousel-items {
+      flex-direction: column-reverse !important;
+      padding: 5rem;
+    }
+  }
+  .bestselling{
+    .bestselling-books{
+      flex-direction: column;
+    }
+  }
+}
+@media (max-width: 576px) {
+  .carousel {
+    .carousel-items {
+      flex-direction: column-reverse !important;
+      padding: 5rem 0;
+    }
+  }
+  .bestselling{
+    .bestselling-books{
+      flex-direction: column;
     }
   }
 }

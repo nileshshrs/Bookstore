@@ -21,18 +21,12 @@ export const AuthContextProvider = ({ children }) => {
     user: null,
   });
   const navigate = useNavigate();
-
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
-      if(user.roles==="users"){
-        navigate("/");
-      }else{
-        navigate("/dashboard");
-      }
     }
-  }, [navigate]);
+  }, []);
 
   console.log("AuthContext state: ", state);
   return (

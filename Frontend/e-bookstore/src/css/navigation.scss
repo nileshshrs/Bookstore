@@ -217,6 +217,12 @@ header {
 
 @media (max-width: 576px) {
   header {
+    .nav-bar{
+      gap:0 !important;
+      nav{
+        padding: 0 !important;
+      }
+    }
     .hamburger-menu {
       display: block;
     }
