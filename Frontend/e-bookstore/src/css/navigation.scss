@@ -17,7 +17,7 @@ header {
     position: fixed;
     top: 0;
     height: 100vh;
-    max-width: min(100vw, 400px);
+    max-width: min(75vw, 400px);
     box-shadow: -10px 0px 30px -15px var(--navy-shadow);
     right: 0;
     z-index: 100;
@@ -25,9 +25,9 @@ header {
     backdrop-filter: blur(1rem);
     transform: translateX(100vw);
     transition: var(--transition);
-
     display: flex;
     justify-content: center;
+    padding: 20px 50px;
     align-items: center;
     .account-btn {
       width: 100%;
@@ -217,9 +217,9 @@ header {
 
 @media (max-width: 576px) {
   header {
-    .nav-bar{
-      gap:0 !important;
-      nav{
+    .nav-bar {
+      gap: 0 !important;
+      nav {
         padding: 0 !important;
       }
     }
