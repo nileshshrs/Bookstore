@@ -11,8 +11,9 @@
   background-size: cover;
   background-color: rgba(243, 242, 236, 0.9);
   background-repeat: no-repeat;
-  margin-top: 20px;
+  margin-top: 25px;
   margin-bottom: 100px;
+  max-height: 500px;
   
 }
 .translucent {
@@ -42,6 +43,7 @@ h2 {
   margin: 30px;
   align-items: center;
 }
+
 
 
 input[type="text"],
