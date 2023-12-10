@@ -11,9 +11,6 @@
   background-size: cover;
   background-color: rgba(243, 242, 236, 0.9);
   background-repeat: no-repeat;
-  margin-top: 25px;
-  margin-bottom: 100px;
-  max-height: 500px;
   
 }
 .translucent {
@@ -27,15 +24,8 @@ form {
   max-width: 500px;
   width: 100%;
 }
-.form-btn{
-  margin-top:5px;
-}
 h2 {
   font-family: "Prata";
-}
-.row{
-  font-family: "Prata";
-  padding-top: 10px;
 }
 .login {
   display: flex;
@@ -43,8 +33,6 @@ h2 {
   margin: 30px;
   align-items: center;
 }
-
-
 
 input[type="text"],
 input[type="password"],
