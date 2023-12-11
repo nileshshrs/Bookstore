@@ -5,6 +5,9 @@ import com.example.ebookstore.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -13,10 +16,11 @@ public class UserService {
 
     @Autowired
     public UserService(UserRepository userRepository) {
-        this.userRepository= userRepository;
+        this.userRepository = userRepository;
     }
 
-    public Users createUser(Users users)    {
+    // register service
+    public Users createUser(Users users) {
         // Check if the username is already taken
         if (userRepository.existsByUsernameOrEmail(users.getUsername(), users.getEmail())) {
             throw new IllegalArgumentException("Username or email is already taken");
@@ -44,7 +48,7 @@ public class UserService {
         throw new IllegalArgumentException("Invalid username or password");
     }
 
-    public Optional<Users> getUsersById(long id){
+    public Optional<Users> getUsersById(long id) {
         return userRepository.findById(id);
     }
 
@@ -64,6 +68,44 @@ public class UserService {
         existingUser.setImage(updatedUser.getImage());
 
         return userRepository.save(existingUser);
+    //get all users
+    public List<Users> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // patch users
+    public Users patchUser(Long userId, Map<String, Object> updates) {
+        Users user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        for (Map.Entry<String, Object> entry : updates.entrySet()) {
+            String field = entry.getKey();
+            Object value = entry.getValue();
+
+            // Exclude username and email from being updated
+            if ("username".equals(field) || "email".equals(field)) {
+                throw new IllegalArgumentException(field + " cannot be updated");
+            }
+
+            // Set the field value using reflection
+            try {
+                Field userField = Users.class.getDeclaredField(field);
+                userField.setAccessible(true);
+                userField.set(user, value);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new IllegalArgumentException("Invalid field for update: " + field);
+            }
+        }
+
+        return userRepository.save(user);
+    }
+
+    // delete users
+    public void deleteUser(Long userId) {
+        Users existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        userRepository.delete(existingUser);
     }
 
 }

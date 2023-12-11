@@ -8,22 +8,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("api/v2/users")
-@CrossOrigin(origins = "http://localhost:3000")// change the url value for it to work on your server
+@CrossOrigin(origins = "http://localhost:5173") // change the url value for it to work on your server
 public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService)  {
-        this.userService= userService ;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/register")
     public ResponseEntity<Object> createUsers(@RequestBody Users users) {
-        try{
+        try {
             Users savedUsers = userService.createUser(users);
             String successMessage = "Registration successful";
 
@@ -35,8 +36,8 @@ public class UserController {
 
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
-        }catch (Exception e)  {
-            String errorMessage = "Registration failed: " + e.getMessage();
+        } catch (Exception e) {
+            String errorMessage = e.getMessage();
             // Construct the error response as a Map
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("message", errorMessage);
@@ -83,7 +84,8 @@ public class UserController {
     @PutMapping("/edit/{userId}")
     public ResponseEntity<Object> putUser(@PathVariable Long userId, @RequestBody Users updatedUser) {
         try {
-            // Check if 'username' or 'email' is provided in the updatedUser, and throw an exception if they are
+            // Check if 'username' or 'email' is provided in the updatedUser, and throw an
+            // exception if they are
             if (updatedUser.getUsername() != null || updatedUser.getEmail() != null) {
                 throw new IllegalArgumentException("Username or email cannot be updated");
             }
@@ -95,6 +97,20 @@ public class UserController {
             Map<String, String> response = new HashMap<>();
             response.put("message", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // delete users api
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Object> deleteUser(@PathVariable Long userId) {
+        try {
+            userService.deleteUser(userId);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // If the deletion fails, return a JSON response with the error message
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
 

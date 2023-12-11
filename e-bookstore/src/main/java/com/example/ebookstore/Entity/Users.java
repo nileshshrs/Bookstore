@@ -1,9 +1,11 @@
 package com.example.ebookstore.Entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Users")
+@NoArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +26,18 @@ public class Users {
     @Transient
     private String usernameOrEmail;
 
+    // sending data to test in test directory
+    public Users(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     //Enum representing roles
     public enum Roles{
         admin, users
     }
+
+//     Constructor with parameters
 
     //Getters and Setters
 
