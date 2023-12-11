@@ -68,10 +68,12 @@ public class UserService {
         existingUser.setImage(updatedUser.getImage());
 
         return userRepository.save(existingUser);
+    }
     //get all users
     public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
+
 
     // patch users
     public Users patchUser(Long userId, Map<String, Object> updates) {
@@ -109,3 +111,4 @@ public class UserService {
     }
 
 }
+
