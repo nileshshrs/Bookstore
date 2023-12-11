@@ -16,10 +16,11 @@ public class UserService {
 
     @Autowired
     public UserService(UserRepository userRepository) {
-        this.userRepository= userRepository;
+        this.userRepository = userRepository;
     }
-    //register service
-    public Users createUser(Users users)    {
+
+    // register service
+    public Users createUser(Users users) {
         // Check if the username is already taken
         if (userRepository.existsByUsernameOrEmail(users.getUsername(), users.getEmail())) {
             throw new IllegalArgumentException("Username or email is already taken");
@@ -47,15 +48,32 @@ public class UserService {
         throw new IllegalArgumentException("Invalid username or password");
     }
 
-    public Optional<Users> getUsersById(long id){
+    public Optional<Users> getUsersById(long id) {
         return userRepository.findById(id);
     }
 
+    public Users putUser(Long userId, Users updatedUser) {
+        Users existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Check if 'username' or 'email' is provided in the updatedUser, and throw an exception if they are
+        if (updatedUser.getUsername() != null || updatedUser.getEmail() != null) {
+            throw new IllegalArgumentException("Username or email cannot be updated");
+        }
+
+        // Copy the fields from updatedUser to existingUser
+        existingUser.setName(updatedUser.getName());
+        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setRoles(updatedUser.getRoles());
+        existingUser.setImage(updatedUser.getImage());
+
+        return userRepository.save(existingUser);
     //get all users
     public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
-    //patch users
+
+    // patch users
     public Users patchUser(Long userId, Map<String, Object> updates) {
         Users user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -81,7 +99,8 @@ public class UserService {
 
         return userRepository.save(user);
     }
-    //delete users
+
+    // delete users
     public void deleteUser(Long userId) {
         Users existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
