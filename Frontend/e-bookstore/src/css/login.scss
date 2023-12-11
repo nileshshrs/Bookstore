@@ -11,14 +11,13 @@
   background-size: cover;
   background-color: rgba(243, 242, 236, 0.9);
   background-repeat: no-repeat;
-  
 }
 .translucent {
   background-color: rgba(243, 242, 236, 0.9);
 }
-form {
+.form-section form {
   background-color: #edebe4;
-  padding: 0 3rem;
+  padding: 4rem 3rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 500px;
@@ -34,7 +33,7 @@ h2 {
   align-items: center;
 }
 
-input[type="text"],
+.form-section input[type="text"],
 input[type="password"],
 input[type="email"] {
   width: 100%;
@@ -44,9 +43,8 @@ input[type="email"] {
 @media (max-width: 576px) {
   .form-section {
     padding: 0 20px;
-    .registration-form {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+  }
+  .registration-form {
+    padding: 4rem 1rem !important;
   }
 }

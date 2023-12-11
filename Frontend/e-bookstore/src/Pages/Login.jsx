@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../css/login.scss";
+import { Link } from "react-router-dom";
+import { useSignin } from "../context/useSignin";
+
 
 const Login = () => {
   const { signin } = useSignin();
@@ -51,6 +54,12 @@ const Login = () => {
           <button className="form-btn rounded" onClick={handleSubmit}>
             Sign in
           </button>
+          <p>
+            Don't have an account ?{" "}
+            <Link to="/register" className="font-bold text-black underline">
+              Sign up
+            </Link>
+          </p>
         </form>
       </section>
     </>

@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
-import axios from 'axios';
-import { FaCheck, FaInfoCircle, FaTimes } from "react-icons/fa";
+import axios from "axios";
 import "../css/login.scss";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
-const EMAIL_REGEX =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,30}))$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Register = () => {
   const navigate = useNavigate();
@@ -96,10 +96,10 @@ const Register = () => {
     <>
       <section className="h-screen flex justify-center items-center form-section relative">
         <div className="absolute w-full h-full top-0 translucent"></div>
-        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form py-14 z-[99]">
+        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form  z-[99]">
           <div>
-            <h2 className="font-bold text-[30px]">Sign up</h2>
-            <p className="text-base">Start your journey with us.</p>
+            <h2 className="font-bold text-[50px]">Sign up</h2>
+            <p>Start your journey with us.</p>
           </div>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
             {errMsg}
@@ -113,12 +113,12 @@ const Register = () => {
             onChange={(e) => setUser(e.target.value.toLowerCase())}
             onFocus={() => setUserFocus(true)}
             onBlur={() => setUserFocus(false)}
-            className="rounded mb-1 text-base"
+            className="rounded"
           />
           <p
             className={
               userFocus && user && !validName
-                ? "instructions m-0 text-white rounded text-xs"
+                ? "instructions m-0 text-white rounded"
                 : "offscreen m-0 text-white rounded"
             }
           >
@@ -135,12 +135,12 @@ const Register = () => {
             required
             onFocus={() => setEmailFocus(true)}
             onBlur={() => setEmailFocus(false)}
-            className="rounded mb-1 text-base"
+            className="rounded"
           />
           <p
             className={
               emailFocus && email && !validEmail
-                ? "instructions m-0 text-white rounded text-xs"
+                ? "instructions m-0 text-white rounded"
                 : "offscreen m-0 text-white rounded"
             }
           >
@@ -155,12 +155,12 @@ const Register = () => {
             onChange={(e) => setPwd(e.target.value)}
             onFocus={() => setPwdFocus(true)}
             onBlur={() => setPwdFocus(false)}
-            className="rounded mb-1 text-base"
+            className="rounded"
           />
           <p
             className={
               pwdFocus && pwd && !validPwd
-                ? "instructions m-0 text-white rounded text-xs"
+                ? "instructions m-0 text-white rounded"
                 : "offscreen m-0 text-white rounded"
             }
           >
@@ -176,20 +176,26 @@ const Register = () => {
             onFocus={() => setMatchFocus(true)}
             onBlur={() => setMatchFocus(false)}
             placeholder="confirm-password"
-            className="rounded mb-1 text-base"
+            className="rounded"
           />
           <p
             className={
               matchFocus && matchPwd && !validMatch
-                ? "instructions m-0 text-white rounded text-xs"
+                ? "instructions m-0 text-white rounded"
                 : "offscreen m-0 text-white rounded"
             }
           >
             Password does not match
           </p>
-          <button className="form-btn rounded text-base" onClick={registerUser}>
+          <button className="form-btn rounded" onClick={registerUser}>
             Sign up
           </button>
+          <p>
+            Already have an account ?{" "}
+            <Link to="/login" className="font-bold text-black underline">
+              Sign in.
+            </Link>
+          </p>
         </form>
         <ToastContainer />
       </section>
