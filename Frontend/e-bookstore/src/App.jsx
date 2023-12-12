@@ -7,6 +7,7 @@ import "./App.scss";
 import Login from "./Pages/Login";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
+import Dashboard from "./Pages/Dashboard";
 
 function App() {
   const location = useLocation();
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {/* uncomment this part and work from here */}
         {/*child routes should be inside the parent route*/}
         {/* <Route path="/dashboard/*" element={<Dashboard />}>
