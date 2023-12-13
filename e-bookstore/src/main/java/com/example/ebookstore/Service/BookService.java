@@ -4,6 +4,8 @@ import com.example.ebookstore.Entity.Book;
 import com.example.ebookstore.Repository.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
     private final BookRepository bookRepository;
@@ -17,6 +19,10 @@ public class BookService {
             throw new IllegalArgumentException("Book with same isbn already exists");
         }
         return bookRepository.save(newBook);
+    }
+
+    public List<Book> getAllBooks(){
+        return bookRepository.findAll();
     }
 
 }

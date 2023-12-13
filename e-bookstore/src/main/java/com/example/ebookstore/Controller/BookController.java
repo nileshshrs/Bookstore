@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -42,4 +43,11 @@ public class BookController {
             return new ResponseEntity<>(errorResponse,HttpStatus.CONFLICT);
         }
     }
+
+    @GetMapping("getAll")
+    public List<Book> getAllBooks(){
+        return bookService.getAllBooks();
+    }
+
+//    public ResponseEntity<Book> getBookById()
 }
