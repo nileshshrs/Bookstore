@@ -46,8 +46,18 @@ public class BookController {
 
     @GetMapping("getAll")
     public List<Book> getAllBooks(){
+        //Should this api be present here?
         return bookService.getAllBooks();
     }
 
-//    public ResponseEntity<Book> getBookById()
+    @GetMapping("/{bookId}")
+    public ResponseEntity<Object> getBookById(@PathVariable long bookId){
+        try{
+            //orElseThrow() method from optional class to handle null values
+            Book book= bookService.getBookById(bookId).orElseThrow(()->new RuntimeException("Book with id not found"));
+            return new ResponseEntity<>(book,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
 }
