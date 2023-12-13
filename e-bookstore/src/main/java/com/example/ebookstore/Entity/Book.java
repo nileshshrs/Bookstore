@@ -33,6 +33,12 @@ public class Book {
         EBOOK,
         AUDIOBOOK
     }
+
+    ///// for testing ///////
+    public void setAuthor(String author) {
+        this.authorName = author;
+    }
+    ///////////
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "book_category",joinColumns = @JoinColumn(name = "book_id"))
