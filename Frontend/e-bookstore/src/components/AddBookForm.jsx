@@ -147,7 +147,7 @@ const AddBookForm = () => {
   return (
     <form
       action=""
-      className="w-[650px] px-5 fixed right-0 top-20 flex flex-col gap-4 items-start justify-start py-3 book-form "
+      className="w-[650px] px-5 flex flex-col gap-4 items-start justify-start py-3 book-form "
     >
       <h2 className=" py-2">Add/Edit Books</h2>
 
