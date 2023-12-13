@@ -1,0 +1,104 @@
+.todolist {
+  max-width: 350px;
+  width: 100%;
+  padding: 20px;
+  border: 2px solid #333; /* Dark border to complement black */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
+  background-color: #fff;
+  overflow-y: auto;
+  max-height: 200px;
+  transition: box-shadow 0.3s; /* Smooth transition for box shadow */
+  height: 100%;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Slightly stronger box shadow on hover */
+  }
+
+  h2 {
+    font-size: var(--fz-md);
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: rgb(236, 49, 49); /* Complementary red color for the header */
+    display: flex;
+    justify-content: space-between;
+  }
+
+  form {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .todo-input {
+      width: 63%;
+      padding: 10px;
+      margin-right: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 30px;
+    }
+
+    .todo-btn {
+      padding: 2px 15px;
+      background-color: #333; /* Dark color for buttons */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      height: 30px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #555; /* Slightly darker color on hover */
+      }
+    }
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  .todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+
+    li {
+      margin-bottom: 10px;
+      padding: 2px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      display: grid;
+      justify-content: space-between;
+      align-items: center;
+      grid-template-columns: 3fr 1fr 1fr;
+      gap: 5px;
+      width: 100%;
+      button {
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: whitesmoke;
+      }
+      .edit {
+        background-color: #4caf50;
+        &:hover {
+          background-color: #5ab65d;
+        }
+      }
+      .delete {
+        background-color: red;
+        &:hover {
+          background-color: rgb(219, 51, 51);
+        }
+      }
+      .done {
+        grid-column: 3/4;
+        background-color: #4caf50;
+      }
+    }
+  }
+}

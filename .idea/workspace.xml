@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4f9351-28c2-4975-b91f-919c28cb6ead" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/81b5823b-fd6f-44eb-99b8-edca1472f902.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/e-bookstore/src/Pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/e-bookstore/src/Pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/e-bookstore/src/Pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/e-bookstore/src/Pages/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +15,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Ujans" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -45,7 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Nilesh",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/rohan-manandhar/College Every Semester Data/Semester 3/Online BookStore/Bookstore",
     "node.js.detected.package.eslint": "true",
@@ -131,6 +135,7 @@
       <workItem from="1702038950530" duration="235000" />
       <workItem from="1702039330505" duration="90000" />
       <workItem from="1702138657085" duration="14000" />
+      <workItem from="1702384818864" duration="670000" />
     </task>
     <servers />
   </component>
