@@ -16,7 +16,7 @@ function Header({OpenSidebar}) {
         <div className='header-right'>
           
           
-             <div class="profile-photo">
+             <div className="profile-photo">
               
              
             <a href="">

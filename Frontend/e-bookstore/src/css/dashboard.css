@@ -85,6 +85,7 @@ body {
   margin-top: 15px;
   font-size: 20px;
   font-weight: 700;
+  color:  rgba(128, 128, 128, 0.847);
 }
 
 .sidebar-list {
@@ -166,8 +167,210 @@ body {
 }
 
 
+/*form*/
+.form-style-1 {
+  
+  max-width: 350px;
+  padding: 20px 12px 10px 20px;
+  
+  font: 13px ;
+  font-family: 'Poppins', sans-serif;
+}
+label{
+  color: rgb(148, 146, 146);
+}
+/* Reduce size of Choose File input */
+.form-style-1 input[type="file"] {
+  border:none;
+  color: #333;
+  height: 40px;
+  width: 300px;
+}
 
-/* End Main  */
+.form-style-1 input[type="file"]:hover {
+  background-color: #e0e0e0;
+}
+.form-style-1 li {
+  padding: 0;
+  display: block;
+  list-style: none;
+  margin: 10px 0 0 0;
+}
+/* Add these styles to decrease the size of labels */
+.form-style-1 label {
+  margin: 0 0 3px 0;
+  padding: 0px;
+  display: block;
+  font-weight: bold;
+  font-size: 12px; /* Adjust the font size as needed */
+}
+/* Add these styles to decrease the size of input fields */
+.form-style-1 input[type=text],
+.form-style-1 input[type=date],
+.form-style-1 input[type=datetime],
+.form-style-1 input[type=number],
+.form-style-1 input[type=search],
+.form-style-1 input[type=time],
+.form-style-1 input[type=url],
+.form-style-1 input[type=email],
+.form-style-1 textarea,
+.form-style-1 select {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #BEBEBE;
+  padding: 5px; /* Adjust the padding as needed */
+  margin: 0px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  font-size: 12px; /* Adjust the font size as needed */
+}
+
+.form-style-1 input[type=text]:focus, 
+.form-style-1 input[type=date]:focus,
+.form-style-1 input[type=datetime]:focus,
+.form-style-1 input[type=number]:focus,
+.form-style-1 input[type=search]:focus,
+.form-style-1 input[type=time]:focus,
+.form-style-1 input[type=url]:focus,
+.form-style-1 input[type=email]:focus,
+.form-style-1 textarea:focus, 
+.form-style-1 select:focus{
+  -moz-box-shadow: 0 0 8px #88D5E9;
+  -webkit-box-shadow: 0 0 8px #88D5E9;
+  box-shadow: 0 0 8px #88D5E9;
+  border: 1px solid #88D5E9;
+}
+.form-style-1 .field-divided{
+  width: 48%;
+}
+.form-style-1 .field-price{
+  width: 40%;
+  margin-left: 50px;
+
+}
+
+
+.form-style-1 .field-long{
+  width: 100%;
+}
+.form-style-1 .field-select{
+  width: 100%;
+}
+.form-style-1 .field-textarea{
+  height: 50px;
+}
+/* Add these styles to decrease the size of submit buttons */
+/* Reduce size of submit buttons and change color to purple */
+.form-style-1 input[type="submit"],
+.form-style-1 input[type="button"] {
+  background: rgb(100, 150, 100); /* Change the color to purple */
+  padding: 2px 2px; /* Adjust the padding as needed */
+  margin-top: 10px; /* Adjust the margin as needed */
+  color: #fff; /* Text color */
+}
+
+/* Change button color on hover */
+.form-style-1 input[type="submit"]:hover,
+.form-style-1 input[type="button"]:hover {
+  background: #8a2be2; /* Change the hover color to a different shade of purple */
+  box-shadow: none;
+  
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+.form-style-1 .required{
+  color:red;
+}
+
+
+
+/* card  */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  max-width: 1250px;
+  
+  padding: 20px;
+  gap: 20px;
+}
+.card-list .card-item {
+  background: #fff;
+  padding: 26px;
+  border-radius: 8px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.04);
+  list-style: none;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: border 0.5s ease;
+}
+.card-list .card-item:hover {
+  border: 2px solid #000;
+}
+.card-list .card-item img {
+  width: 100%;
+  
+  border-radius: 8px;
+
+}
+.card-list span {
+  display: inline-block;
+  background: #F7DFF5;
+  margin-top: 32px;
+  padding: 8px 15px;
+  font-size: 0.75rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+.card-list .developer {
+  background-color: #F7DFF5; 
+  color: #B22485;
+}   
+.card-list .designer {
+  background-color: #d1e8ff;
+  color: #2968a8;
+}
+.card-list .editor {
+  background-color: #d6f8d6; 
+  color: #205c20;
+}
+.card-item h3 {
+  color: #000;
+  font-size: 1.438rem;
+  margin-top: 28px;
+  font-weight: 600;
+}
+.card-item .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-35deg);
+  height: 40px;
+  width: 40px;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-top: 40px;
+  transition: 0.2s ease;
+}
+.card-list .card-item:hover .arrow  {
+  background: #000;
+  color: #fff; 
+}
+@media (max-width: 1200px) {
+  .card-list .card-item {
+      padding: 15px;
+  }
+}
+@media screen and (max-width: 980px) {
+  .card-list {
+      margin: 0 auto;
+  }
+}
 
 
 /* Medium <= 992px */

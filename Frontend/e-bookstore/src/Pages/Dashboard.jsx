@@ -3,6 +3,7 @@ import "../css/dashboard.css";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import Homedash from "../components/Homedash";
+import { Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
@@ -17,7 +18,9 @@ const Dashboard = () => {
      <div className='grid-container'>
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <Homedash/>
+      <main className="main-container">
+        <Outlet/>
+      </main>
     </div>
     </>
   );

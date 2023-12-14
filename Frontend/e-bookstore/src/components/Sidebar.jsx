@@ -32,17 +32,17 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </a>
         </li>
         <li className='sidebar-list-item'>
-          <a href="">
+          <a href="/productdashboard">
             <BsArchive className='icon' style={{ color: '#7d8da1' }} /> Products
           </a>
         </li>
         <li className='sidebar-list-item'>
-          <a href="">
+          <a href="/userdashboard">
             <BsPerson className='icon' style={{ color: '#7d8da1' }} /> User
           </a>
         </li>
         <li className='sidebar-list-item'>
-          <a href="">
+          <a href="/blogdashboard">
             <BiBook className='icon' style={{ color: '#7d8da1' }} /> Blog
           </a>
         </li>
