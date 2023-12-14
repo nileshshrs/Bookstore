@@ -8,44 +8,31 @@ import Login from "./Pages/Login";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
-import Blog1 from "./Pages/Blog";
-import Product1 from "./Pages/Product";
-import User1 from "./Pages/User";
-
-
+import DashboardContent from "./components/DashboardContent";
+import DashboardProducts from "./components/DashboardProducts";
 function App() {
-  // const location = useLocation();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [location]);
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
 
-  // // Determine whether to show the Navigation component based on the current route
-  // const showNavigation = !location.pathname.startsWith("/dashboard");
+  // Determine whether to show the Navigation component based on the current route
+  const showNavigation = !location.pathname.startsWith("/dashboard");
 
   return (
     <>
-      {/* {showNavigation && <Navigation />} */}
+      {showNavigation && <Navigation />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-    
-
-
-        {/* uncomment this part and work from here */}
-        {/*child routes should be inside the parent route*/}
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/dashboard/*" element={<Dashboard />}>
+          <Route index element={<DashboardContent />} />
+          <Route path="books" element={<DashboardProducts />} />
         </Route>
-        <Route path="/blogdashboard" element={<Blog1 />}>
-        </Route>
-        <Route path="/productdashboard" element={<Blog1 />}>
-        </Route>
-        <Route path="/userdashboard" element={<Blog1 />}>
-        </Route>
-        {/* uncomment this part and work from here */}
       </Routes>
-      {/* {showNavigation && <Footer />} */}
+      {showNavigation && <Footer />}
     </>
   );
 }

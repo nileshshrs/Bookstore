@@ -11,14 +11,16 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../Firebase/Firebase";
-import axios from "axios";
+import { useBookContext } from "../context/BookContext";
 
-const AddBookForm = () => {
-  const URL = "http://localhost:8080/api/v2/books/add";
+const AddBookForm = ({ open }) => {
+  const { addBook, fetchBooks } = useBookContext();
+
   const imageInputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [image, setImage] = useState(null);
-  const [success, setSuccess] = useState("");
+
+  const formRef = useRef(null);
   const handleImageClick = () => {
     imageInputRef.current.click();
   };
@@ -31,6 +33,7 @@ const AddBookForm = () => {
 
       reader.onload = (event) => {
         setSelectedImage(event.target.result);
+        setImage(file); // Set the 'image' state to the selected file
       };
 
       reader.readAsDataURL(file);
@@ -66,7 +69,6 @@ const AddBookForm = () => {
   const handleGenres = (selectedOptions) => {
     const selectedValues = selectedOptions.map((option) => option.value);
     setGenres(selectedValues);
-    console.log(genres);
   };
 
   const handleCategories = (selectedOptions) => {
@@ -80,33 +82,34 @@ const AddBookForm = () => {
     console.log(file);
 
     if (!file) {
-      return;
-    }
-    const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
-    const randomString = Math.random().toString(36).substring(2, 8);
-    const fileName = `${timestamp}_${randomString}_${file.name}`;
+      handleSubmit(null);
+    } else {
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+      const randomString = Math.random().toString(36).substring(2, 8);
+      const fileName = `${timestamp}_${randomString}_${file.name}`;
 
-    const storage = getStorage(app);
-    const REF = ref(storage, `upload/${fileName}`);
-    const uploadTask = uploadBytesResumable(REF, file);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // console.log(progress);
-      },
-      (err) => {
-        console.log(err);
-      },
-      () =>
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          // Assuming you have a Submit function defined elsewhere
-          // Modify this part according to your logic
-          //calls the submit to database
-          handleSubmit(url);
-        })
-    );
+      const storage = getStorage(app);
+      const REF = ref(storage, `upload/${fileName}`);
+      const uploadTask = uploadBytesResumable(REF, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // console.log(progress);
+        },
+        (err) => {
+          // console.log(err);
+        },
+        () =>
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            // Assuming you have a Submit function defined elsewhere
+            // Modify this part according to your logic
+            //calls the submit to database
+            handleSubmit(url);
+          })
+      );
+    }
   };
   //upload image
 
@@ -122,12 +125,15 @@ const AddBookForm = () => {
       categories: categories,
       genres: genres,
     };
-    // console.log(formData);
-    const res = await axios.post(URL, formData);
-    console.log(res.data); // Assuming the response contains the created clothing data
+    await addBook(formData);
+
+    // Fetch updated books
+    fetchBooks();
+
     toast.success("Book has been added sucessfully", {
       position: "top-right",
     });
+    formRef.current.reset();
   };
 
   //react select
@@ -147,7 +153,12 @@ const AddBookForm = () => {
   return (
     <form
       action=""
-      className="w-[650px] px-5 flex flex-col gap-4 items-start justify-start py-3 book-form "
+      ref={formRef}
+      className={
+        open
+          ? "bg-[#edebe4] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg"
+          : "bg-[#edebe4] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in"
+      }
     >
       <h2 className=" py-2">Add/Edit Books</h2>
 
@@ -275,7 +286,7 @@ const AddBookForm = () => {
           {/* Row 5 (Added Button) */}
           <div className="w-full">
             <button
-              className="w-full bg-blue-500 text-white h-10 rounded-lg"
+              className="w-full bg-black text-white h-10 rounded-lg"
               onClick={uploadImage}
             >
               Submit

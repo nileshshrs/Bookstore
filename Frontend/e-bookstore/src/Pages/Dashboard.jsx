@@ -1,28 +1,29 @@
 import React, { useState } from "react";
-import "../css/dashboard.css";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import Homedash from "../components/Homedash";
+import DashboardSidebar from "../components/DashboardSidebar";
+import DashboardHeader from "../components/DashboardHeader";
+import DashboardContent from "../components/DashboardContent";
 import { Outlet } from "react-router-dom";
-
+import "../css/dashboard.scss";
 
 const Dashboard = () => {
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
+  const handleToggle = () => {
+    setToggle(!toggle);
+  };
 
-    const OpenSidebar = () => {
-      setOpenSidebarToggle(!openSidebarToggle)
-    }
- 
   return (
-    <>
-     <div className='grid-container'>
-      <Header OpenSidebar={OpenSidebar}/>
-      <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <main className="main-container">
-        <Outlet/>
+    <div className="dashboard-container">
+      <div className={toggle ? "sidebar slide" : "sidebar"}>
+        <DashboardSidebar />
+        <button onClick={handleToggle} className="close-btn">
+          close
+        </button>
+      </div>
+      <main className="dashboard-item-container">
+        <DashboardHeader toggle={handleToggle} />
+        <Outlet />
       </main>
     </div>
-    </>
   );
 };
 

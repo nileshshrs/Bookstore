@@ -3,10 +3,10 @@
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   --navy-shadow: rgba(2, 12, 27, 0.7);
 }
+
 .book-form {
-  box-shadow: -10px 0px 30px -15px var(--navy-shadow);
-  overflow-y: auto;
-  transform: translateX(0vw);
+  // box-shadow: -10px 0px 30px -15px var(--navy-shadow);
+
   transition: var(--transition);
 
   .form-img-div {
