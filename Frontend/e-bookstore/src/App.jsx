@@ -8,8 +8,6 @@ import Login from "./Pages/Login";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
-import DashboardHome from "./components/DashboardHome";
-import DashboardProducts from "./components/DashboardProducts";
 
 function App() {
   const location = useLocation();
@@ -31,10 +29,7 @@ function App() {
         {/* uncomment this part and work from here */}
         {/*child routes should be inside the parent route*/}
         <Route path="/dashboard/*" element={<Dashboard />}>
-          <Route index element={<DashboardHome />} />
-          <Route path="products" element={<DashboardProducts />} />
-          
-          {/* <Route path="profile" element={<DashboardProfile />} /> */}
+          {/* <Route index element={<DashboardHome />} /> */}
         </Route>
         {/* uncomment this part and work from here */}
       </Routes>
