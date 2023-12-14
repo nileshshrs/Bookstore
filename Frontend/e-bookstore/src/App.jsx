@@ -10,32 +10,32 @@ import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
 
 function App() {
-  const location = useLocation();
+  // const location = useLocation();
 
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
 
-  // Determine whether to show the Navigation component based on the current route
-  const showNavigation = !location.pathname.startsWith("/dashboard");
+  // // Determine whether to show the Navigation component based on the current route
+  // const showNavigation = !location.pathname.startsWith("/dashboard");
 
   return (
     <>
-      {showNavigation && <Navigation />}
+      {/* {showNavigation && <Navigation />} */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+    
+
+
         {/* uncomment this part and work from here */}
         {/*child routes should be inside the parent route*/}
-        {/* <Route path="/dashboard/*" element={<Dashboard />}>
-          <Route index element={<DashboardHome />} />
-          <Route path="profile" element={<DashboardProfile />} />
-        </Route> */}
+        <Route path="/dashboard" element={<Dashboard />}>
+        </Route>
         {/* uncomment this part and work from here */}
       </Routes>
-      {showNavigation && <Footer />}
+      {/* {showNavigation && <Footer />} */}
     </>
   );
 }
