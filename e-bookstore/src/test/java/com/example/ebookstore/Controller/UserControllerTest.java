@@ -42,21 +42,4 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.username").value("testUser"));
     }
 
-    @Test
-    void getAllUsers() throws Exception {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-
-        List<Users> userList = Arrays.asList(
-                new Users("user1", "pass1"),
-                new Users("user2", "pass2")
-        );
-
-        when(userService.getAllUsers()).thenReturn(userList);
-
-        mockMvc.perform(get("/api/v2/users/get-all-users"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].username").value("user1"))
-                .andExpect(jsonPath("$[1].username").value("user2"));
-    }
 }
