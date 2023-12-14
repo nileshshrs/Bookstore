@@ -60,4 +60,21 @@ public class BookController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("delete/{bookId}")
+    public ResponseEntity<Object> deleteBookById(@PathVariable Long bookId) {
+        try {
+            bookService.deleteBook(bookId);
+            //void method may produce illegal argument exception when findById fails
+            Map<String, String> response = new HashMap<>();
+            response.put("Message", "Book deleted successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            //Catch error from service
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("Message", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
