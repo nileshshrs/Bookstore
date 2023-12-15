@@ -41,9 +41,10 @@ const DashboardProducts = () => {
             </div>
             {/* Buttons moved below the price */}
             <div className="overlay-buttons text-white text-center">
-              <button className="edit-btn bg-blue-500">Edit</button>
-              <button className="del-btn bg-red-500 ml-2">Delete</button>
-            </div>
+  <button className="transparent-btn edit-btn">Edit</button>
+  <button className="transparent-btn del-btn ml-2">Delete</button>
+</div>
+
           </div>
         ))}
       </div>

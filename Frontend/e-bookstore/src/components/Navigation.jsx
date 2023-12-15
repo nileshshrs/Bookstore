@@ -47,7 +47,7 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="">
-              <Link to="" className="w-full font-bold">
+              <Link to="/homepage-book" className="w-full font-bold">
                 Books
               </Link>
             </li>

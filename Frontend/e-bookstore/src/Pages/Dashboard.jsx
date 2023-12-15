@@ -12,13 +12,18 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-     <div className='grid-container'>
-      <Header OpenSidebar={OpenSidebar}/>
-      <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <Homedash/>
+    <div className="dashboard-container">
+      <div className={toggle ? "sidebar slide" : "sidebar"}>
+        <DashboardSidebar />
+        <button onClick={handleToggle} className="close-btn">
+          close
+        </button>
+      </div>
+      <main className="dashboard-item-container">
+        <DashboardHeader toggle={handleToggle} />
+        <Outlet />
+      </main>
     </div>
-    </>
   );
 };
 

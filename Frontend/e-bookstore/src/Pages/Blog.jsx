@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/dashboard.css";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import Sidebar from "../components/DashboardSidebar";
+import Header from "../components/DashboardHeader";
 import Homedash from "../components/Homedash";
 import Blog1 from "../components/Blog";
 

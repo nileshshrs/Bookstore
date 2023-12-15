@@ -8,12 +8,10 @@ import Login from "./Pages/Login";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
-import Blog1 from "./Pages/Blog";
-import Product1 from "./Pages/Product";
-import User1 from "./Pages/User";
+import DashboardContent from "./components/DashboardContent";
+import DashboardProducts from "./components/DashboardProducts";
 import SingleProduct from "./Pages/SingleProduct";
-
-
+import Bookstype from "./Pages/bookstype";
 function App() {
   const location = useLocation();
 
@@ -26,21 +24,19 @@ function App() {
 
   return (
     <>
-      {showNavigation && <Navigation />} 
+      {showNavigation && <Navigation />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/productpage" element={<SingleProduct />} />
-    
-
-
-        {/* uncomment this part and work from here */}
-        {/*child routes should be inside the parent route*/}
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/singleproduct" element={<SingleProduct/>} />
+        <Route path="/homepage-book" element={<Bookstype/>} />
+        <Route path="/dashboard/*" element={<Dashboard />}>
+          <Route index element={<DashboardContent />} />
+          <Route path="books" element={<DashboardProducts />} />
         </Route>
       </Routes>
-       {showNavigation && <Footer />}
+      {showNavigation && <Footer />}
     </>
   );
 }
