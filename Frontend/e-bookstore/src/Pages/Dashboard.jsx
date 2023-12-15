@@ -18,9 +18,7 @@ const Dashboard = () => {
      <div className='grid-container'>
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-      <main className="main-container">
-        <Outlet/>
-      </main>
+      <Homedash/>
     </div>
     </>
   );

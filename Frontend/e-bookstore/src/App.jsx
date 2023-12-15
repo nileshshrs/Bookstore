@@ -11,25 +11,27 @@ import Dashboard from "./Pages/Dashboard";
 import Blog1 from "./Pages/Blog";
 import Product1 from "./Pages/Product";
 import User1 from "./Pages/User";
+import SingleProduct from "./Pages/SingleProduct";
 
 
 function App() {
-  // const location = useLocation();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [location]);
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
 
-  // // Determine whether to show the Navigation component based on the current route
-  // const showNavigation = !location.pathname.startsWith("/dashboard");
+  // Determine whether to show the Navigation component based on the current route
+  const showNavigation = !location.pathname.startsWith("/dashboard");
 
   return (
     <>
-      {/* {showNavigation && <Navigation />} */}
+      {showNavigation && <Navigation />} 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/productpage" element={<SingleProduct />} />
     
 
 
@@ -45,7 +47,7 @@ function App() {
         </Route>
         {/* uncomment this part and work from here */}
       </Routes>
-      {/* {showNavigation && <Footer />} */}
+       {showNavigation && <Footer />}
     </>
   );
 }
