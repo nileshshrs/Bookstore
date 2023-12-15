@@ -20,7 +20,12 @@ const BookType = () => {
             <div key={book.id} className="books flex flex-col justify-center items-center gap-1">
               <Link to="">
                 <div className="border p-5 bg-[#EFEEE8] img-container">
-                  <img src={book.image} alt={book.title} />
+                <img
+                src={book.imagePath}
+                alt=""
+                width={"100%"}
+                className="w-full h-full"
+              />
                   <button>Add to Cart</button>
                 </div>
               </Link>

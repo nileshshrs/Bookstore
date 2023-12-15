@@ -4,13 +4,13 @@
 }
 .transparent-btn {
   background-color: transparent;
-  border: 1px solid grey; /* Add a border for better visibility */
-  padding: 8px 16px; /* Adjust the padding based on your preference */
-  color:black; /* Set the text color to white */
-  transition: background-color 0.3s ease; /* Add a transition for a smooth effect */
+  border: 1px solid grey;
+  padding: 8px 16px; 
+  color:black; 
+  transition: background-color 0.3s ease; 
 }
 
 .transparent-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3); /* Add a slight background color on hover */
+  background-color: rgba(255, 255, 255, 0.3); 
 }
 
