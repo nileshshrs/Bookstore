@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -42,4 +43,51 @@ public class BookController {
             return new ResponseEntity<>(errorResponse,HttpStatus.CONFLICT);
         }
     }
+
+    @GetMapping("getAll")
+    public List<Book> getAllBooks(){
+        //Should this api be present here?
+        return bookService.getAllBooks();
+    }
+
+    @GetMapping("/{bookId}")
+    public ResponseEntity<Object> getBookById(@PathVariable long bookId){
+        try{
+            //orElseThrow() method from optional class to handle null values
+            Book book= bookService.getBookById(bookId).orElseThrow(()->new RuntimeException("Book with id not found"));
+            return new ResponseEntity<>(book,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("delete/{bookId}")
+    public ResponseEntity<Object> deleteBookById(@PathVariable Long bookId) {
+        try {
+            bookService.deleteBook(bookId);
+            //void method may produce illegal argument exception when findById fails
+            Map<String, String> response = new HashMap<>();
+            response.put("Message", "Book deleted successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            //Catch error from service
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("Message", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("edit/{bookId}")
+    public ResponseEntity<Object> putBook(@PathVariable Long bookId,@RequestBody Book updatedBook){
+        try {
+            Book changedBook=bookService.putBook(bookId,updatedBook);
+            //since optional<book> is returned by repository we need to catch error
+            return new ResponseEntity<>(changedBook,HttpStatus.OK);
+        }catch (IllegalArgumentException e){
+            Map<String,String> errorResponse=new HashMap<>();
+            errorResponse.put("message",e.getMessage());
+            return new ResponseEntity<>(errorResponse,HttpStatus.OK);
+        }
+    }
+
 }

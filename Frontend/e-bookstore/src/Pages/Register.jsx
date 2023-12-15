@@ -82,7 +82,7 @@ const Register = () => {
           // Use navigate to navigate to /login
           // window.location = "/login";
           navigate("/login");
-        }, 2500);
+        }, 2500); //2.5 millisecond
       }
       e.target.reset();
     } catch (error) {
@@ -165,7 +165,7 @@ const Register = () => {
             }
           >
             8-24 characters. Must include one uppercase and lowercase letters, a
-            number and a special character.
+            number.
           </p>
           <input
             type="password"

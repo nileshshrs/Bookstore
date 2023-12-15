@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Felipa&family=Prata&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Felipa&family=Poppins:wght@400;500;600;700&family=Prata&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Poppins:wght@400;500;600;700&family=Prata&family=Work+Sans:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +9,7 @@
 :root {
   --fz-heading: 55px;
   --black: #121212;
-  --biege: #c5a992;
+  --biege: #d2baa3;
   --easing: cubic-bezier(0.645, 0.045, 0.355, 1);
   --fz-xxl: 32px;
   --text-color: #757575;
@@ -70,13 +71,12 @@ h6 {
     background-color: #0c0d13 !important;
     color: white !important;
     padding: none;
-
     transition: none !important;
   }
 }
 p {
   max-width: 540px;
-  font-family: "Segoe UI";
+  font-family: "work sans" !important;
 }
 .Toastify {
   button {
@@ -125,7 +125,7 @@ p {
   background-color: var(--black);
 }
 body {
-  background-color: #f3f2ec;
+  background-color: #f5f3ee;
   #root {
     .heading {
       font-size: clamp(26px, 5vw, var(--fz-heading));
@@ -138,7 +138,6 @@ body {
       margin: 20px 0px 15px;
 
       line-height: 2;
-      font-family: "Segoe UI";
       color: var(--text-color);
     }
     .carousel {
@@ -299,7 +298,7 @@ body {
             position: relative;
             width: 100%;
             height: var(--tab-height);
-            font-family: var(--font-mono);
+            font-family: "poppins";
             color: var(--light-slate);
             background-color: transparent;
             color: var(--text-color);
