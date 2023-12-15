@@ -35,4 +35,24 @@ public class BookService {
         bookRepository.delete(existingBook);
     }
 
+    public Book putBook(Long bookId,Book updatedBook){
+        Book existingBook=bookRepository.findById(bookId).orElseThrow(
+                ()->new IllegalArgumentException("Book does not exist")
+        );
+        //if book with given id does not exist we throw above exception which controller deals with
+
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthorName(updatedBook.getAuthorName());
+        existingBook.setIsbn(updatedBook.getIsbn());
+        existingBook.setPrice(updatedBook.getPrice());
+        existingBook.setInStock(updatedBook.isInStock());
+        existingBook.setCategories(updatedBook.getCategories());
+        existingBook.setGenres(updatedBook.getGenres());
+        existingBook.setDescription(updatedBook.getDescription());
+        existingBook.setDownloadLink(updatedBook.getDownloadLink());
+        existingBook.setImagePath(updatedBook.getImagePath());
+
+        return bookRepository.save(existingBook);
+    }
+
 }

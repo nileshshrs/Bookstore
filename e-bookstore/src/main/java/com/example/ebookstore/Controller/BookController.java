@@ -77,4 +77,17 @@ public class BookController {
         }
     }
 
+    @PutMapping("edit/{bookId}")
+    public ResponseEntity<Object> putBook(@PathVariable Long bookId,@RequestBody Book updatedBook){
+        try {
+            Book changedBook=bookService.putBook(bookId,updatedBook);
+            //since optional<book> is returned by repository we need to catch error
+            return new ResponseEntity<>(changedBook,HttpStatus.OK);
+        }catch (IllegalArgumentException e){
+            Map<String,String> errorResponse=new HashMap<>();
+            errorResponse.put("message",e.getMessage());
+            return new ResponseEntity<>(errorResponse,HttpStatus.OK);
+        }
+    }
+
 }
