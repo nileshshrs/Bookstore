@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddBookForm from "./AddBookForm";
 import { MdOutlineLibraryAdd, MdClose } from "react-icons/md";
+import EditForm from "./EditForm";
 
 const DashboardHeader = ({ toggle }) => {
   const [open, setOpen] = useState(false);
@@ -23,6 +24,7 @@ const DashboardHeader = ({ toggle }) => {
           {!open ? <MdOutlineLibraryAdd /> : <MdClose />}
         </button>
         <AddBookForm open={open} />
+        <EditForm />
       </div>
     </div>
   );
