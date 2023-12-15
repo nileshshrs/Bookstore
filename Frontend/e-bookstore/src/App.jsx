@@ -28,8 +28,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
-        <Route path="/homepage-book" element={<Bookstype />} />
+        <Route path="/books" element={<Bookstype />} />
+        <Route path="/books/:id" element={<Bookstype />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
           <Route index element={<DashboardContent />} />
           <Route path="books" element={<DashboardProducts />} />

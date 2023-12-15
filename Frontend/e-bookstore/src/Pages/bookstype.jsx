@@ -8,7 +8,7 @@ const BookType = () => {
 
   useEffect(() => {
     fetchBooks(); // Fetch books when the component mounts
-  }, [fetchBooks]);
+  }, []);
 
   return (
     <section className="featured-books-container mb-5">
@@ -17,8 +17,8 @@ const BookType = () => {
         </div>
         <div className="featured-books py-12 gap-10 px-10 w-full">
           {books.map((book) => (
-            <div key={book.id} className="books flex flex-col justify-center items-center gap-1">
-              <Link to="">
+            <div key={book.bookId} className="books flex flex-col justify-center items-center gap-1">
+              <Link to={`/books/${book.bookId}`}>
                 <div className="border p-5 bg-[#EFEEE8] img-container">
                 <img
                 src={book.imagePath}
