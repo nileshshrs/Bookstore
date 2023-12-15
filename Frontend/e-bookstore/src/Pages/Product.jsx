@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/dashboard.css";
-import Sidebar from "../components/Sidebar";
+
 import Header from "../components/Header";
 import Homedash from "../components/Homedash";
 import Product1 from "../components/Product";

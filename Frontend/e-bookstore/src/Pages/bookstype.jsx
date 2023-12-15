@@ -1,0 +1,48 @@
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { useBookContext } from "../context/BookContext"; // Import the BookContext
+
+const BookType = () => {
+  const { books, fetchBooks } = useBookContext(); // Use the BookContext
+
+  useEffect(() => {
+    fetchBooks(); // Fetch books when the component mounts
+  }, [fetchBooks]);
+
+  return (
+    <section className="featured-books-container mb-5">
+      <div className="book-container">
+        <div className="title-container">
+        </div>
+        <div className="featured-books py-12 gap-10 px-10 w-full">
+          {books.map((book) => (
+            <div key={book.id} className="books flex flex-col justify-center items-center gap-1">
+              <Link to="">
+                <div className="border p-5 bg-[#EFEEE8] img-container">
+                <img
+                src={book.imagePath}
+                alt=""
+                width={"100%"}
+                className="w-full h-full"
+              />
+                  <button>Add to Cart</button>
+                </div>
+              </Link>
+              <div className="flex flex-col gap-2 justify-center items-center">
+                <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
+                  {book.title}
+                </h3>
+                <p className="m-0 font-[Segoe UI]">{book.author}</p>
+                <div className="text-[#74642f] text-lg">${book.price.toFixed(2)}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+     
+    </section>
+  );
+};
+
+export default BookType;
