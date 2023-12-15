@@ -1,16 +1,19 @@
 .dashboard-container {
-
   display: flex;
   gap: 1rem;
   background-color: #edebe4 !important;
   .sidebar {
     background-color: #edebe4;
     min-height: 100vh;
+    height: 100vh;
     max-width: min(100vw, 400px);
     padding: 10px 20px;
-    position: relative;
     border-right: 1px solid rgb(211, 209, 209);
-
+    width: min(100vw, 350px);
+    position: sticky;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
     .close-btn {
       position: absolute;
       top: 2%;
@@ -24,6 +27,7 @@
       width: 100%;
       min-height: 100%;
       gap: 2rem;
+
       header {
         padding: 10px 0;
         a {
@@ -116,7 +120,7 @@
   }
 }
 
-@media (min-width: 512px) and (max-width: 768px) {
+@media (min-width: 512px) and (max-width: 820px) {
   .dashboard-container {
     display: block;
     .sidebar {

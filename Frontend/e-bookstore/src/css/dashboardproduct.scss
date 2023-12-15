@@ -5,12 +5,21 @@
 .transparent-btn {
   background-color: transparent;
   border: 1px solid grey;
-  padding: 8px 16px; 
+  width: 100%;
+  padding: 5px;
   color:black; 
   transition: background-color 0.3s ease; 
+  font-weight: 500;
 }
 
 .transparent-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3); 
+  background-color: black; 
+  color: white;
 }
 
+.overlay-buttons{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
