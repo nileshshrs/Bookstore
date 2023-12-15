@@ -30,4 +30,9 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
+    public void deleteBook(Long bookId){
+        Book existingBook=bookRepository.findById(bookId).orElseThrow(()->new IllegalArgumentException("Book with given id does not exist"));
+        bookRepository.delete(existingBook);
+    }
+
 }

@@ -39,13 +39,6 @@ function App() {
         {/*child routes should be inside the parent route*/}
         <Route path="/dashboard" element={<Dashboard />}>
         </Route>
-        <Route path="/blogdashboard" element={<Blog1 />}>
-        </Route>
-        <Route path="/productdashboard" element={<Blog1 />}>
-        </Route>
-        <Route path="/userdashboard" element={<Blog1 />}>
-        </Route>
-        {/* uncomment this part and work from here */}
       </Routes>
        {showNavigation && <Footer />}
     </>
