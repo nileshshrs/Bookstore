@@ -15,9 +15,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <div className={toggle ? "sidebar slide" : "sidebar"}>
         <DashboardSidebar />
-        <button onClick={handleToggle} className="close-btn px-4 h-full">
-          <AiOutlineClose />
-        </button>
+
       </div>
       <main className="dashboard-item-container">
         <div className="shadow-lg">

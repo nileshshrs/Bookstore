@@ -22,22 +22,16 @@ const DashboardHeader = ({ toggle }) => {
           onClick={handleOpen}
           className={
             !open
-              ? "z-[999]  px-3 w-[120px] flex justify-center items-center"
-              : "z-[999] absolute right-[2%] px-3 flex justify-center items-center text-[22px]"
+              ? "z-[999]  px-3 w-[150px] flex justify-center items-center gap-1"
+              : "z-[999]  px-3 w-[150px] flex justify-center items-center gap-1"
           }
         >
-          {!open ? (
-            <>
-              <span className="text-[18px]">
-                <MdOutlineLibraryAdd />
-              </span>
-              <span className="text-[18px] font-bold">Add</span>
-            </>
-          ) : (
-            <MdClose />
-          )}
+          <span className="text-[15px]">
+            <MdOutlineLibraryAdd />
+          </span>
+          <span className="text-[12px] font-bold">Add Book</span>
         </button>
-        <AddBookForm open={open} />
+        <AddBookForm open={open} handleOpen={handleOpen} />
         <EditForm />
       </div>
     </div>
