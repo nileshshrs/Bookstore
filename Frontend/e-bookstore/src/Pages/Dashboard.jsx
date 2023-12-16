@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DashboardSidebar from "../components/DashboardSidebar";
 import DashboardHeader from "../components/DashboardHeader";
-import DashboardContent from "../components/DashboardContent";
 import { Outlet } from "react-router-dom";
 import "../css/dashboard.scss";
 import { AiOutlineClose } from "react-icons/ai";
