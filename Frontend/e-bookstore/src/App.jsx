@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
 import DashboardContent from "./components/DashboardContent";
 import DashboardProducts from "./components/DashboardProducts";
-import SingleProduct from "./Pages/SingleProduct";
 import Bookstype from "./Pages/bookstype";
 function App() {
   const location = useLocation();
@@ -29,8 +28,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/singleproduct" element={<SingleProduct/>} />
-        <Route path="/homepage-book" element={<Bookstype/>} />
+        <Route path="/books" element={<Bookstype />} />
+        <Route path="/books/:id" element={<Bookstype />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
           <Route index element={<DashboardContent />} />
           <Route path="books" element={<DashboardProducts />} />

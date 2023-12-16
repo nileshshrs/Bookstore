@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Select from "react-select";
 import "../css/addbookform.scss";
 import img1 from "../assets/img-bg.png";
@@ -20,6 +20,15 @@ const AddBookForm = ({ open }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [image, setImage] = useState(null);
 
+  const resetImage = () => {
+    setSelectedImage(null);
+    setImage(null);
+  };
+
+  const clearSelectValues = () => {
+    setCategories([]);
+    setGenres([]);
+  };
   const formRef = useRef(null);
   const handleImageClick = () => {
     imageInputRef.current.click();
@@ -134,6 +143,8 @@ const AddBookForm = ({ open }) => {
       position: "top-right",
     });
     formRef.current.reset();
+    resetImage();
+    clearSelectValues();
   };
 
   //react select
@@ -156,11 +167,11 @@ const AddBookForm = ({ open }) => {
       ref={formRef}
       className={
         open
-          ? "bg-[#edebe4] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg"
-          : "bg-[#edebe4] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in"
+          ? "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg"
+          : "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in"
       }
     >
-      <h2 className=" py-2">Add/Edit Books</h2>
+      <h2 className=" py-2">Add Books</h2>
 
       <div className="scrollable-container overflow-y-auto">
         <div className="flex flex-col gap-4">
