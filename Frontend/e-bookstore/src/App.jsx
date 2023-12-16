@@ -11,6 +11,7 @@ import Dashboard from "./Pages/Dashboard";
 import DashboardContent from "./components/DashboardContent";
 import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
+import SingleProduct from "./Pages/SingleProduct";
 function App() {
   const location = useLocation();
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<Bookstype />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
