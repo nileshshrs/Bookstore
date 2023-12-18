@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import Carousel from "./Carousels";
+import Featured from "./Featured";
+import BestSelling from "./BestSelling";
+import Popular from "./Popular";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <>
+      <Carousel />
+      <Featured />
+      <BestSelling />
+      <Popular />
+    </>
+  );
+};
 
-export default Home
+export default Home;
