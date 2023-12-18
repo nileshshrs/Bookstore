@@ -18,7 +18,7 @@ const BookType = () => {
         <div className="featured-books py-12 gap-10 px-10 w-full">
           {books.map((book) => (
             <div key={book.bookId} className="books flex flex-col justify-center items-center gap-1">
-              <Link to={`/books/${book.bookId}`}>
+               <Link to={`/books/${book.bookId}`}>
                 <div className="border p-5 bg-[#EFEEE8] img-container">
                 <img
                 src={book.imagePath}
