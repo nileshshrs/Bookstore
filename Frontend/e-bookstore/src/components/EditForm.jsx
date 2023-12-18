@@ -185,17 +185,20 @@ const EditForm = () => {
     <div
       className={
         slide
-          ? "bg-[#edebe4] z-[999] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg"
-          : "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in"
+          ? "bg-[#edebe4] z-[999] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg scrollable-container overflow-y-scroll"
+          : "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in scrollable-container overflow-y-scroll "
       }
     >
-      <button className="text-lg font-bold ms-auto" onClick={() => slideSidebar()}>
+      <button
+        className="ms-auto"
+        onClick={() => slideSidebar()}
+      >
         <MdClose />
       </button>
       <form action="">
         <h2 className=" py-2">Edit Books </h2>
 
-        <div className="scrollable-container overflow-y-auto">
+        <div className="">
           <div className="flex flex-col gap-4">
             {/* Row 1 */}
             <div className="flex gap-4">

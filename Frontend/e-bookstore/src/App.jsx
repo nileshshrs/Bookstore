@@ -14,6 +14,7 @@ import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Addtocart from "./Pages/Addtocart";
 // import SingleProduct from "./Pages/SingleProduct"
+import SingleProduct from "./Pages/SingleProduct"
 function App() {
   const location = useLocation();
 
@@ -34,7 +35,7 @@ function App() {
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/addtocart" element={<Addtocart/>} />
         <Route path="/books" element={<Bookstype />} />
-        {/* <Route path="/books/:id" element={<SingleProduct />} /> */}
+        <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
           <Route index element={<DashboardContent />} />
           <Route path="books" element={<DashboardProducts />} />
