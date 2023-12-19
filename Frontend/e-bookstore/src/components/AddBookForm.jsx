@@ -4,6 +4,7 @@ import "../css/addbookform.scss";
 import img1 from "../assets/img-bg.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../css/dashboard.scss";
 import {
   getStorage,
   ref,
@@ -12,8 +13,9 @@ import {
 } from "firebase/storage";
 import { app } from "../Firebase/Firebase";
 import { useBookContext } from "../context/BookContext";
+import { MdClose } from "react-icons/md";
 
-const AddBookForm = ({ open }) => {
+const AddBookForm = ({ open, handleOpen }) => {
   const { addBook, fetchBooks } = useBookContext();
 
   const imageInputRef = useRef(null);
@@ -23,6 +25,9 @@ const AddBookForm = ({ open }) => {
   const resetImage = () => {
     setSelectedImage(null);
     setImage(null);
+  };
+  const checkSlide = () => {
+    handleOpen();
   };
 
   const clearSelectValues = () => {
@@ -162,151 +167,157 @@ const AddBookForm = ({ open }) => {
   };
 
   return (
-    <form
-      action=""
-      ref={formRef}
+    <div
       className={
         open
-          ? "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg"
-          : "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in"
+          ? "book-form bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-3 items-start justify-start py-2 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg scrollable-container overflow-y-auto"
+          : "book-form bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-3 items-start justify-start py-2 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in scrollable-container overflow-y-auto"
       }
     >
-      <h2 className=" py-2">Add Books</h2>
+      <button
+        className="absolute top-0 right-2 text-[20px] p-2"
+        onClick={checkSlide}
+      >
+        <MdClose />
+      </button>
+      <form action="" ref={formRef}>
+        <h2 className=" py-1 font-bold">Add Books</h2>
 
-      <div className="scrollable-container overflow-y-auto">
-        <div className="flex flex-col gap-4">
-          {/* Row 1 */}
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <label htmlFor="book-title" className="font-bold text-sm">
-                Title
+        <div className="">
+          <div className="flex flex-col gap-3">
+            {/* Row 1 */}
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <label htmlFor="book-title" className="font-bold text-xs">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-black h-8 rounded-lg px-3"
+                  id="book-title"
+                  autoComplete="off"
+                  onChange={(e) => setTitle(e.target.value.toLowerCase())}
+                />
+              </div>
+
+              <div className="flex-1">
+                <label htmlFor="isbn" className="font-bold text-xs">
+                  ISBN
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-black h-8 rounded-lg px-3"
+                  id="isbn"
+                  autoComplete="off"
+                  onChange={(e) => setIsbn(e.target.value.toLowerCase())}
+                />
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <label htmlFor="author" className="font-bold text-xs">
+                  Author
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-black h-8 rounded-lg px-3"
+                  id="author"
+                  autoComplete="off"
+                  onChange={(e) => setAuthor(e.target.value.toLowerCase())}
+                />
+              </div>
+
+              <div className="flex-1">
+                <label htmlFor="price" className="font-bold text-xs">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  className="w-full border border-black h-8 rounded-lg px-3"
+                  id="price"
+                  autoComplete="off"
+                  onChange={(e) => setPrice(e.target.value.toLowerCase())}
+                />
+              </div>
+            </div>
+            {/* Row 3 */}
+            <div className="w-full">
+              <label htmlFor="category" className="font-bold text-xs">
+                Category
               </label>
-              <input
-                type="text"
-                className="w-full border border-black h-8 rounded-lg px-3"
-                id="book-title"
-                autoComplete="off"
-                onChange={(e) => setTitle(e.target.value.toLowerCase())}
+              <Select
+                options={categoryOptions}
+                isMulti
+                onChange={handleCategories}
+                className="w-full rounded-md h-[30px] border-slate-600 outline-none"
+                styles={style1}
               />
             </div>
 
-            <div className="flex-1">
-              <label htmlFor="isbn" className="font-bold text-sm">
-                ISBN
+            {/* Row 4 */}
+            <div className="w-full">
+              <label htmlFor="genre" className="font-bold text-xs">
+                Genre
               </label>
-              <input
-                type="text"
-                className="w-full border border-black h-8 rounded-lg px-3"
-                id="isbn"
-                autoComplete="off"
-                onChange={(e) => setIsbn(e.target.value.toLowerCase())}
+              <Select
+                options={genreOptions}
+                isMulti
+                onChange={handleGenres}
+                className="w-full rounded-md h-[30px] border-slate-600 outline-none"
+                styles={style1}
               />
             </div>
-          </div>
 
-          {/* Row 2 */}
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <label htmlFor="author" className="font-bold text-sm">
-                Author
+            {/* Row 3 */}
+            <div className="w-full">
+              <div
+                onClick={handleImageClick}
+                className="form-img-div min-h-[180px] border w-full flex items-center justify-center rounded-lg border-dashed border-black"
+              >
+                <img
+                  src={selectedImage || img1}
+                  alt="Preview"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                <input
+                  type="file"
+                  ref={imageInputRef}
+                  hidden
+                  onChange={handleImageChange}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+
+            {/* Row 4 */}
+            <div className="w-full">
+              <label htmlFor="description" className="font-bold text-xs ">
+                Description
               </label>
-              <input
-                type="text"
-                className="w-full border border-black h-8 rounded-lg px-3"
-                id="author"
+              <textarea
+                rows="4"
+                className="w-full border border-black rounded-lg px-3 py-2"
+                id="description"
                 autoComplete="off"
-                onChange={(e) => setAuthor(e.target.value.toLowerCase())}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-
-            <div className="flex-1">
-              <label htmlFor="price" className="font-bold text-sm">
-                Price
-              </label>
-              <input
-                type="number"
-                className="w-full border border-black h-8 rounded-lg px-3"
-                id="price"
-                autoComplete="off"
-                onChange={(e) => setPrice(e.target.value.toLowerCase())}
-              />
+            {/* Row 5 (Added Button) */}
+            <div className="w-full">
+              <button
+                className="w-full bg-black text-white h-10 rounded-lg"
+                onClick={uploadImage}
+              >
+                Submit
+              </button>
             </div>
-          </div>
-          {/* Row 3 */}
-          <div className="w-full">
-            <label htmlFor="category" className="font-bold text-sm">
-              Category
-            </label>
-            <Select
-              options={categoryOptions}
-              isMulti
-              onChange={handleCategories}
-              className="w-full rounded-md h-[30px] border-slate-600 outline-none"
-              styles={style1}
-            />
-          </div>
-
-          {/* Row 4 */}
-          <div className="w-full">
-            <label htmlFor="genre" className="font-bold text-sm">
-              Genre
-            </label>
-            <Select
-              options={genreOptions}
-              isMulti
-              onChange={handleGenres}
-              className="w-full rounded-md h-[30px] border-slate-600 outline-none"
-              styles={style1}
-            />
-          </div>
-
-          {/* Row 3 */}
-          <div className="w-full">
-            <div
-              onClick={handleImageClick}
-              className="form-img-div min-h-[180px] border w-full flex items-center justify-center rounded-lg border-dashed border-black"
-            >
-              <img
-                src={selectedImage || img1}
-                alt="Preview"
-                className="w-full h-full object-cover rounded-lg"
-              />
-              <input
-                type="file"
-                ref={imageInputRef}
-                hidden
-                onChange={handleImageChange}
-                accept="image/*"
-              />
-            </div>
-          </div>
-
-          {/* Row 4 */}
-          <div className="w-full">
-            <label htmlFor="description" className="font-bold text-sm ">
-              Description
-            </label>
-            <textarea
-              rows="4"
-              className="w-full border border-black rounded-lg px-3 py-2"
-              id="description"
-              autoComplete="off"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          {/* Row 5 (Added Button) */}
-          <div className="w-full">
-            <button
-              className="w-full bg-black text-white h-10 rounded-lg"
-              onClick={uploadImage}
-            >
-              Submit
-            </button>
           </div>
         </div>
-      </div>
-      <ToastContainer />
-    </form>
+        <ToastContainer />
+      </form>
+    </div>
   );
 };
 

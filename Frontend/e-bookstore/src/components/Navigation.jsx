@@ -78,8 +78,11 @@ const Navigation = () => {
                 <Link to="/login">
                   <button className="login-btn">Login</button>
                 </Link>
+                
               )}
+                
             </div>
+            
             <div>
               {user ? (
                 <Link to="/account">

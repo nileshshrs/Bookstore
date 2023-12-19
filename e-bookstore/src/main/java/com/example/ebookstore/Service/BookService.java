@@ -15,32 +15,32 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book createBook(Book newBook){
-        if(bookRepository.existsBookByIsbn(newBook.getIsbn())){
-            throw new IllegalArgumentException("Book with same isbn already exists");
+    public synchronized Book createBook(Book newBook) {
+        if (bookRepository.existsBookByIsbn(newBook.getIsbn())) {
+            throw new IllegalArgumentException("Book with the same ISBN already exists");
         }
         return bookRepository.save(newBook);
     }
 
-    public List<Book> getAllBooks(){
+    public synchronized List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
-    public Optional<Book> getBookById(long id){
+    public synchronized Optional<Book> getBookById(long id) {
         return bookRepository.findById(id);
     }
 
-    public void deleteBook(Long bookId){
-        Book existingBook=bookRepository.findById(bookId).orElseThrow(()->new IllegalArgumentException("Book with given id does not exist"));
+    public synchronized void deleteBook(Long bookId) {
+        Book existingBook = bookRepository.findById(bookId)
+                .orElseThrow(() -> new IllegalArgumentException("Book with the given ID does not exist"));
         bookRepository.delete(existingBook);
     }
 
-    public Book putBook(Long bookId,Book updatedBook){
-        Book existingBook=bookRepository.findById(bookId).orElseThrow(
-                ()->new IllegalArgumentException("Book does not exist")
-        );
-        //if book with given id does not exist we throw above exception which controller deals with
+    public synchronized Book putBook(Long bookId, Book updatedBook) {
+        Book existingBook = bookRepository.findById(bookId)
+                .orElseThrow(() -> new IllegalArgumentException("Book does not exist"));
 
+        // Update the fields of the existing book
         existingBook.setTitle(updatedBook.getTitle());
         existingBook.setAuthorName(updatedBook.getAuthorName());
         existingBook.setIsbn(updatedBook.getIsbn());
@@ -54,5 +54,4 @@ public class BookService {
 
         return bookRepository.save(existingBook);
     }
-
 }
