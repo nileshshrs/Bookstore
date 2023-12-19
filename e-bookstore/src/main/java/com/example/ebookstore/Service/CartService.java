@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 public class CartService {
@@ -23,7 +22,7 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
     //add to cart
-    public Cart addToCart(Users user, Book book, int quantity) {
+    public synchronized Cart addToCart(Users user, Book book, int quantity) {
         if (user == null || book == null || quantity <= 0) {
             throw new IllegalArgumentException("Invalid input parameters");
         }
@@ -46,8 +45,8 @@ public class CartService {
             return cartRepository.save(newCart);
         }
     }
-    // get all carts in database
-    public List<Map<String, Object>> getAllCarts() {
+
+    public synchronized List<Map<String, Object>> getAllCarts() {
         List<Map<String, Object>> cartsData = new ArrayList<>();
 
         // Fetch all carts from the repository
@@ -70,8 +69,8 @@ public class CartService {
 
         return cartsData;
     }
-    //get cart list by user id
-    public List<Map<String, Object>> getCartsByUserId(Long userId) {
+
+    public synchronized List<Map<String, Object>> getCartsByUserId(Long userId) {
         List<Map<String, Object>> cartsData = new ArrayList<>();
 
         // Fetch carts by user ID from the repository
@@ -93,6 +92,31 @@ public class CartService {
         }
 
         return cartsData;
+    }
+
+
+    public synchronized Cart updateCartQuantity(Long cartId, int newQuantity) {
+        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+
+        if (optionalCart.isPresent()) {
+            Cart cart = optionalCart.get();
+            cart.setQuantity(newQuantity);
+            cart.setTotal(calculateTotal(cart.getBook().getPrice(), newQuantity));
+
+            return cartRepository.save(cart);
+        } else {
+            throw new IllegalArgumentException("Cart not found with ID: " + cartId);
+        }
+    }
+
+    public synchronized void deleteCart(Long cartId) {
+        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+
+        if (optionalCart.isPresent()) {
+            cartRepository.deleteById(cartId);
+        } else {
+            throw new IllegalArgumentException("Cart not found with ID: " + cartId);
+        }
     }
     private BigDecimal calculateTotal(BigDecimal price, int quantity) {
         return price.multiply(BigDecimal.valueOf(quantity));

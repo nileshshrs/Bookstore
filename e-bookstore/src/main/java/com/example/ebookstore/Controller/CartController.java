@@ -91,4 +91,47 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PatchMapping("/update/{cartId}")
+    public ResponseEntity<Object> updateCartQuantity(
+            @PathVariable Long cartId,
+            @RequestBody Map<String, Integer> requestBody
+    ) {
+        try {
+            Integer newQuantity = requestBody.get("newQuantity");
+            Cart updatedCart = cartService.updateCartQuantity(cartId, newQuantity);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Cart quantity updated successfully");
+            response.put("cartId", updatedCart.getCartId());
+            response.put("userId", updatedCart.getUser().getId());
+            response.put("bookId", updatedCart.getBook().getBookId());
+            response.put("title", updatedCart.getBook().getTitle());
+            response.put("price", updatedCart.getBook().getPrice());
+            response.put("imagePath", updatedCart.getBook().getImagePath());
+            response.put("quantity", updatedCart.getQuantity());
+            response.put("total", updatedCart.getTotal());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            String errorMessage = e.getMessage();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/delete/{cartId}")
+    public ResponseEntity<Object> deleteCart(@PathVariable Long cartId) {
+        try {
+            cartService.deleteCart(cartId);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Cart deleted successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            String errorMessage = e.getMessage();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
 }

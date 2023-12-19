@@ -4,6 +4,7 @@ import "../css/addbookform.scss";
 import img1 from "../assets/img-bg.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../css/dashboard.scss";
 import {
   getStorage,
   ref,
@@ -26,7 +27,7 @@ const AddBookForm = ({ open, handleOpen }) => {
     setImage(null);
   };
   const checkSlide = () => {
-    handleOpen()
+    handleOpen();
   };
 
   const clearSelectValues = () => {
@@ -169,22 +170,25 @@ const AddBookForm = ({ open, handleOpen }) => {
     <div
       className={
         open
-          ? "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg scrollable-container overflow-y-auto"
-          : "bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-4 items-start justify-start py-3 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in scrollable-container overflow-y-auto"
+          ? "book-form bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-3 items-start justify-start py-2 book-form fixed top-0 right-0 translate-x-[0vw] transition ease-in shadow-lg scrollable-container overflow-y-auto"
+          : "book-form bg-[#edebe4] z-[99] h-screen w-[390px] px-4 flex flex-col gap-3 items-start justify-start py-2 book-form fixed top-0 right-0 translate-x-[100vw] transition ease-in scrollable-container overflow-y-auto"
       }
     >
-      <button className="ms-auto" onClick={checkSlide}>
+      <button
+        className="absolute top-0 right-2 text-[20px] p-2"
+        onClick={checkSlide}
+      >
         <MdClose />
       </button>
       <form action="" ref={formRef}>
-        <h2 className=" py-2">Add Books</h2>
+        <h2 className=" py-1 font-bold">Add Books</h2>
 
         <div className="">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {/* Row 1 */}
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <div className="flex-1">
-                <label htmlFor="book-title" className="font-bold text-sm">
+                <label htmlFor="book-title" className="font-bold text-xs">
                   Title
                 </label>
                 <input
@@ -197,7 +201,7 @@ const AddBookForm = ({ open, handleOpen }) => {
               </div>
 
               <div className="flex-1">
-                <label htmlFor="isbn" className="font-bold text-sm">
+                <label htmlFor="isbn" className="font-bold text-xs">
                   ISBN
                 </label>
                 <input
@@ -211,9 +215,9 @@ const AddBookForm = ({ open, handleOpen }) => {
             </div>
 
             {/* Row 2 */}
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <div className="flex-1">
-                <label htmlFor="author" className="font-bold text-sm">
+                <label htmlFor="author" className="font-bold text-xs">
                   Author
                 </label>
                 <input
@@ -226,7 +230,7 @@ const AddBookForm = ({ open, handleOpen }) => {
               </div>
 
               <div className="flex-1">
-                <label htmlFor="price" className="font-bold text-sm">
+                <label htmlFor="price" className="font-bold text-xs">
                   Price
                 </label>
                 <input
@@ -240,7 +244,7 @@ const AddBookForm = ({ open, handleOpen }) => {
             </div>
             {/* Row 3 */}
             <div className="w-full">
-              <label htmlFor="category" className="font-bold text-sm">
+              <label htmlFor="category" className="font-bold text-xs">
                 Category
               </label>
               <Select
@@ -254,7 +258,7 @@ const AddBookForm = ({ open, handleOpen }) => {
 
             {/* Row 4 */}
             <div className="w-full">
-              <label htmlFor="genre" className="font-bold text-sm">
+              <label htmlFor="genre" className="font-bold text-xs">
                 Genre
               </label>
               <Select
@@ -289,7 +293,7 @@ const AddBookForm = ({ open, handleOpen }) => {
 
             {/* Row 4 */}
             <div className="w-full">
-              <label htmlFor="description" className="font-bold text-sm ">
+              <label htmlFor="description" className="font-bold text-xs ">
                 Description
               </label>
               <textarea
