@@ -13,8 +13,7 @@ import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Addtocart from "./Pages/Addtocart";
-// import SingleProduct from "./Pages/SingleProduct"
-import SingleProduct from "./Pages/SingleProduct"
+
 function App() {
   const location = useLocation();
 

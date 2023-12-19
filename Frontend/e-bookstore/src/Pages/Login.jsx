@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "../css/login.scss";
 import { Link } from "react-router-dom";
 import { useSignin } from "../context/useSignin";
-
+import "../css/login.scss";
 
 const Login = () => {
   const { signin } = useSignin();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -15,8 +12,26 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await signin(email, password);
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      setErrMsg("Please enter a valid email address.");
+      return;
+    }
 
+    // Password length validation
+    if (!password || password.length < 6) {
+      setErrMsg("Password must be at least 6 characters long.");
+      return;
+    }
+
+    // If validation passes, attempt to sign in
+    try {
+      await signin(email, password);
+    } catch (error) {
+      console.error("Error during signin:", error);
+      setErrMsg("An error occurred during signin");
+    }
   };
 
   return (
@@ -55,7 +70,7 @@ const Login = () => {
             Sign in
           </button>
           <p>
-            Don't have an account ?{" "}
+            Don't have an account?{" "}
             <Link to="/register" className="font-bold text-black underline">
               Sign up
             </Link>
