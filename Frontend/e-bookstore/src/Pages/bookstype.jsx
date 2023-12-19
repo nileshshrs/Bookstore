@@ -33,7 +33,7 @@ const BookType = () => {
                 <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
                   {book.title}
                 </h3>
-                <p className="m-0 font-[Segoe UI]">{book.author}</p>
+                <p className="m-0 font-[Segoe UI]">{book.authorName}</p>
                 <div className="text-[#74642f] text-lg">${book.price.toFixed(2)}</div>
               </div>
             </div>

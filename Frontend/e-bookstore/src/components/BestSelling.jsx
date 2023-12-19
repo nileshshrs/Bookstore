@@ -22,7 +22,7 @@ const BestSelling = () => {
           </p>
           <div className="text-lg font-bold text-[#74642f]">$ 45.00</div>
           <div className="">
-            <Link to="" className="flex items-center justify-center gap-3 font-bold hover:text-[#74642f] transition ease-in text-lg">Shop it Now <FaLongArrowAltRight /></Link>
+            <Link to="/addtocart" className="flex items-center justify-center gap-3 font-bold hover:text-[#74642f] transition ease-in text-lg">Shop it Now <FaLongArrowAltRight /></Link>
           </div>
         </div>
       </div>
