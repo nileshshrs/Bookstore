@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ImgSecrets from "../assets/product-item6.jpg";
+import React from "react";
 
 const Singlepagecart = () => {
  
