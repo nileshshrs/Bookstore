@@ -13,6 +13,7 @@ import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Addtocart from "./Pages/Addtocart";
+import Singleaddtocart from "./Pages/Singlepagecart";
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
+        <Route path="/singleaddtocart" element={<Singleaddtocart/>} />
         <Route path="/addtocart" element={<Addtocart/>} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
