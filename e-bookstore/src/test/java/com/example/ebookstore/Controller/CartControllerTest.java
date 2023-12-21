@@ -27,5 +27,16 @@ public class CartControllerTest {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(cartController).build();
     }
+    @Test
+    void deleteCart() throws Exception {
+        Long sampleCartId = 1L;
+
+        doNothing().when(cartService).deleteCart(sampleCartId); // Assuming deleteCart returns void or you can mock accordingly
+
+        mockMvc.perform(delete("/api/v2/carts/delete/{cartId}", sampleCartId))
+                .andExpect(status().isOk());
+
+        verify(cartService, times(1)).deleteCart(sampleCartId);
+    }
 
 }
