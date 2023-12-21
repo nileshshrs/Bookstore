@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ImgSecrets from "../assets/product-item6.jpg";
 
 const Addtocart = () => {
