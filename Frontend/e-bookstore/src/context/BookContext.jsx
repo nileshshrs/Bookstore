@@ -5,7 +5,7 @@ const BookContext = createContext();
 
 export const BookProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
-  const [singleBook, setSingleBook] = useState(null);
+  const [singleBook, setSingleBook] = useState([]);
   const [slide, setSlide] = useState(false);
   const [error, setError] = useState(false); // Add error state
   const [errMsg, setErrMsg] = useState("");

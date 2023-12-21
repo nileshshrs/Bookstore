@@ -5,18 +5,25 @@
     background-color: #edebe4;
     min-height: 100vh;
     height: 100vh;
-    max-width: min(100vw, 400px);
+    width: min(100vw, 250px);
     padding: 10px 20px;
     border-right: 1px solid rgb(211, 209, 209);
-    width: min(100vw, 350px);
     position: sticky;
     top: 0;
     left: 0;
     overflow-y: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
+    &::-webkit-scrollbar {
+      width: 0; /* For WebKit (Chrome, Safari, Opera) */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent; /* For WebKit */
+    }
     .close-btn {
       position: absolute;
-      top: 2%;
-      left: 0;
+      top: 0;
+      left: -7%;
       display: none;
     }
     .sidebar-nav {
@@ -45,7 +52,7 @@
           flex-direction: column;
           list-style: none;
           width: 100%;
-          gap: 3rem;
+          gap: 1rem;
           li {
             display: flex;
             align-items: center;
@@ -53,7 +60,7 @@
             width: 100%;
             a {
               width: 100%;
-              padding: 10px 50px;
+              padding: 10px 20px;
               border-radius: 7px;
               text-decoration: none;
               display: flex;
@@ -68,8 +75,7 @@
               &:hover {
                 background-color: rgb(197, 197, 197);
                 color: white;
-                padding: 15px 50px;
-                gap: 0.8rem;
+                padding: 15px 20px;
               }
             }
           }
@@ -183,5 +189,15 @@
         }
       }
     }
+  }
+}
+.book-form {
+  scrollbar-width: thin !important; /* For Firefox */
+  scrollbar-color: transparent transparent !important; /* For Firefox */
+  &::-webkit-scrollbar {
+    width: 0 !important; /* For WebKit (Chrome, Safari, Opera) */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent !important; /* For WebKit */
   }
 }

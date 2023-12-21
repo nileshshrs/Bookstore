@@ -12,14 +12,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container p-0">
       <div className={toggle ? "sidebar slide" : "sidebar"}>
-        <DashboardSidebar />
-        <button onClick={handleToggle} className="close-btn px-4 h-full">
-          <AiOutlineClose />
-        </button>
+        <DashboardSidebar toggle={handleToggle}/>
+
       </div>
-      <main className="dashboard-item-container">
+      <main className="dashboard-item-container p-0">
         <div className="shadow-lg">
           <DashboardHeader toggle={handleToggle} />
         </div>

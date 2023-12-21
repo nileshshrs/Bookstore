@@ -80,6 +80,7 @@ const Navigation = () => {
                 </Link>
               )}
             </div>
+
             <div>
               {user ? (
                 <Link to="/account">
@@ -90,7 +91,7 @@ const Navigation = () => {
             <div>
               {user ? (
                 <Link to="">
-                  <button className="cart">
+                  <button className="">
                     <FaShoppingBag />
                   </button>
                 </Link>
@@ -106,7 +107,10 @@ const Navigation = () => {
               : "sidebar-nav flex flex-col gap-5 relative"
           }
         >
-          <button className="absolute top-10 right-5 text-[20px]" onClick={handleNav}>
+          <button
+            className="absolute top-10 right-5 text-[20px]"
+            onClick={handleNav}
+          >
             <AiOutlineClose />
           </button>
           <div className="w-full my-5 text-[22px] px-3">
