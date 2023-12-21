@@ -58,11 +58,12 @@ const SingleProduct = () => {
                 border: "1px solid #591201",
                 marginTop: "20px",
               }}
+              onClick={()=>{addToCart(id)}}
             >
               <FontAwesomeIcon
                 icon={faCartPlus}
                 style={{ marginRight: "8px" }}
-                onClick={()=>{addToCart(id)}}
+      
               />
               Add to Cart
             </button>
