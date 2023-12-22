@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../context/useAuthContext";
 import axios from "axios";
 
-const CartList = () => {
+const CartList = ({setSubTotal}) => {
   const { user } = useAuthContext();
   const userId = user.id;
+  let subTotal=0;
 
   const [cart, setCart] = useState([]);
 
@@ -61,6 +62,13 @@ const CartList = () => {
       );
       response.data.sort((a, b) => a.bookId - b.bookId);
       setCart(response.data);
+      
+      const totals=response.data.map((cartItem)=>cartItem.total);
+      
+      totals.forEach(el => subTotal+=el);
+      setSubTotal(subTotal.toFixed(2));
+      console.log("subTotal is: "+subTotal);
+      
     } catch (error) {
       console.error("Error fetching cart:", error);
     }
