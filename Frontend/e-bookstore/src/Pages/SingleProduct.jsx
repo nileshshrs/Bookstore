@@ -25,6 +25,23 @@ const SingleProduct = () => {
     getBook();
   }, []);
 
+  const addToCart = async (bookId) => {
+    const cartData = {
+      userId: 3,
+      bookId:  parseInt(bookId),
+      quantity: 1
+    };
+    try {
+      const response = await axios.post('http://localhost:8080/api/v2/carts/add-to-cart', cartData);
+      console.log('Cart data added:', cartData);
+      // Handle successful response as needed
+      console.log(response);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      // Handle errors
+    }
+  };
+
   return (
     <section className="bestselling my-6 py-20">
       <div className="w-[80%] mx-auto flex gap-5 justify-center items-center bestselling-books">
@@ -49,10 +66,12 @@ const SingleProduct = () => {
                 border: "1px solid #591201",
                 marginTop: "20px",
               }}
+              onClick={()=>{addToCart(id)}}
             >
               <FontAwesomeIcon
                 icon={faCartPlus}
                 style={{ marginRight: "8px" }}
+      
               />
               Add to Cart
             </button>
