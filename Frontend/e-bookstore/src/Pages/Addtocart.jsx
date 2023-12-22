@@ -15,16 +15,6 @@ const Addtocart = () => {
     window.history.back();
   };
 
-  // const handleIncreaseQuantity = () => {
-  //   setQuantity(quantity + 1);
-  // };
-
-  // const handleDecreaseQuantity = () => {
-  //   if (quantity > 1) {
-  //     setQuantity(quantity - 1);
-  //   }
-  // };
-
   return (
     <>
       {isModalOpen && (
