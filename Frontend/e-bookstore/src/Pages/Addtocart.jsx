@@ -1,9 +1,10 @@
 import { useState } from "react";
 import ImgSecrets from "../assets/product-item6.jpg";
+import CartList from "../components/CartList";
 
 const Addtocart = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [quantity, setQuantity] = useState(1);
+  const [subTotal, setsubTotal] = useState(0);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -12,16 +13,6 @@ const Addtocart = () => {
   const handleRemoveFromCart = () => {
    
     window.history.back();
-  };
-
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
   };
 
   return (
@@ -101,7 +92,7 @@ const Addtocart = () => {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>${90.00 * quantity}</p>
+                        <p>${subTotal}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">"New books, new adventures. Happy reading!"</p>
                       <div className="mt-6">
