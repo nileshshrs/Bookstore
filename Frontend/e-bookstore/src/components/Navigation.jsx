@@ -7,8 +7,18 @@ import { useAuthContext } from "../context/useAuthContext";
 
 const Navigation = () => {
   //  const { logout } = useLogout();
+  
 
-  const { user } = useAuthContext();
+  const { user,dispatch } = useAuthContext();
+
+  const handleLogout = () => {
+    // Dispatch the "LOGOUT" action to update the user state
+    dispatch({ type: "LOGOUT" });
+
+    // Optionally, you can clear the user from localStorage
+    localStorage.removeItem("user");
+    
+  };
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [nav, setNav] = useState(false);
@@ -73,7 +83,7 @@ const Navigation = () => {
           <div className="flex justify-between items-center gap-3 btn-div">
             <div>
               {user ? (
-                <button className="login-btn">Logout</button>
+                <button className="login-btn" onClick={handleLogout}>Logout</button>
               ) : (
                 <Link to="/login">
                   <button className="login-btn">Login</button>

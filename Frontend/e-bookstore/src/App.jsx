@@ -33,7 +33,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
-        <Route path="/singleaddtocart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
+        <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
         <Route path="/addtocart" element={<Addtocart/>} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
