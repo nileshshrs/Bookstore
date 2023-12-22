@@ -23,7 +23,7 @@ const CartList = () => {
     }
   };
 
-  const handleDecreaseQuantity = async (cartId,  quantity) => {
+  const handleDecreaseQuantity = async (cartId, quantity) => {
     if (quantity > 1) {
       try {
         const response = await axios.patch(
@@ -40,17 +40,26 @@ const CartList = () => {
     }
   };
 
-//   const handleRemoveCartItem=()=>{
-//     axios.delete(`http://localhost:8080/api/v2/carts/delete/${cartId}`);
-
-//   }
+  const handleRemoveCartItem = async (cartId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/v2/carts/delete/${cartId}`
+      );
+      if (response.status === 200) {
+        fetchCart();
+        console.log("Deleted cart item");
+      }
+    } catch (error) {
+      console.error("Error deleting cart:", error);
+    }
+  };
 
   const fetchCart = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8080/api/v2/carts/get-by-user/${userId}`
       );
-      response.data.sort((a,b)=>a.bookId-b.bookId);
+      response.data.sort((a, b) => a.bookId - b.bookId);
       setCart(response.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -88,7 +97,9 @@ const CartList = () => {
                 <button
                   type="button"
                   className="text-indigo-600 hover:text-indigo-500"
-                  onClick={()=>handleDecreaseQuantity(cartItem.cartId,cartItem.quantity)}>
+                  onClick={() =>
+                    handleDecreaseQuantity(cartItem.cartId, cartItem.quantity)
+                  }>
                   -
                 </button>
 
@@ -97,7 +108,9 @@ const CartList = () => {
                 <button
                   type="button"
                   className="text-indigo-600 hover:text-indigo-500"
-                  onClick={()=>handleIncreaseQuantity(cartItem.cartId,cartItem.quantity)}>
+                  onClick={() =>
+                    handleIncreaseQuantity(cartItem.cartId, cartItem.quantity)
+                  }>
                   +
                 </button>
               </div>
@@ -105,7 +118,8 @@ const CartList = () => {
               <div className="flex">
                 <button
                   type="button"
-                  className="font-medium text-indigo-600 hover:text-indigo-500">
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={()=>handleRemoveCartItem(cartItem.cartId)}>
                   Remove
                 </button>
               </div>
