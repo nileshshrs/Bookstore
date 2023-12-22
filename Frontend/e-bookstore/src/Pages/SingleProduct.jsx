@@ -5,17 +5,25 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+
 const SingleProduct = () => {
+
+// call AuthContext here 
+
+
   const { id } = useParams();
+
   const [book, setBook] = useState([]);
+
   const url = `http://localhost:8080/api/v2/books/${id}`;
+
   useEffect(() => {
     const getBook = async () => {
       const response = await axios.get(url);
       setBook(response.data);
     };
     getBook();
-  }, [url]);
+  }, []);
 
   const addToCart = async (bookId) => {
     const cartData = {

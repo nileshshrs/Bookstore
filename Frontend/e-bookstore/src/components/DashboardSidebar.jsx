@@ -32,7 +32,7 @@ const DashboardSidebar = ({ toggle }) => {
               height={"40px"}
             />
           </span>
-          <span className="w-full">{user ? user.username : null}</span>
+          <span className="w-full">{user.username}</span>
         </Link>
       </div>
       <nav>
