@@ -17,7 +17,7 @@ const Featured = () => {
           <div className="books flex flex-col justify-center items-center gap-1">
             <div className="border p-5 bg-[#EFEEE8] img-container">
               <img src={img1} alt="" />
-              <button>Add to Cart</button>
+              <Link to="/addtocart"><button>Add to Cart</button> </Link>
             </div>
             <div className="flex flex-col gap-2 justify-center items-center">
               <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
@@ -30,7 +30,7 @@ const Featured = () => {
           <div className="books flex flex-col justify-center items-center gap-1">
             <div className="border p-5 bg-[#EFEEE8] img-container">
               <img src={img2} alt="" />
-              <button>Add to Cart</button>
+              <Link to="/addtocart"><button>Add to Cart</button> </Link>
             </div>
             <div className="flex flex-col gap-2 justify-center items-center">
               <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
@@ -43,7 +43,7 @@ const Featured = () => {
           <div className="books flex flex-col justify-center items-center gap-1">
             <div className="border p-5 bg-[#EFEEE8] img-container">
               <img src={img3} alt="" />
-              <button>Add to Cart</button>
+              <Link to="/addtocart"><button>Add to Cart</button> </Link>
             </div>
             <div className="flex flex-col gap-2 justify-center items-center">
               <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
@@ -56,7 +56,7 @@ const Featured = () => {
           <div className="books flex flex-col justify-center items-center gap-1">
             <div className="border p-5 bg-[#EFEEE8] img-container">
               <img src={img4} alt="" />
-              <button>Add to Cart</button>
+             <Link to="/addtocart"><button>Add to Cart</button> </Link>
             </div>
             <div className="flex flex-col gap-2 justify-center items-center">
               <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
