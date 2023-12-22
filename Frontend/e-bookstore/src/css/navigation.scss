@@ -30,6 +30,14 @@ header {
     padding: 20px 50px;
     align-items: center;
     overflow-y: scroll;
+    scrollbar-width: thin !important; /* For Firefox */
+    scrollbar-color: transparent transparent !important; /* For Firefox */
+    &::-webkit-scrollbar {
+      width: 0 !important; /* For WebKit (Chrome, Safari, Opera) */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent !important; /* For WebKit */
+    }
     .account-btn {
       width: 100%;
       background-color: black;
