@@ -3,7 +3,7 @@ import TodoList from "./TodoList"
 
 const DashboardContent = () => {
   return (
-    <div>
+    <div className="px-4">
         <TodoList/>
     </div>
   );

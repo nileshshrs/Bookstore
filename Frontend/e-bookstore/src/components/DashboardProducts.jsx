@@ -25,7 +25,7 @@ const DashboardProducts = () => {
   };
 
   return (
-    <div className="dashboard-product-container p-2">
+    <div className="dashboard-product-container px-3 py-2">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {books.map((book) => (
           <div
@@ -36,10 +36,10 @@ const DashboardProducts = () => {
               <img src={book.imagePath} alt="" width={"200px"} />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100"></div>
             </div>
-            <div className="book-title font-bold text-[#74642F] whitespace-nowrap">
+            <div className="book-title font-bold text-[#74642F] whitespace-nowrap capitalize">
               {book.title}
             </div>
-            <p className="m-0 whitespace-nowrap">{book.authorName}</p>
+            <p className="m-0 whitespace-nowrap capitalize">{book.authorName}</p>
             <div className="book-title font-bold text-[#74642f]">
               $ {book.price}
             </div>

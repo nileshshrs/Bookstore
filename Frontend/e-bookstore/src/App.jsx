@@ -18,9 +18,6 @@ import Singleaddtocart from "./Pages/Singlepagecart";
 function App() {
   const location = useLocation();
 
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
 
   // Determine whether to show the Navigation component based on the current route
   const showNavigation = !location.pathname.startsWith("/dashboard");

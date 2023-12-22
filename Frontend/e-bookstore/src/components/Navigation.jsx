@@ -100,7 +100,7 @@ const Navigation = () => {
             </div>
             <div>
               {user ? (
-                <Link to="/addtocart">
+                <Link to="">
                   <button className="">
                     <FaShoppingBag />
                   </button>
