@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import img1 from "../assets/main-banner2.jpg";
+import { Link , useParams } from "react-router-dom";
 import { FaShoppingBag } from "react-icons/fa";
 
 import axios from "axios";
