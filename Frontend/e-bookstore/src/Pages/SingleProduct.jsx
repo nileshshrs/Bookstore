@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import img1 from "../assets/main-banner2.jpg";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FaShoppingBag } from "react-icons/fa";
+
 import axios from "axios";
 const SingleProduct = () => {
   const { id } = useParams();
@@ -33,7 +32,7 @@ const SingleProduct = () => {
       const response = await axios.post('http://localhost:8080/api/v2/carts/add-to-cart', cartData);
       console.log('Cart data added:', cartData);
       // Handle successful response as needed
-      console.log(response);
+      console.log(response.data);
     } catch (error) {
       console.error('Error adding to cart:', error);
       // Handle errors
@@ -60,7 +59,7 @@ const SingleProduct = () => {
           <p>{book.description || "No description available"}</p>
           {/* ... */}
           <button
-            className="py-1 px-4 rounded-md"
+            className="py-1 px-4 rounded-md flex items-center gap-3 jusitfy-center"
             style={{
               color: "#591201",
               border: "1px solid #591201",
@@ -68,7 +67,7 @@ const SingleProduct = () => {
             }}
             onClick={() => addToCart(id)}
           >
-            {/* ... */}
+            <FaShoppingBag/> Add to Cart
           </button>
         </div>
       </div>
