@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ImgSecrets from "../assets/product-item6.jpg";
+import { useAuthContext } from "../context/useAuthContext";
 
-const Singlepagecart = ({ userID }) => {
+const Singlepagecart = () => {
+  const { user } = useAuthContext();
+  const userID = user.id
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
