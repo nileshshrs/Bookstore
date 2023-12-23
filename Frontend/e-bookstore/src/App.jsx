@@ -12,7 +12,6 @@ import DashboardContent from "./components/DashboardContent";
 import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
-import Addtocart from "./Pages/Addtocart";
 import Singleaddtocart from "./Pages/Singlepagecart";
 
 function App() {
@@ -31,7 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
-        <Route path="/addtocart" element={<Addtocart/>} />
+        
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
