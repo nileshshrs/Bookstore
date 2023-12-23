@@ -12,14 +12,11 @@ import DashboardContent from "./components/DashboardContent";
 import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
-import Addtocart from "./Pages/Addtocart";
+import Singleaddtocart from "./Pages/Singlepagecart";
 
 function App() {
   const location = useLocation();
 
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
 
   // Determine whether to show the Navigation component based on the current route
   const showNavigation = !location.pathname.startsWith("/dashboard");
@@ -32,7 +29,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
-        <Route path="/addtocart" element={<Addtocart/>} />
+        <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
+        
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>

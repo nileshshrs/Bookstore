@@ -7,7 +7,6 @@ import { useAuthContext } from "../context/useAuthContext";
 
 const DashboardSidebar = ({ toggle }) => {
   const { user } = useAuthContext();
-
   return (
     <div className="sidebar-nav relative md:hidden">
       <button className="  close-btn" onClick={toggle}>
@@ -32,7 +31,7 @@ const DashboardSidebar = ({ toggle }) => {
               height={"40px"}
             />
           </span>
-          <span className="w-full">{user ? user.username : null}</span>
+          <span className="w-full">{user?user.username:null}</span>
         </Link>
       </div>
       <nav>
