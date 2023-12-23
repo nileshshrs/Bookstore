@@ -1,27 +1,64 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ImgSecrets from "../assets/product-item6.jpg";
 import { useAuthContext } from "../context/useAuthContext";
 
 const Singlepagecart = () => {
   const { user } = useAuthContext();
-  const userID = user.id
+  const userId = user.id;
   const [cart, setCart] = useState([]);
-  const [quantity, setQuantity] = useState(1);
 
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  const handleIncreaseQuantity = async (cartId, quantity) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:8080/api/v2/carts/update/${cartId}`,
+        { newQuantity: quantity + 1 }
+      );
+      if (response.status === 200) {
+        fetchCart();
+        // console.log("updated cart items");
+      }
+    } catch (error) {
+      console.error("Error updating cart:", error);
     }
   };
 
+
+  const handleDecreaseQuantity = async (cartId, quantity) => {
+    if (quantity > 1) {
+      try {
+        const response = await axios.patch(
+          `http://localhost:8080/api/v2/carts/update/${cartId}`,
+          { newQuantity: quantity - 1 }
+        );
+        if (response.status === 200) {
+          fetchCart();
+          // console.log("updated cart items");
+        }
+      } catch (error) {
+        console.error("Error updating cart:", error);
+      }
+    }
+  };
+  
+  const handleRemoveCartItem = async (cartId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/v2/carts/delete/${cartId}`
+      );
+      if (response.status === 200) {
+        fetchCart();
+        // console.log("Deleted cart item");
+      }
+    } catch (error) {
+      console.error("Error deleting cart:", error);
+    }
+  };
+
+
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/v2/carts/get-by-user/${userID}`);
+      const res = await axios.get(`http://localhost:8080/api/v2/carts/get-by-user/${userId}`);
+      res.data.sort((a,b)=>a.bookId-b.bookId);
       setCart(res.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -30,7 +67,7 @@ const Singlepagecart = () => {
 
   useEffect(() => {
     fetchCart();
-  }, [userID]);
+  }, [userId]);
 
   return (
     <div className="container mx-auto mt-8 mb-8" style={{ maxWidth: "900px" }}>
@@ -44,8 +81,8 @@ const Singlepagecart = () => {
             <div key={product.id} className="flex mb-3">
               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <img
-                  src={ImgSecrets} // yo change garnu xa
-                  alt={product.name}
+                  src={product.imagePath} // yo change garnu xa
+                  alt={product.title}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
@@ -54,7 +91,7 @@ const Singlepagecart = () => {
                 <div>
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
-                      <a href="#">{product.name}</a>
+                      <a href="#">{product.title}</a>
                     </h3>
                     <p className="ml-4">${product.price}</p>
                   </div>
@@ -64,15 +101,15 @@ const Singlepagecart = () => {
                     <button
                       type="button"
                       className="text-indigo-600 hover:text-indigo-500"
-                      onClick={handleDecreaseQuantity}
+                      onClick={()=>handleDecreaseQuantity(product.cartId,product.quantity)}
                     >
                       -
                     </button>
-                    <span className="mx-2">{quantity}</span>
+                    <span className="mx-2">{product.quantity}</span>
                     <button
                       type="button"
                       className="text-indigo-600 hover:text-indigo-500"
-                      onClick={handleIncreaseQuantity}
+                      onClick={()=>handleIncreaseQuantity(product.cartId,product.quantity)}
                     >
                       +
                     </button>
@@ -82,6 +119,7 @@ const Singlepagecart = () => {
                       type="button"
                       className="font-medium  hover:text-indigo-500"
                       style={{ color: "black" }}
+                      onClick={()=>handleRemoveCartItem(product.cartId)}
                     >
                       Remove
                     </button>
@@ -95,7 +133,7 @@ const Singlepagecart = () => {
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Subtotal</p>
-            <p>${cart.reduce((total, product) => total + product.price * quantity, 0)}</p>
+            <p>${cart.reduce((total, product) => total + product.total, 0).toFixed(2)}</p>
           </div>
           <p className="mt-0.5 text-sm text-gray-500">
             "New books, new adventures. Happy reading!"
