@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public class ReviewController {
 
                 responseData.put("userId", user.getId());
                 responseData.put("bookId", book.getBookId());
-                responseData.put("reviewText", reviewText);
+                responseData.put("reviewText", newReview.getReviewText());
 
                 return new ResponseEntity<>(responseData, HttpStatus.OK);
             } else {
@@ -62,5 +63,20 @@ public class ReviewController {
             errorResponse.put("message", e.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
         }
+    }
+
+    @GetMapping("/getAll/{bookId}")
+    public ResponseEntity<List<Map<String,Object>>> getAllReviewsOfBook(@PathVariable Long bookId){
+        try{
+            Optional<Book> existingBook = bookService.getBookById(bookId);
+            if (existingBook.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            List<Map<String, Object>> reviewsData = reviewService.getAllReviewsByBookId(bookId);
+            return new ResponseEntity<>(reviewsData, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 }
