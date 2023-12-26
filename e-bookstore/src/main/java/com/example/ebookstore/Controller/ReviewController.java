@@ -65,7 +65,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/getAll/{bookId}")
+    @GetMapping("/getByBook/{bookId}")
     public ResponseEntity<List<Map<String,Object>>> getAllReviewsOfBook(@PathVariable Long bookId){
         try{
             Optional<Book> existingBook = bookService.getBookById(bookId);
@@ -79,4 +79,30 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/delete/{reviewId}")
+    public ResponseEntity<Object> deleteReview(@PathVariable Long reviewId){
+        try{
+            reviewService.deleteReview(reviewId);
+            Map<String,Object> successResponse=new HashMap<>();
+            successResponse.put("message","Deleted Successfully");
+            return new ResponseEntity<>(successResponse,HttpStatus.OK);
+
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("message",e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Map<String,Object>>> getAllReviews(){
+        try{
+            List<Map<String, Object>> reviewsData = reviewService.getAllReviews();
+            return new ResponseEntity<>(reviewsData,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
