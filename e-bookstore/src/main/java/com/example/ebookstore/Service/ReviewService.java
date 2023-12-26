@@ -58,4 +58,23 @@ public class ReviewService {
         }
         reviewRepository.deleteById(reviewId);
     }
+
+    public List<Map<String,Object>> getAllReviews(){
+        List<Map<String,Object>> reviewsData=new ArrayList<>();
+
+        List<Review> reviews=reviewRepository.findAll();
+
+        for (Review review : reviews) {
+            Map<String,Object> singleReview=new HashMap<>();
+            singleReview.put("reviewId",review.getReviewId());
+            singleReview.put("bookId",review.getBook().getBookId());
+            singleReview.put("title",review.getBook().getTitle());
+            singleReview.put("userId",review.getUser().getId());
+            singleReview.put("userName",review.getUser().getUsername());
+            singleReview.put("reviewText",review.getReviewText());
+
+            reviewsData.add(singleReview);
+        }
+        return reviewsData;
+    }
 }
