@@ -4,6 +4,7 @@ import { BsGrid1X2, BsArchive, BsPerson } from "react-icons/bs";
 import { BiLogOut, BiBook, BiHome } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAuthContext } from "../context/useAuthContext";
+import Img1 from "../assets/icon.png";
 
 const DashboardSidebar = ({ toggle }) => {
   const { user } = useAuthContext();
@@ -24,9 +25,9 @@ const DashboardSidebar = ({ toggle }) => {
         >
           <span className="">
             <img
-              src=""
+              src={Img1}
               alt=""
-              className="border rounded-full border-white object-cover"
+              className="border rounded-full border-red object-cover"
               width={"40px"}
               height={"40px"}
             />

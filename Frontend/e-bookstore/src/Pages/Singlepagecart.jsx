@@ -4,7 +4,7 @@ import { useAuthContext } from "../context/useAuthContext";
 
 const Singlepagecart = () => {
   const { user } = useAuthContext();
-  const userId = user.id;
+  const userId = user ? user.id: null;
   const [cart, setCart] = useState([]);
 
   const handleIncreaseQuantity = async (cartId, quantity) => {
@@ -83,7 +83,7 @@ const Singlepagecart = () => {
                 <img
                   src={product.imagePath} // yo change garnu xa
                   alt={product.title}
-                  className="h-full w-full object-cover object-center"
+                  className="h-full w-full object-contain"
                 />
               </div>
 

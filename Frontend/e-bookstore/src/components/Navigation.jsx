@@ -4,20 +4,18 @@ import "../css/navigation.scss";
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useAuthContext } from "../context/useAuthContext";
+import { useLogout } from "../context/useLogout";
 
 const Navigation = () => {
   //  const { logout } = useLogout();
   
 
-  const { user,dispatch } = useAuthContext();
+  const { user } = useAuthContext();
+  const { logout } = useLogout();
 
   const handleLogout = () => {
     // Dispatch the "LOGOUT" action to update the user state
-    dispatch({ type: "LOGOUT" });
-
-    // Optionally, you can clear the user from localStorage
-    localStorage.removeItem("user");
-    
+    logout();
   };
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
@@ -100,9 +98,9 @@ const Navigation = () => {
             </div>
             <div>
               {user ? (
-                <Link to="">
-                  <button className="">
-                    <FaShoppingBag />
+                <Link to="/cart">
+                  <button className="flex items-center justify-center font-bold gap-1">
+                    Cart <FaShoppingBag />
                   </button>
                 </Link>
               ) : null}

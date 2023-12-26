@@ -13,6 +13,7 @@ import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Singleaddtocart from "./Pages/Singlepagecart";
+import ForgotPass from "./Pages/ForgotPass";
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgotpass" element={<ForgotPass />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
         
