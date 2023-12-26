@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import Login from "./Pages/Login";
 import Footer from "./components/Footer";
-import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
 import DashboardContent from "./components/DashboardContent";
 import DashboardProducts from "./components/DashboardProducts";
