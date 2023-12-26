@@ -79,4 +79,20 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/delete/{reviewId}")
+    public ResponseEntity<Object> deleteReview(@PathVariable Long reviewId){
+        try{
+            reviewService.deleteReview(reviewId);
+            Map<String,Object> successResponse=new HashMap<>();
+            successResponse.put("message","Deleted Successfully");
+            return new ResponseEntity<>(successResponse,HttpStatus.OK);
+
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("message",e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        }
+    }
+
 }

@@ -7,10 +7,7 @@ import com.example.ebookstore.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ReviewService {
@@ -42,12 +39,23 @@ public class ReviewService {
 
         for (Review review : reviews) {
             Map<String,Object> singleReview=new HashMap<>();
+            singleReview.put("reviewId",review.getReviewId());
             singleReview.put("bookId",review.getBook().getBookId());
+            singleReview.put("title",review.getBook().getTitle());
             singleReview.put("userId",review.getUser().getId());
+            singleReview.put("userName",review.getUser().getUsername());
             singleReview.put("reviewText",review.getReviewText());
 
             reviewsData.add(singleReview);
         }
         return reviewsData;
+    }
+
+    public void deleteReview(Long reviewId){
+        Optional<Review> existingReview=reviewRepository.findById(reviewId);
+        if (existingReview.isEmpty()) {
+            throw new IllegalArgumentException("Review does not Exist");
+        }
+        reviewRepository.deleteById(reviewId);
     }
 }
