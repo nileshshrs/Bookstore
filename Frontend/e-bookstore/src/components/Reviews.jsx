@@ -2,9 +2,9 @@ import React from "react";
 import { useAuthContext } from "../context/useAuthContext";
 import { Link } from "react-router-dom";
 
-
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, bookID, fetchReviews }) => {
   const { user } = useAuthContext();
+
 
   return (
     <div className="review-section w-[80%] mx-auto p-5 flex flex-col gap-4 ">
@@ -35,18 +35,19 @@ const Reviews = ({ reviews }) => {
                 <h4 className="font-bold text-sm">{review.userName}</h4>
               </Link>
               <p className="m-0 text-sm">{review.reviewText}</p>
-            </div>
-            <div className="flex gap-3 py-2">
-              {user && (user.role === "admin" || user.id === review.userId) && (
-                <>
-                  <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm">
-                    edit
-                  </button>
-                  <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm">
-                    delete
-                  </button>
-                </>
-              )}
+              <div className="flex gap-3 py-2">
+                {user &&
+                  (user.role === "admin" || user.id === review.userId) && (
+                    <>
+                      <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded">
+                        edit
+                      </button>
+                      <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded">
+                        delete
+                      </button>
+                    </>
+                  )}
+              </div>
             </div>
           </div>
         ))}

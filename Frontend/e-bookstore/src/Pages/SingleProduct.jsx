@@ -108,7 +108,7 @@ const SingleProduct = () => {
           </button>
         </div>
       </div>
-      <Reviews reviews={reviews} />
+      <Reviews reviews={reviews} bookID={id} fetchReviews={fetchReviews}/>
       <ToastContainer />
     </section>
   );
