@@ -1,4 +1,5 @@
-import { createContext, useEffect, useReducer } from "react";
+// AuthContextProvider.jsx
+import { createContext, useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
@@ -17,21 +18,25 @@ export const authReducer = (state, action) => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    user: null,
-  });
-  const navigate = useNavigate();
+  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
     }
+    setLoading(false); // Set loading to false once user information is fetched
   }, []);
 
   console.log("AuthContext state: ", state);
+
+  // Render children only when loading is false and user information is available
   return (
-    <AuthContext.Provider value={{ ...state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
+    !loading && (
+      <AuthContext.Provider value={{ ...state, dispatch }}>
+        {children}
+      </AuthContext.Provider>
+    )
   );
 };

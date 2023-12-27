@@ -4,11 +4,19 @@ import "../css/navigation.scss";
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useAuthContext } from "../context/useAuthContext";
+import { useLogout } from "../context/useLogout";
 
 const Navigation = () => {
   //  const { logout } = useLogout();
+  
 
   const { user } = useAuthContext();
+  const { logout } = useLogout();
+
+  const handleLogout = () => {
+    // Dispatch the "LOGOUT" action to update the user state
+    logout();
+  };
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [nav, setNav] = useState(false);
@@ -73,13 +81,14 @@ const Navigation = () => {
           <div className="flex justify-between items-center gap-3 btn-div">
             <div>
               {user ? (
-                <button className="login-btn">Logout</button>
+                <button className="login-btn" onClick={handleLogout}>Logout</button>
               ) : (
                 <Link to="/login">
                   <button className="login-btn">Login</button>
                 </Link>
               )}
             </div>
+
             <div>
               {user ? (
                 <Link to="/account">
@@ -89,9 +98,9 @@ const Navigation = () => {
             </div>
             <div>
               {user ? (
-                <Link to="">
-                  <button className="cart">
-                    <FaShoppingBag />
+                <Link to="/cart">
+                  <button className="flex items-center justify-center font-bold gap-1">
+                    Cart <FaShoppingBag />
                   </button>
                 </Link>
               ) : null}
@@ -106,7 +115,10 @@ const Navigation = () => {
               : "sidebar-nav flex flex-col gap-5 relative"
           }
         >
-          <button className="absolute top-10 right-5 text-[20px]" onClick={handleNav}>
+          <button
+            className="absolute top-10 right-5 text-[20px]"
+            onClick={handleNav}
+          >
             <AiOutlineClose />
           </button>
           <div className="w-full my-5 text-[22px] px-3">
@@ -137,7 +149,7 @@ const Navigation = () => {
                 </Link>
               </li>
               <li>
-                <Link className="flex items-center justify-start w-full font-bold gap-2">
+                <Link  className="flex items-center justify-start w-full font-bold gap-2">
                   <span> Cart </span>
                   <FaShoppingBag />
                 </Link>
