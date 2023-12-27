@@ -25,8 +25,8 @@ const Reviews = ({ reviews, bookID, fetchReviews }) => {
       </div>
       <div className="px-5 flex flex-col gap-3 reviews">
         <h4 className="font-bold text-md">Reviews: </h4>
-        {reviews.map((review) => (
-          <div key={review.id} className="px-3">
+        {reviews.map((review, index) => (
+          <div key={index} className="px-3">
             <div
               className="flex flex-col gap-2 px-2 py-1 m-0 "
               style={{ borderBottom: "1px solid #FFFFFF" }}
