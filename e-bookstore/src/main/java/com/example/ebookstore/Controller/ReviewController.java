@@ -1,4 +1,4 @@
-package com.example.ebookstore.Testing;
+package com.example.ebookstore.Controller;
 
 import com.example.ebookstore.Entity.Book;
 import com.example.ebookstore.Entity.Review;
