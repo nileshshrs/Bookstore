@@ -12,4 +12,10 @@ public interface UserRepository extends JpaRepository<Users, Long>  {
 
     // Add additional query methods if needed
     Optional<Users> findByUsernameOrEmail(String username,String email);
+
+    //forgot pass
+    Optional<Users> findByEmail(String email);
+    Optional<Users> findByResetToken(String resetToken);
+
+
 }

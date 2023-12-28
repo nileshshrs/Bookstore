@@ -37,9 +37,29 @@ public class Users {
         admin, users
     }
 
+
+
+    //forgot pass
+    // Inside Users.java
+private String resetToken;
+
+// Getter and Setter for resetToken
+
+
 //     Constructor with parameters
 
     //Getters and Setters
+
+
+    //getters and setters for reset pass
+    public String getResetToken() {
+        return resetToken;
+    }
+    
+    // Setter for resetToken
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
 
 
     public long getId() {

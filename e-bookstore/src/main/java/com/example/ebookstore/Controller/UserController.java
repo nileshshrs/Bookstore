@@ -131,4 +131,39 @@ public class UserController {
         }
     }
 
+
+    //forgot pass
+// In UserController.java
+@PostMapping("/forgot-password")
+public ResponseEntity<Object> forgotPassword(@RequestBody Map<String, String> requestBody) {
+    String email = requestBody.get("email");
+
+    try {
+        userService.generateResetToken(email);
+        return new ResponseEntity<>("Reset token sent successfully", HttpStatus.OK);
+    } catch (IllegalArgumentException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+}
+
+// In UserController.java
+@PostMapping("/reset-password")
+public ResponseEntity<Object> resetPassword(@RequestBody Map<String, String> requestBody) {
+    String resetToken = requestBody.get("resetToken");
+    String newPassword = requestBody.get("newPassword");
+
+    try {
+        userService.resetPassword(resetToken, newPassword);
+        return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
+    } catch (IllegalArgumentException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+}
+
+
+
 }

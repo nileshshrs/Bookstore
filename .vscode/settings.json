@@ -4,4 +4,7 @@
         "main",
         "main"
     ]
+    //forgot pass
+    ,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

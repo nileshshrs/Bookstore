@@ -1,4 +1,5 @@
 import React  from "react";
+import { Link } from "react-router-dom";
 
 const ForgotPass = () => {
   
@@ -20,14 +21,39 @@ const ForgotPass = () => {
             autoComplete="off"
             className="rounded"/>
 
-
+          <input
+            type="password"
+            required
+            placeholder="New Password"
+            id="password"
+            autoComplete="off"
+          
+            
+            className="rounded"
+          />
+ 
+          <input
+            type="password"
+            required
+            placeholder="Confirm password"
+            id="Password"
+            autoComplete="off"
+          
+            
+            className="rounded"
+          />
 
         
 
           <button className="form-btn rounded">
-            Send Link
+            Recover Now
           </button>
-        
+          {/* <p>
+            Don't have an account?{" "}
+            <Link to="/register" className="font-bold text-black underline">
+              Sign up
+            </Link>
+          </p> */}
         </form>
       </section>
     </>

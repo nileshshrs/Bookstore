@@ -3,22 +3,59 @@ package com.example.ebookstore.Service;
 import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+//forgot pass
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+//yeta samma
 import org.springframework.stereotype.Service;
 
+
+//forgot pass
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.lang.reflect.Field;
+
+//forgot pass
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
+//forgotpass
+import java.util.UUID;
+
+import java.security.SecureRandom;
+import java.util.Base64;
+
+
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+//yeta
+
 
 @Service
 public class UserService {
+   
+
+
     private final UserRepository userRepository;
 
+    //forgot pass
+    private final JavaMailSender javaMailSender;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    // JavaMailSender javaMailSender 
+    public UserService(UserRepository userRepository, JavaMailSender javaMailSender) {
         this.userRepository = userRepository;
+
+        //forgot
+        this.javaMailSender = javaMailSender;
     }
 
     // register service
@@ -111,6 +148,59 @@ public class UserService {
 
         userRepository.delete(existingUser);
     }
+
+
+    //forgot pass
+    public void generateResetToken(String email) {
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    
+        // Generate a unique reset token (you can use UUID.randomUUID().toString())
+        String resetToken = generateUniqueResetToken();
+    
+        user.setResetToken(resetToken);
+        userRepository.save(user);
+    
+        // Send the reset token to the user's email (you need to implement this part)
+        sendResetTokenByEmail(user.getEmail(), resetToken);
+    }
+    private String generateUniqueResetToken() {
+        // Generate a random token using SecureRandom
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] bytes = new byte[20];
+        secureRandom.nextBytes(bytes);
+
+        // Encode the random bytes using Base64
+        String resetToken = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+
+        return resetToken;
+    }
+    
+    private void sendResetTokenByEmail(String email, String resetToken) {
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Password Reset");
+        mailMessage.setText("To reset your password, click on the following link: "
+                + "localhost:5173/verify-otp/reset-password?token=" + resetToken);
+
+        javaMailSender.send(mailMessage);
+    }
+
+
+    // In UserService.java
+public void resetPassword(String resetToken, String newPassword) {
+    Users user = userRepository.findByResetToken(resetToken)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid or expired reset token"));
+
+    // Set the new password and clear the reset token
+    user.setPassword(newPassword);
+    user.setResetToken(null);
+    userRepository.save(user);
+}
+
 
 }
 
