@@ -46,6 +46,19 @@ public class GetAllReviewsOfBookFuncTest {
     @Test
     void testGetAllReviewsOfBook() throws Exception {
         Long sampleBookId = 1L;
+        // Mocking BookService to return an existing book
+        Book mockBook = new Book();  // Assuming you have a Book entity
+        when(bookService.getBookById(sampleBookId)).thenReturn(Optional.of(mockBook));
+
+        // Mocking ReviewService to return a list of reviews
+        Map<String, Object> mockReview = Collections.singletonMap("key", "value");
+        when(reviewService.getAllReviewsByBookId(sampleBookId)).thenReturn(Collections.singletonList(mockReview));
+
+        // Perform the GET request and validate the response
+        mockMvc.perform(get("/api/v2/reviews/getByBook/{bookId}", sampleBookId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].key").value("value"));
 
     }
 
