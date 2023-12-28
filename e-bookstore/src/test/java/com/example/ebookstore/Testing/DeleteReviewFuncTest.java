@@ -21,4 +21,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class DeleteReviewFuncTest {
 
+    @InjectMocks
+    private ReviewController reviewController;
+
+    @Mock
+    private ReviewService reviewService;
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(reviewController).build();
+    }
+
+    @Test
+    void testDeleteReviewSuccess() throws Exception {
+        Long reviewId = 1L;
+
+        // No exception will be thrown, indicating successful deletion
+        doNothing().when(reviewService).deleteReview(reviewId);
+
+        mockMvc.perform(delete("/api/v2/reviews/delete/{reviewId}", reviewId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Deleted Successfully"));
+    }
+
 }
