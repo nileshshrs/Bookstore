@@ -48,6 +48,30 @@ public class AddReviewFuncTest {
 
     @Test
     void testAddReview() throws Exception {
-        
+        Long userId = 1L;
+        Long bookId = 2L;
+        String reviewText = "This is a sample review text.";
+
+        Users mockUser = new Users();
+        mockUser.setId(userId);
+
+        Book mockBook = new Book();
+        mockBook.setBookId(bookId);
+
+        when(userService.getUsersById(userId)).thenReturn(Optional.of(mockUser));
+        when(bookService.getBookById(bookId)).thenReturn(Optional.of(mockBook));
+
+        when(reviewService.addReview(mockUser, mockBook, reviewText)).thenReturn(new Review()); // Assuming Review class has a default constructor
+
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("userId", userId);
+        requestBody.put("bookId", bookId);
+        requestBody.put("reviewText", reviewText);
+
+        mockMvc.perform(post("/api/v2/reviews/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userId\":1,\"bookId\":2,\"reviewText\":\"This is a sample review text.\"}")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
