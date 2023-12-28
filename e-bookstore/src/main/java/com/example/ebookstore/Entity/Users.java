@@ -41,7 +41,7 @@ public class Users {
 
     //forgot pass
     // Inside Users.java
-private String resetToken;
+//private String resetToken;
 
 // Getter and Setter for resetToken
 
@@ -52,14 +52,14 @@ private String resetToken;
 
 
     //getters and setters for reset pass
-    public String getResetToken() {
-        return resetToken;
-    }
-    
-    // Setter for resetToken
-    public void setResetToken(String resetToken) {
-        this.resetToken = resetToken;
-    }
+//    public String getResetToken() {
+//        return resetToken;
+//    }
+//
+//    // Setter for resetToken
+//    public void setResetToken(String resetToken) {
+//        this.resetToken = resetToken;
+//    }
 
 
     public long getId() {
