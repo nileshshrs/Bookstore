@@ -59,13 +59,18 @@ public class GetAllReviewsOfBookFuncTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].key").value("value"));
-
     }
 
     @Test
     void testGetAllReviewsOfBookNotFound() throws Exception {
         Long nonExistingBookId = 100L;
-    }
 
-    // Add more tests as needed, for example, to handle internal server errors.
+        // Mocking BookService to return an empty optional (indicating book not found)
+        when(bookService.getBookById(nonExistingBookId)).thenReturn(Optional.empty());
+
+        // Perform the GET request and validate the response for NOT_FOUND
+        mockMvc.perform(get("/api/v2/reviews/getByBook/{bookId}", nonExistingBookId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }
