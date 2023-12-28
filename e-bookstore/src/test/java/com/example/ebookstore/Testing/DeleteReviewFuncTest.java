@@ -47,5 +47,18 @@ public class DeleteReviewFuncTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("Deleted Successfully"));
     }
+    @Test
+    void testDeleteReviewConflict() throws Exception {
+        Long reviewId = 2L;
+        String errorMessage = "Review not found"; // This can be any error message you expect from the service
 
+        // Mocking the service to throw an IllegalArgumentException
+        doThrow(new IllegalArgumentException(errorMessage))
+                .when(reviewService).deleteReview(reviewId);
+
+        mockMvc.perform(delete("/api/v2/reviews/delete/{reviewId}", reviewId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.message").value(errorMessage));
+    }
 }
