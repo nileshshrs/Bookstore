@@ -6,17 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import Login from "./Pages/Login";
 import Footer from "./components/Footer";
-import { useEffect } from "react";
 import Dashboard from "./Pages/Dashboard";
 import DashboardContent from "./components/DashboardContent";
 import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Singleaddtocart from "./Pages/Singlepagecart";
+import Blog from "./Pages/Blog";
 
 function App() {
   const location = useLocation();
-
 
   // Determine whether to show the Navigation component based on the current route
   const showNavigation = !location.pathname.startsWith("/dashboard");
@@ -28,9 +27,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/singleproduct" element={<SingleProduct/>} />
-        <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
-        
+        <Route path="/singleproduct" element={<SingleProduct />} />
+        <Route path="/cart" element={<Singleaddtocart />} />{" "}
+        {/*Just added if addtocart not accepted */}
+        <Route path="/blog" element={<Blog />} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>

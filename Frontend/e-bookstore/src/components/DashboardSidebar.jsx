@@ -4,9 +4,15 @@ import { BsGrid1X2, BsArchive, BsPerson } from "react-icons/bs";
 import { BiLogOut, BiBook, BiHome } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAuthContext } from "../context/useAuthContext";
+import { useLogout } from "../context/useLogout";
 
 const DashboardSidebar = ({ toggle }) => {
   const { user } = useAuthContext();
+  const { logout } = useLogout();
+  const handleLogout = () => {
+    // Dispatch the "LOGOUT" action to update the user state
+    logout();
+  };
   return (
     <div className="sidebar-nav relative md:hidden">
       <button className="  close-btn" onClick={toggle}>
@@ -68,7 +74,7 @@ const DashboardSidebar = ({ toggle }) => {
         </ul>
       </nav>
       <div className="logout-container">
-        <button className="flex items-center justify-center gap-1">
+        <button className="flex items-center justify-center gap-1" onClick={handleLogout}>
           <BiLogOut />
           Logout
         </button>

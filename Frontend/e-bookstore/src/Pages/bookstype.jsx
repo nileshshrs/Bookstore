@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useBookContext } from "../context/BookContext"; // Import the BookContext
+import { useAuthContext } from "../context/useAuthContext";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addToCart } from "../components/AddToCart";
 
 const BookType = () => {
   const { books, fetchBooks } = useBookContext(); // Use the BookContext
@@ -9,6 +14,9 @@ const BookType = () => {
   useEffect(() => {
     fetchBooks(); // Fetch books when the component mounts
   }, []);
+
+  const { user } = useAuthContext();
+  const userID = user ? user.id : null;
 
   return (
     <section className="featured-books-container mb-5">
@@ -29,7 +37,7 @@ const BookType = () => {
                     className="w-full h-full"
                   />
                 </Link>
-                <button onClick={()=>console.log("clicked")}>Add to Cart</button>
+                <button onClick={()=>addToCart(book.bookId, userID)}>Add to Cart</button>
               </div>
               <div className="flex flex-col gap-2 justify-center items-center">
                 <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
@@ -44,6 +52,7 @@ const BookType = () => {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 };
