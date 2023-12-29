@@ -8,7 +8,6 @@ import { useLogout } from "../context/useLogout";
 
 const Navigation = () => {
   //  const { logout } = useLogout();
-  
 
   const { user } = useAuthContext();
   const { logout } = useLogout();
@@ -50,9 +49,15 @@ const Navigation = () => {
         <nav className="w-full px-5 flex">
           <ul className="flex w-full items-center justify-evenly">
             <li className="">
-              <Link to="/" className="w-full font-bold">
-                Home
-              </Link>
+              {user && user.roles === "admin" ? (
+                <Link to="/dashboard" className="w-full font-bold">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link to="/" className="w-full font-bold">
+                  Home
+                </Link>
+              )}
             </li>
             <li className="">
               <Link to="/books" className="w-full font-bold">
@@ -60,12 +65,12 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="">
-              <Link to="" className="w-full font-bold">
+              <Link to="/blog" className="w-full font-bold">
                 Blog
               </Link>
             </li>
             <li className="">
-              <Link to="" className="w-full font-bold">
+              <Link to="/contact" className="w-full font-bold">
                 Contact
               </Link>
             </li>
@@ -81,7 +86,9 @@ const Navigation = () => {
           <div className="flex justify-between items-center gap-3 btn-div">
             <div>
               {user ? (
-                <button className="login-btn" onClick={handleLogout}>Logout</button>
+                <button className="login-btn" onClick={handleLogout}>
+                  Logout
+                </button>
               ) : (
                 <Link to="/login">
                   <button className="login-btn">Login</button>
@@ -129,27 +136,36 @@ const Navigation = () => {
           <nav className="h-full flex justify-center items-center">
             <ul className="h-full">
               <li>
-                <Link className="w-full font-bold" to="">
-                  Home
-                </Link>
+                {user && user.roles === "admin" ? (
+                  <Link to="/dashboard" className="w-full font-bold">
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link to="/" className="w-full font-bold">
+                    Home
+                  </Link>
+                )}
               </li>
               <li>
-                <Link className="w-full font-bold" to="">
+                <Link className="w-full font-bold" to="/books">
                   Books
                 </Link>
               </li>
               <li>
-                <Link className="w-full font-bold" to="">
+                <Link className="w-full font-bold" to="/blog">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link className="w-full font-bold" to="">
+                <Link className="w-full font-bold" to="/contact">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link  className="flex items-center justify-start w-full font-bold gap-2">
+                <Link
+                  className="flex items-center justify-start w-full font-bold gap-2"
+                  to="/cart"
+                >
                   <span> Cart </span>
                   <FaShoppingBag />
                 </Link>
@@ -160,7 +176,9 @@ const Navigation = () => {
             {user ? (
               <>
                 <button className="account-btn">Account</button>
-                <button className="login-btn">Sign out</button>
+                <button className="login-btn" onClick={handleLogout}>
+                  Sign out
+                </button>
               </>
             ) : (
               <>

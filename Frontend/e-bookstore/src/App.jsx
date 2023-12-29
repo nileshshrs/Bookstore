@@ -15,10 +15,10 @@ import Singleaddtocart from "./Pages/Singlepagecart";
 import ForgotPass from "./Pages/ForgotPass";
 import ChangePass from "./Pages/Chnagepassword";
 import ResetPassword from "./Pages/ResetPassword";
+import Blog from "./Pages/Blog";
 
 function App() {
   const location = useLocation();
-
 
   // Determine whether to show the Navigation component based on the current route
   const showNavigation = !location.pathname.startsWith("/dashboard");
@@ -38,6 +38,10 @@ function App() {
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
         
+        <Route path="/singleproduct" element={<SingleProduct />} />
+        <Route path="/cart" element={<Singleaddtocart />} />{" "}
+        {/*Just added if addtocart not accepted */}
+        <Route path="/blog" element={<Blog />} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>

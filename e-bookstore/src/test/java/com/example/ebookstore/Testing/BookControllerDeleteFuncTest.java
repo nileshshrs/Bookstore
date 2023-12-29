@@ -1,5 +1,6 @@
-package com.example.ebookstore.Controller;
+package com.example.ebookstore.Testing;
 
+import com.example.ebookstore.Controller.BookController;
 import com.example.ebookstore.Service.BookService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,0 +1,47 @@
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 100%;
+  position: relative; /* Set position relative for positioning absolute children */
+  background-color: #edebe4;
+  width: 55%;
+}
+
+.custom-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.modal-content {
+  text-align: center;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .custom-modal {
+    width: 70%;
+  }
+}
+@media (min-width: 512px) and (max-width: 768px) {
+  .custom-modal {
+    width: 80%;
+  }
+}
+@media (max-width: 512px) {
+  .custom-modal {
+    width: 90%;
+  }
+}

@@ -1,5 +1,6 @@
-package com.example.ebookstore.Controller;
+package com.example.ebookstore.Testing;
 
+import com.example.ebookstore.Controller.UserController;
 import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Service.UserService;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

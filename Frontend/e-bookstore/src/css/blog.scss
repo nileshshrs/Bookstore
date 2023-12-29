@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Felipa&family=Prata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Felipa&family=Poppins:wght@400;500;600;700&family=Prata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Felipa&family=Poppins:wght@400;500;600;700&family=Prata&family=Work+Sans:wght@400;500;600;700&display=swap");
+
+main {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  .page-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h2 {
+      font-size: clamp(26px, 5vw, 3rem);
+      padding: 10px 15px;
+    }
+    p {
+      position: relative;
+      font-size: clamp(12px, 5vw, 0.7rem);
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 105%;
+        content: "";
+        width: 25%;
+        border: 0.25px solid #bbbbbb;
+      }
+      &::before {
+        position: absolute;
+        top: 50%;
+        right: 105%;
+        content: "";
+        width: 25%;
+        border: 0.25px solid #bbbbbb;
+      }
+    }
+  }
+  section {
+    .add-blogs {
+      padding: 20px 0;
+    }
+    .blogs-articles {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 2rem;
+      place-content: center;
+      place-items: center;
+      padding: 30px 0;
+      span {
+        font-family: "Prata";
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #74642f;
+      }
+      h3 {
+        font-family: "Prata";
+        font-weight: 400;
+      }
+    }
+  }
+}
+@media (min-width: 512px) and (max-width: 768px) {
+  main {
+    width: 100%;
+    padding: 20px 10px;
+  }
+}
