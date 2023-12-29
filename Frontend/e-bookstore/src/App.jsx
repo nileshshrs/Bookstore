@@ -13,8 +13,6 @@ import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Singleaddtocart from "./Pages/Singlepagecart";
 import ForgotPass from "./Pages/ForgotPass";
-import ChangePass from "./Pages/Chnagepassword";
-import ResetPassword from "./Pages/ResetPassword";
 import Blog from "./Pages/Blog";
 
 function App() {
@@ -31,12 +29,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgotpass" element={<ForgotPass />} />
-        <Route path="/verify-otp" element={<ChangePass />} />
-        <Route path="/reset-pass" element={<ResetPassword />} />
-
-
         <Route path="/singleproduct" element={<SingleProduct/>} />
-        <Route path="/cart" element={<Singleaddtocart/>} />   {/*Just added if addtocart not accepted */}
+        <Route path="/cart" element={<Singleaddtocart/>} />  
         
         <Route path="/singleproduct" element={<SingleProduct />} />
         <Route path="/cart" element={<Singleaddtocart />} />{" "}
