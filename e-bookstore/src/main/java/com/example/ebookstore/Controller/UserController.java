@@ -131,4 +131,59 @@ public class UserController {
         }
     }
 
+
+    //forgot pass
+// In UserController.java
+//@PostMapping("/forgot-password")
+//public ResponseEntity<Object> forgotPassword(@RequestBody Map<String, String> requestBody) {
+//    String email = requestBody.get("email");
+//
+//    try {
+//        userService.generateResetToken(email);
+//        return new ResponseEntity<>("Reset token sent successfully", HttpStatus.OK);
+//    } catch (IllegalArgumentException e) {
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", e.getMessage());
+//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
+//}
+
+// In UserController.java
+//@PostMapping("/reset-password")
+//public ResponseEntity<Object> resetPassword(@RequestBody Map<String, String> requestBody) {
+//    String resetToken = requestBody.get("resetToken");
+//    String newPassword = requestBody.get("newPassword");
+//
+//    try {
+//        userService.resetPassword(resetToken, newPassword);
+//        return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
+//    } catch (IllegalArgumentException e) {
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", e.getMessage());
+//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
+//}
+@PutMapping("/forgot-password")
+public ResponseEntity<Object> forgotPassword(@RequestBody Map<String, String> userDetails) {
+    try {
+        String email = userDetails.get("email");
+        String username = userDetails.get("username");
+        String newPassword = userDetails.get("newPassword");
+
+        // user khojne by email and username
+        Users user = userService.findUserByEmailAndUsername(email, username);
+
+        // password update garna
+        Users updatedUser = userService.updateUserPassword(user.getId(), newPassword);
+
+        return new ResponseEntity<>("Password updated successfully", HttpStatus.OK);
+    } catch (IllegalArgumentException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+}
+
+
+
 }
