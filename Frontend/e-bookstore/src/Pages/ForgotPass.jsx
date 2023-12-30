@@ -86,10 +86,11 @@ const ForgotPass = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
+            {message && <p className="text-red-500" style={{color:'red'}}>{message}</p>}
           <button type="submit" className="form-btn rounded">
             Change Now
           </button>
-          {message && <p className="text-red-500">{message}</p>}
+        
         </form>
         <ToastContainer />
       </section>
