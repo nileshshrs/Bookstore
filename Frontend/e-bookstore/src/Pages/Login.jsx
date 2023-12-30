@@ -47,6 +47,7 @@ const Login = () => {
 
           <input
             placeholder="username or email"
+            required
             type="text"
             id="username"
             autoComplete="off"
@@ -65,6 +66,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="rounded"
           />
+
+         <Link to="/forgotpass"> <button style={{color:'#7f7f7f'}}>Forgot password?</button></Link>
 
           <button className="form-btn rounded" onClick={handleSubmit}>
             Sign in
