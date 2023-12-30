@@ -10,7 +10,7 @@
   max-height: 100%;
   position: relative; /* Set position relative for positioning absolute children */
   background-color: #edebe4;
-  width: 55%;
+  width: 60%;
 }
 
 .custom-overlay {
@@ -39,9 +39,25 @@
   .custom-modal {
     width: 80%;
   }
+  .image-upload-label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+  }
+  .image-name-span {
+    font-size: 10px !important;
+    font-weight: 500 !important;
+  }
 }
 @media (max-width: 512px) {
   .custom-modal {
     width: 90%;
+  }
+  .image-upload-label {
+    font-size: 10px !important;
+    font-weight: 500 !important;
+  }
+  .image-name-span {
+    font-size: 10px !important;
+    font-weight: 500 !important;
   }
 }
