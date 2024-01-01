@@ -84,35 +84,43 @@ const Navigation = () => {
             </li>
           </ul>
           <div className="flex justify-between items-center gap-3 btn-div">
-            <div>
-              {user ? (
-                <button className="login-btn" onClick={handleLogout}>
-                  Logout
-                </button>
-              ) : (
-                <Link to="/login">
-                  <button className="login-btn">Login</button>
-                </Link>
-              )}
-            </div>
-
-            <div>
-              {user ? (
-                <Link to="/account">
-                  <button className="account-btn">{user.username}</button>
-                </Link>
-              ) : null}
-            </div>
-            <div>
-              {user ? (
-                <Link to="/cart">
-                  <button className="flex items-center justify-center font-bold gap-1">
-                    Cart <FaShoppingBag />
-                  </button>
-                </Link>
-              ) : null}
-            </div>
+          <div className="flex gap-2">
+            
+            {user ? (
+              <button className="login-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <>
+              <Link to="/login">
+                <button className="login-btn">Signin</button>
+              </Link>
+            
+              <Link to="/register">
+              <button style={{color:"white",backgroundColor:"black"}} className="login-btn">Signup</button>
+            </Link>
+            </>
+            )}
           </div>
+
+          <div>
+            {user ? (
+              <Link to="/account">
+                <button className="account-btn">{user.username}</button>
+              </Link>
+            ) : null}
+          </div>
+          <div>
+            {user ? (
+              <Link to="/cart">
+                <button className="flex items-center justify-center font-bold gap-1">
+                  Cart <FaShoppingBag />
+                </button>
+              </Link>
+            ) : null}
+          </div>
+        </div>
+
         </nav>
 
         <div

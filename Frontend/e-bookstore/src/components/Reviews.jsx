@@ -26,6 +26,17 @@ const Reviews = ({ reviews, bookID, fetchReviews }) => {
     }
   };
 
+  
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      const response = await axios.delete(`http://localhost:8080/api/v2/reviews/delete/${reviewId}`);
+      console.log(response.data); // Log the response if needed
+      fetchReviews(); // Fetch reviews after deletion
+    } catch (error) {
+      console.error("Error deleting review:", error);
+    }
+  };
+
   return (
     <div className="review-section w-[80%] mx-auto p-5 flex flex-col gap-4 ">
       <div className="flex flex-col w-full px-5 gap-3 review-content">
@@ -67,9 +78,19 @@ const Reviews = ({ reviews, bookID, fetchReviews }) => {
                       <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded">
                         edit
                       </button>
-                      <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded">
-                        delete
-                      </button>
+
+              {user &&
+                (user.role === "admin" || user.id === review.userId) && (
+                  <>
+                    <button
+                      className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded"
+                      onClick={() => handleDeleteReview(review.reviewId)} 
+                    >
+                      delete
+                    </button>
+                  </>
+                )}
+            
                     </>
                   )}
               </div>

@@ -52,23 +52,15 @@ const ForgotPass = () => {
     <>
       <section className="h-screen flex justify-center items-center form-section relative">
         <div className="absolute w-full h-full top-0 translucent"></div>
-        <form
-          className="flex flex-col gap-4 bg-[#F8F7F2] registration-form z-[99]"
-          onSubmit={handlePasswordChange}
-        >
+        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form z-[99]" onSubmit={handlePasswordChange}>
           <div>
             <h2 className="font-bold text-[30px]">Forgot Password?</h2>
             <p className="text-[15px]">
               Don't worry, Easily recover using your registered email or username.
             </p>
           </div>
-          <input
-            placeholder="Email or Username"
-            required
-            type="text"
-            className="rounded"
-            value={emailOrUsername}
-            onChange={(e) => setEmailOrUsername(e.target.value)}
+          <input placeholder="Email or Username" required type="text" className="rounded"
+            value={emailOrUsername}  onChange={(e) => setEmailOrUsername(e.target.value)}
           />
           <input
             type="password"
