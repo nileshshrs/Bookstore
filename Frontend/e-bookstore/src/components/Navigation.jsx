@@ -105,7 +105,7 @@ const Navigation = () => {
 
           <div>
             {user ? (
-              <Link to="/account">
+              <Link to="/user-profile">
                 <button className="account-btn">{user.username}</button>
               </Link>
             ) : null}
