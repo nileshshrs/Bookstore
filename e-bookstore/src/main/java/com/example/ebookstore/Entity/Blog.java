@@ -1,6 +1,8 @@
 package com.example.ebookstore.Entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.Date;
 
@@ -10,7 +12,7 @@ public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "blog_id")
-    private long blogId;
+    private Long blogId;
 
     @Column(name = "blog_title")
     private String blogTitle;
@@ -25,11 +27,11 @@ public class Blog {
 //    private Date publishDate;
 
 
-    public long getBlogId() {
+    public Long getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(long blogId) {
+    public void setBlogId(Long blogId) {
         this.blogId = blogId;
     }
 
