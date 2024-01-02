@@ -42,9 +42,9 @@ public class BlogService {
             Map<String,Object> singleBlog=new HashMap<>();
             singleBlog.put("blogId",blog.getBlogId());
             singleBlog.put("blogTitle",blog.getBlogTitle());
-            singleBlog.put("blogAuthorName",blog.getAuthor().getUsername());
+            singleBlog.put("authorName",blog.getAuthor().getUsername());
             singleBlog.put("blogDetails",blog.getBlogDetails());
-            singleBlog.put("blogImgPath",blog.getImagePath());
+            singleBlog.put("ImgPath",blog.getImagePath());
 
             blogsData.add(singleBlog);
         }
@@ -63,17 +63,24 @@ public class BlogService {
 
         Blog existingBlog=blogRepository.findById(updatedBlog.getBlogId()).orElseThrow(()-> new IllegalArgumentException("Blog doesnt exist"));
 
-        if ((updatedBlog.getBlogId() != null) || (updatedBlog.getAuthor() != null)) {
-            throw new IllegalArgumentException("Author and id cant be changed.(Just delete it)");
+        if ( updatedBlog.getAuthor() != null) {
+            throw new IllegalArgumentException("Author cant be changed.(Just delete it)");
+            //this shouldnot happen but in case
         }
+        if (blogRepository.existsByBlogTitle(updatedBlog.getBlogTitle())){
+            throw new IllegalArgumentException("Blog with same title cant exist");
+        }
+        String updatedTitle=updatedBlog.getBlogTitle();
+        String updatedDetails=updatedBlog.getBlogDetails();
+        String updatedImagePath=updatedBlog.getImagePath();
 
-        if (updatedBlog.getBlogTitle()!=null){
+        if (updatedTitle!=null && !updatedTitle.isBlank() ){
             existingBlog.setBlogTitle(updatedBlog.getBlogTitle());
         }
-        if (updatedBlog.getBlogDetails()!=null){
+        if (updatedDetails!=null && !updatedDetails.isBlank()){
             existingBlog.setBlogDetails(updatedBlog.getBlogDetails());
         }
-        if (updatedBlog.getImagePath()!=null){
+        if (updatedImagePath!=null && !updatedImagePath.isBlank()){
             existingBlog.setImagePath(updatedBlog.getImagePath());
         }
         return blogRepository.save(existingBlog);

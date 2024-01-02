@@ -107,5 +107,37 @@ public class BlogController {
         }
     }
 
-//    public ResponseEntity<Map<String,Object>> editBlog()
+    @PatchMapping("/update/{blogId}")
+    public ResponseEntity<Map<String,Object>> editBlog(@PathVariable Long blogId,@RequestBody Map<String,String> requestBody){
+//        details title imgpath userid
+
+        try {
+            String blogTitle = requestBody.get("blogTitle");
+            String blogDetails = requestBody.get("blogDetails");
+            String blogImage = requestBody.get("imagePath");
+
+            Blog changes = new Blog();
+            changes.setBlogId(blogId);
+            changes.setBlogTitle(blogTitle);
+            changes.setBlogDetails(blogDetails);
+            changes.setImagePath(blogImage);
+
+
+            Blog updatedBlog = blogService.patchBlog(changes);
+
+            Map<String, Object> blogData = new HashMap<>();
+            blogData.put("blogId", updatedBlog.getBlogId());
+            blogData.put("blogTitle", updatedBlog.getBlogTitle());
+            blogData.put("authorName", updatedBlog.getAuthor().getUsername());
+            blogData.put("blogDetails", updatedBlog.getBlogDetails());
+            blogData.put("imagePath", updatedBlog.getImagePath());
+
+            return new ResponseEntity<>(blogData,HttpStatus.OK);
+
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("Message",e.getMessage());
+            return new ResponseEntity<>(errorResponse,HttpStatus.CONFLICT);
+        }
+    }
 }
