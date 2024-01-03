@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b4f9351-28c2-4975-b91f-919c28cb6ead" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-bookstore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/e-bookstore/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Nilesh",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/rohan-manandhar/College Every Semester Data/Semester 3/Online BookStore/Bookstore",
+    "last_opened_file_path": "D:/Softwarica/Semester 2/Software Development/Bookstore",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -136,6 +137,8 @@
       <workItem from="1702039330505" duration="90000" />
       <workItem from="1702138657085" duration="14000" />
       <workItem from="1702384818864" duration="670000" />
+      <workItem from="1704132092165" duration="360000" />
+      <workItem from="1704132581094" duration="787000" />
     </task>
     <servers />
   </component>

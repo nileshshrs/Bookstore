@@ -14,6 +14,7 @@ import SingleProduct from "./Pages/SingleProduct";
 import Singleaddtocart from "./Pages/Singlepagecart";
 import ForgotPass from "./Pages/ForgotPass";
 import Blog from "./Pages/Blog";
+import SingleBlog from "./Pages/SingleBlog";
 
 function App() {
   const location = useLocation();
@@ -29,13 +30,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgotpass" element={<ForgotPass />} />
-        <Route path="/singleproduct" element={<SingleProduct/>} />
-        <Route path="/cart" element={<Singleaddtocart/>} />  
-        
+        <Route path="/singleproduct" element={<SingleProduct />} />
+        <Route path="/cart" element={<Singleaddtocart />} />
         <Route path="/singleproduct" element={<SingleProduct />} />
         <Route path="/cart" element={<Singleaddtocart />} />{" "}
         {/*Just added if addtocart not accepted */}
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<SingleBlog />} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
