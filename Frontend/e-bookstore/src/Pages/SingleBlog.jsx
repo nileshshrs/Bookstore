@@ -34,30 +34,7 @@ const SingleBlog = () => {
         </div>
       </div>
       <article className="posts">
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat,
-          vero quo nihil repellat repudiandae, excepturi voluptate consequuntur
-          explicabo enim magni impedit, necessitatibus placeat minus? Pariatur
-          atque est cum a possimus. Asperiores eos mollitia et iusto laborum,
-          ad, similique incidunt, corrupti provident fugit porro quis commodi
-          vel saepe voluptatibus repudiandae laboriosam?
-        </p>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat,
-          vero quo nihil repellat repudiandae, excepturi voluptate consequuntur
-          explicabo enim magni impedit, necessitatibus placeat minus? Pariatur
-          atque est cum a possimus. Asperiores eos mollitia et iusto laborum,
-          ad, similique incidunt, corrupti provident fugit porro quis commodi
-          vel saepe voluptatibus repudiandae laboriosam?
-        </p>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat,
-          vero quo nihil repellat repudiandae, excepturi voluptate consequuntur
-          explicabo enim magni impedit, necessitatibus placeat minus? Pariatur
-          atque est cum a possimus. Asperiores eos mollitia et iusto laborum,
-          ad, similique incidunt, corrupti provident fugit porro quis commodi
-          vel saepe voluptatibus repudiandae laboriosam?
-        </p>
+        {post.blogDetails}
       </article>
     </section>
   );

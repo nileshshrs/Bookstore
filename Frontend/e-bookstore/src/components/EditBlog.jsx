@@ -24,6 +24,7 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
       setSelectedImage(post.imagePath || null);
     }
   }, [isOpen, post]);
+  console.log(post)
 
   //handling image upload here
   const handleImageUpload = (e) => {
@@ -87,10 +88,16 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
       blogDetails: blogDetails,
       imagePath: url,
     };
-    console.log(formData);
+    try{
+      const res = await axios.patch(`http://localhost:8080/api/v2/blogs/update/${post.blogId}`, formData)
+      console.log(res.data)
+    }catch(err){
+      console.log(err)
+    }
   };
 
   //patching blog here
+
 
   //shortening image path
   const truncatedImage =
