@@ -2,6 +2,7 @@ package com.example.ebookstore.Controller;
 
 import com.example.ebookstore.Entity.Book;
 import com.example.ebookstore.Service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v2/books")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"})
 public class BookController {
     private final BookService bookService;
 
+    @Autowired
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
