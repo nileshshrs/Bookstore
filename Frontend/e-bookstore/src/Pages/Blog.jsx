@@ -8,9 +8,23 @@ import img3 from "../assets/post-img3.jpg";
 import { Link } from "react-router-dom";
 import CreateBlog from "../components/CreateBlog";
 import EditBlog from "../components/EditBlog";
+import axios from "axios";
 const Blog = () => {
   const [isCreateBlogModalOpen, setCreateBlogModalOpen] = useState(false);
   const [isEditBlogModalOpen, setEditBlogModalOpen] = useState(false);
+  const [singleBlogPost, setSingleBlogPost] = useState([]);
+
+  const fetchBlog = async (id) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/v2/blogs/getById/${id}`
+      );
+      openEditBlogModal();
+      setSingleBlogPost(res.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const openCreateBlogModal = () => {
     setCreateBlogModalOpen(true);
@@ -102,7 +116,7 @@ const Blog = () => {
               <div class="post-date text-gray-500 flex justify-between items-center">
                 <span>Mar 30, 2021</span>
                 <div className="flex items-center gap-2 justify-center">
-                  <button className="text-black" onClick={openEditBlogModal}>
+                  <button className="text-black" onClick={() => fetchBlog("1")}>
                     <FaRegEdit />
                   </button>
                   <button className="text-red-700">
@@ -123,6 +137,7 @@ const Blog = () => {
         <EditBlog
           isOpen={isEditBlogModalOpen}
           onRequestClose={closeEditBlogModal}
+          post={singleBlogPost}
         />
       </section>
     </main>
