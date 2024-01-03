@@ -67,7 +67,7 @@ public class BlogService {
             throw new IllegalArgumentException("Author cant be changed.(Just delete it)");
             //this shouldnot happen but in case
         }
-        if (blogRepository.existsByBlogTitle(updatedBlog.getBlogTitle())){
+        if ((!(updatedBlog.getBlogTitle().equals(existingBlog.getBlogTitle()))) && blogRepository.existsByBlogTitle(updatedBlog.getBlogTitle())){
             throw new IllegalArgumentException("Blog with same title cant exist");
         }
         String updatedTitle=updatedBlog.getBlogTitle();
