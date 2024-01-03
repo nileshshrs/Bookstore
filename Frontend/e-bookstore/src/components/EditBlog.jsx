@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../css/createblog.scss"; // Import your CSS file
-import { marked } from "marked";
 import axios from "axios";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../Firebase/Firebase";
 
 const EditBlog = ({ isOpen, onRequestClose, post }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [blogTitle, setBlogTitle] = useState("");
   const [blogDetails, setBlogDetails] = useState("");
+  const [image, setImage] = useState(null);
+
   useEffect(() => {
     // Set initial values when the modal is opened
     if (isOpen && post) {
@@ -17,22 +25,81 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
     }
   }, [isOpen, post]);
 
+  //handling image upload here
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setSelectedImage(file ? file.name : null);
-    // Add additional logic for handling the image upload
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setSelectedImage(file.name);
+        setImage(file);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  // handling image upload here
+
+  //uploading image to firebase
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const file = image;
+
+    if (!file) {
+      handleSubmit(post.imagePath);
+    } else {
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+      const randomString = Math.random().toString(36).substring(2, 8);
+      const fileName = `${timestamp}_${randomString}_${file.name}`;
+
+      const storage = getStorage(app);
+      const REF = ref(storage, `upload/${fileName}`);
+      const uploadTask = uploadBytesResumable(REF, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // console.log(progress);
+        },
+        (err) => {
+          console.log(err);
+        },
+        () =>
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            // Assuming you have a Submit function defined elsewhere
+            // Modify this part according to your logic
+            //calls the submit to database
+            console.log(url);
+          })
+      );
+    }
   };
 
+  //uploading image to firebase
+
+  //patching blog here
+
+  const handleSubmit = async (url) => {
+    const formData = {
+      blogTitle: blogTitle,
+      blogDetails: blogDetails,
+      imagePath: url,
+    };
+    console.log(formData);
+  };
+
+  //patching blog here
+
+  //shortening image path
   const truncatedImage =
-    selectedImage && selectedImage.length >30
+    selectedImage && selectedImage.length > 30
       ? selectedImage.substring(0, 30) + "..."
       : selectedImage;
 
-  const onEditSubmit = (e) => {
-    e.preventDefault();
-    const htmlContent = marked(post);
-    console.log(htmlContent);
-  };
+  //shortening image path
+
   return (
     <Modal
       isOpen={isOpen}
@@ -103,7 +170,7 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
           <div className="w-full">
             <button
               className="border border-black px-3 font-bold bg-black text-white py-[3px] rounded-md"
-              onClick={onEditSubmit}
+              onClick={uploadImage}
             >
               Submit
             </button>
@@ -115,3 +182,4 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
 };
 
 export default EditBlog;
+
