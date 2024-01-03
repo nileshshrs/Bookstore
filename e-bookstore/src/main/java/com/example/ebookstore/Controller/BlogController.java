@@ -40,7 +40,7 @@ public class BlogController {
             }
 
             Users user = userOptional.get();
-            Blog blogItem=blogService.addBlog(blogTitle,user,blogDetails,imagePath);
+            Blog blogItem=blogService.addBlog(blogTitle,user,imagePath,blogDetails);
 
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("blogTitle", blogItem.getBlogTitle());
