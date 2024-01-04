@@ -1,7 +1,6 @@
 package com.example.ebookstore.Controller;
 
 import com.example.ebookstore.Entity.Blog;
-import com.example.ebookstore.Entity.BlogComment;
 import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Service.BlogCommentService;
 import com.example.ebookstore.Service.BlogService;
@@ -9,13 +8,9 @@ import com.example.ebookstore.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v2/blogs/comments")
@@ -32,14 +27,15 @@ public class BlogCommentController {
         this.blogService = blogService;
     }
 
-    public ResponseEntity<Map<String,Object>> addComment(Map<String,Object> requestBody){
+    @PostMapping("/addComment/{blogId}")
+    public ResponseEntity<Map<String,Object>> addComment(@PathVariable Long blogId,@RequestBody Map<String,Object> requestBody){
         try{
-            if (requestBody.get("commentText") == null || requestBody.get("userId") == null || requestBody.get("blogId") == null) {
+            if (requestBody.get("commentText") == null || requestBody.get("userId") == null) {
                 throw new IllegalArgumentException("Null values present");
             }
             String commentText = (String) requestBody.get("commentText");
-            Long userId = (Long) requestBody.get("userId");
-            Long blogId = (Long) requestBody.get("blogId");
+            Long userId = ((Number) requestBody.get("userId")).longValue();
+
 
             Optional<Users> userOptional = userService.getUsersById(userId);
             Optional<Blog> blogOptional = blogService.getBlogById(blogId);
@@ -60,7 +56,20 @@ public class BlogCommentController {
             return new ResponseEntity<>(errorMessage,HttpStatus.CONFLICT);
         }
     }
-//    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
+    @GetMapping("/getByBlog/{blogId}")
+    public ResponseEntity<List<Map<String,Object>>> getCommentsByBlogId(@PathVariable Long blogId){
+        try{
+            Blog existingBlog = blogService.getBlogById(blogId).orElseThrow(() -> new IllegalArgumentException("Blog with given id does not exist"));
+            List<Map<String, Object>> comments = commentService.getAllCommentsByBlogId(existingBlog.getBlogId());
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        } catch (IllegalArgumentException e){
+            List<Map<String, Object>> errors =new ArrayList<>();
+            Map<String,Object> message=new HashMap<>();
+            message.put("Message",e.getMessage());
+            errors.add(message);
+            return new ResponseEntity<>(errors,HttpStatus.CONFLICT);
+        }
+    }
 //    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
 //    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
 
