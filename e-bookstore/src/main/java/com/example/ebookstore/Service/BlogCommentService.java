@@ -97,4 +97,11 @@ public class BlogCommentService {
         return singleComment;
     }
 
+    public void deleteComment(Long commentId){
+        Optional<BlogComment> existingComment=commentRepository.findById(commentId);
+        if (existingComment.isEmpty()){
+            throw new IllegalArgumentException("Comment with given id does not exist.");
+        }
+        commentRepository.deleteById(commentId);
+    }
 }
