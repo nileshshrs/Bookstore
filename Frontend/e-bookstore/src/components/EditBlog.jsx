@@ -1,15 +1,112 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../css/createblog.scss"; // Import your CSS file
+import axios from "axios";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../Firebase/Firebase";
 
-const EditBlog = ({ isOpen, onRequestClose }) => {
+const EditBlog = ({ isOpen, onRequestClose, post }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [blogTitle, setBlogTitle] = useState("");
+  const [blogDetails, setBlogDetails] = useState("");
+  const [image, setImage] = useState(null);
 
+  useEffect(() => {
+    // Set initial values when the modal is opened
+    if (isOpen && post) {
+      setBlogTitle(post.blogTitle || "");
+      setBlogDetails(post.blogDetails || "");
+      setSelectedImage(post.imagePath || null);
+    }
+  }, [isOpen, post]);
+  console.log(post)
+
+  //handling image upload here
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setSelectedImage(file ? file.name : null);
-    // Add additional logic for handling the image upload
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setSelectedImage(file.name);
+        setImage(file);
+      };
+      reader.readAsDataURL(file);
+    }
   };
+  // handling image upload here
+
+  //uploading image to firebase
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const file = image;
+
+    if (!file) {
+      handleSubmit(post.imagePath);
+    } else {
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+      const randomString = Math.random().toString(36).substring(2, 8);
+      const fileName = `${timestamp}_${randomString}_${file.name}`;
+
+      const storage = getStorage(app);
+      const REF = ref(storage, `upload/${fileName}`);
+      const uploadTask = uploadBytesResumable(REF, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // console.log(progress);
+        },
+        (err) => {
+          console.log(err);
+        },
+        () =>
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            // Assuming you have a Submit function defined elsewhere
+            // Modify this part according to your logic
+            //calls the submit to database
+            console.log(url);
+          })
+      );
+    }
+  };
+
+  //uploading image to firebase
+
+  //patching blog here
+
+  const handleSubmit = async (url) => {
+    const formData = {
+      blogTitle: blogTitle,
+      blogDetails: blogDetails,
+      imagePath: url,
+    };
+    try{
+      const res = await axios.patch(`http://localhost:8080/api/v2/blogs/update/${post.blogId}`, formData)
+      console.log(res.data)
+    }catch(err){
+      console.log(err)
+    }
+  };
+
+  //patching blog here
+
+
+  //shortening image path
+  const truncatedImage =
+    selectedImage && selectedImage.length > 30
+      ? selectedImage.substring(0, 30) + "..."
+      : selectedImage;
+
+  //shortening image path
+
   return (
     <Modal
       isOpen={isOpen}
@@ -24,9 +121,7 @@ const EditBlog = ({ isOpen, onRequestClose }) => {
           action=""
           className="p-3 flex flex-col items-start justify-start gap-4 h-full border"
         >
-          <h2 className="font-bold text-lg w-full text-center">
-            Edit. 
-          </h2>
+          <h2 className="font-bold text-lg w-full text-center">Edit.</h2>
           <div className="w-full flex flex-col gap-2">
             <label
               htmlFor="post-title"
@@ -35,10 +130,12 @@ const EditBlog = ({ isOpen, onRequestClose }) => {
               <h2 className="text-sm font-bold">Title</h2>
             </label>
             <input
+              value={blogTitle}
               type="text"
               id="post-title"
               placeholder="post title..."
               className="w-full border border-black rounded-[5px] p-2 h-[30px]"
+              onChange={(e) => setBlogTitle(e.target.value)}
             />
           </div>
 
@@ -61,7 +158,7 @@ const EditBlog = ({ isOpen, onRequestClose }) => {
                 onChange={(e) => handleImageUpload(e)}
               />
               <span className="ml-2 text-black h-[30px] flex items-center image-name-span">
-                {selectedImage ? selectedImage : "No file chosen"}
+                {truncatedImage || "No file chosen"}
               </span>
             </div>
           </div>
@@ -72,11 +169,16 @@ const EditBlog = ({ isOpen, onRequestClose }) => {
               id="blog-post"
               className="w-full h-full border-black border rounded-[5px] p-2"
               placeholder="Write something..."
+              onChange={(e) => setBlogDetails(e.target.value)}
+              value={blogDetails}
             />
           </div>
 
           <div className="w-full">
-            <button className="border border-black px-3 font-bold bg-black text-white py-[3px] rounded-md">
+            <button
+              className="border border-black px-3 font-bold bg-black text-white py-[3px] rounded-md"
+              onClick={uploadImage}
+            >
               Submit
             </button>
           </div>
@@ -87,3 +189,4 @@ const EditBlog = ({ isOpen, onRequestClose }) => {
 };
 
 export default EditBlog;
+

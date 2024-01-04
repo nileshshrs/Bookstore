@@ -39,7 +39,9 @@ public class BookService {
     public synchronized Book putBook(Long bookId, Book updatedBook) {
         Book existingBook = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book does not exist"));
-
+        if(bookRepository.existsBookByIsbn(existingBook.getIsbn())){
+            throw new IllegalArgumentException("Book with the given ID does not exist");
+        }
         // Update the fields of the existing book
         existingBook.setTitle(updatedBook.getTitle());
         existingBook.setAuthorName(updatedBook.getAuthorName());

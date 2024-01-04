@@ -67,12 +67,34 @@ public class BlogService {
             throw new IllegalArgumentException("Author cant be changed.(Just delete it)");
             //this shouldnot happen but in case
         }
-        if (blogRepository.existsByBlogTitle(updatedBlog.getBlogTitle())){
+        if ((!(updatedBlog.getBlogTitle().equals(existingBlog.getBlogTitle()))) && blogRepository.existsByBlogTitle(updatedBlog.getBlogTitle())){
             throw new IllegalArgumentException("Blog with same title cant exist");
         }
+        String []title_details_image={updatedBlog.getBlogTitle(),updatedBlog.getBlogDetails(),updatedBlog.getImagePath()};
         String updatedTitle=updatedBlog.getBlogTitle();
         String updatedDetails=updatedBlog.getBlogDetails();
         String updatedImagePath=updatedBlog.getImagePath();
+
+        StringBuilder errorString=new StringBuilder();
+        for (int i = 0; i < title_details_image.length; i++) {
+            if (title_details_image[i].isBlank()) {
+                switch (i){
+                    case 0:
+                        errorString.append("title is empty, ");
+                        break;
+                    case 1:
+                        errorString.append("post(details) is empty, ");
+                        break;
+                    case 2:
+                        errorString.append("imgPath is empty");
+                        break;
+
+                }
+            }
+        }
+        if (!(errorString.toString().isBlank())){
+            throw new IllegalArgumentException(errorString.toString());
+        }
 
         if (updatedTitle!=null && !updatedTitle.isBlank() ){
             existingBlog.setBlogTitle(updatedBlog.getBlogTitle());
