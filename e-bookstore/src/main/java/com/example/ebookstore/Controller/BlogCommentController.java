@@ -5,7 +5,6 @@ import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Service.BlogCommentService;
 import com.example.ebookstore.Service.BlogService;
 import com.example.ebookstore.Service.UserService;
-import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -95,6 +94,21 @@ public class BlogCommentController {
             Map<String,Object> errorResponse=new HashMap<>();
             errorResponse.put("Message",e.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        }
+    }
+
+    @DeleteMapping("delete/{commentId}")
+    public ResponseEntity<Map<String,Object>> deleteCommentById(@PathVariable Long commentId){
+        try{
+            commentService.deleteComment(commentId);
+            Map<String,Object> successMessage=new HashMap<>();
+            successMessage.put("message","Comment Deleted Successfully");
+            return new ResponseEntity<>(successMessage,HttpStatus.OK);
+
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorMessage=new HashMap<>();
+            errorMessage.put("message",e.getMessage());
+            return new ResponseEntity<>(errorMessage,HttpStatus.NOT_FOUND);
         }
     }
 
