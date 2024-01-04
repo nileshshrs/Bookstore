@@ -61,5 +61,15 @@ public class GetBlogByIdFuncTest {
         assertEquals("Sample Details", responseBody.get("blogDetails"));
         assertEquals("sample/path.jpg", responseBody.get("imagePath"));
     }
+    @Test
+    void testGetBlogByIdNotFound() {
+        when(blogService.getBlogById(2L)).thenReturn(Optional.empty());
 
+        ResponseEntity<Map<String, Object>> responseEntity = blogController.getBlogById(2L);
+
+        // Assert the response for not found scenario
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertEquals("Blog with given id not found", ((Map<String, Object>) responseEntity.getBody()).get("message"));
+    }
 }
