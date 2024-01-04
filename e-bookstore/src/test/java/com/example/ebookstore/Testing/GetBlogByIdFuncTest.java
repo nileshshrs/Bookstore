@@ -22,4 +22,44 @@ import static org.mockito.Mockito.*;
 
 public class GetBlogByIdFuncTest {
 
+    @Mock
+    private BlogService blogService;
+
+    @InjectMocks
+    private BlogController blogController;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetBlogByIdSuccess() {
+        // Mocking blog details
+        Users mockUser = new Users("testUser", "testPassword");
+        mockUser.setId(1L);
+
+        Blog mockBlog = new Blog();
+        mockBlog.setBlogId(1L);
+        mockBlog.setBlogTitle("Sample Title");
+        mockBlog.setBlogDetails("Sample Details");
+        mockBlog.setImagePath("sample/path.jpg");
+        mockBlog.setAuthor(mockUser);
+
+        when(blogService.getBlogById(1L)).thenReturn(Optional.of(mockBlog));
+
+        ResponseEntity<Map<String, Object>> responseEntity = blogController.getBlogById(1L);
+
+        // Assert the response
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+
+        Map<String, Object> responseBody = responseEntity.getBody();
+        assertEquals(1L, responseBody.get("blogId"));
+        assertEquals("Sample Title", responseBody.get("blogTitle"));
+        assertEquals("testUser", responseBody.get("authorName"));
+        assertEquals("Sample Details", responseBody.get("blogDetails"));
+        assertEquals("sample/path.jpg", responseBody.get("imagePath"));
+    }
+
 }
