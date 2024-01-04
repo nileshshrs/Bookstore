@@ -25,6 +25,9 @@ public class BlogController {
     @PostMapping("/add")
     public ResponseEntity<Object> createBlog(@RequestBody Map<String,Object> requestBody){
         try{
+            if (requestBody.get("blogTitle") == null ||requestBody.get("blogDetails")==null ||requestBody.get("imagePath")==null) {
+                throw new IllegalArgumentException("Null value dont send pls");
+            }
             String blogTitle = (String) requestBody.get("blogTitle");
             String blogDetails = (String) requestBody.get("blogDetails");
             String imagePath = (String) requestBody.get("imagePath");
