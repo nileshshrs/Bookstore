@@ -69,4 +69,20 @@ public class AddBlogFuncTest {
         assertEquals("testUser", responseBody.get("authorName"));
         assertEquals("sample/path.jpg", responseBody.get("imagePath"));
     }
+    @Test
+    void testCreateBlogUserNotFound() {
+        when(userService.getUsersById(2L)).thenReturn(Optional.empty());
+
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("blogTitle", "Sample Title");
+        requestBody.put("blogDetails", "Sample Details");
+        requestBody.put("imagePath", "sample/path.jpg");
+        requestBody.put("userId", 2L); // Assuming this user doesn't exist
+
+        ResponseEntity<Object> responseEntity = blogController.createBlog(requestBody);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertEquals("User not found.", ((Map<String, Object>) responseEntity.getBody()).get("message"));
+    }
 }
