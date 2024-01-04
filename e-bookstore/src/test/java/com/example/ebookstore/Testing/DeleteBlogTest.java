@@ -21,4 +21,45 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class DeleteBlogTest {
 
+    @InjectMocks
+    private BlogController blogController;
+
+    @Mock
+    private BlogService blogService;
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
+    }
+
+    @Test
+    void testDeleteBlogSuccess() throws Exception {
+        Long blogId = 1L;
+
+        // No exception will be thrown, indicating successful deletion
+        doNothing().when(blogService).deleteBlog(blogId);
+
+        mockMvc.perform(delete("/api/v2/blogs/delete/{blogId}", blogId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Blog Deleted Successfully"));
+    }
+
+    @Test
+    void testDeleteBlogNotFound() throws Exception {
+        Long blogId = 2L;
+        String errorMessage = "Blog not found"; // This can be any error message you expect from the service
+
+        // Mocking the service to throw an IllegalArgumentException
+        doThrow(new IllegalArgumentException(errorMessage))
+                .when(blogService).deleteBlog(blogId);
+
+        mockMvc.perform(delete("/api/v2/blogs/delete/{blogId}", blogId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value(errorMessage));
+    }
 }
