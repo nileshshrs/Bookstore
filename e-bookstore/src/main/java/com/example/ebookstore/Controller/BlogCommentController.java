@@ -5,6 +5,7 @@ import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Service.BlogCommentService;
 import com.example.ebookstore.Service.BlogService;
 import com.example.ebookstore.Service.UserService;
+import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,7 +71,31 @@ public class BlogCommentController {
             return new ResponseEntity<>(errors,HttpStatus.CONFLICT);
         }
     }
-//    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
-//    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
+    @PatchMapping("/editComment/{commentId}")
+    public ResponseEntity<Map<String,Object>> editCommentText(@PathVariable Long commentId,@RequestBody Map<String,Object> requestBody){
+        try{
+            String commentText = (String) requestBody.get("commentText");
+
+            Map<String,Object> comment=commentService.updateCommentText(commentId,commentText);
+
+            return new ResponseEntity<>(comment,HttpStatus.OK);
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("Message",e.getMessage());
+            return new ResponseEntity<>(errorResponse,HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/getById/{commentId}")
+    public ResponseEntity<Map<String,Object>> getCommentById(@PathVariable Long commentId){
+        try{
+            Map<String, Object> comment = commentService.getCommentById(commentId);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        }catch (IllegalArgumentException e) {
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("Message",e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        }
+    }
 
 }
