@@ -17,6 +17,7 @@ import Blog from "./Pages/Blog";
 import Userprofile from "./Pages/Userprofile";
 import SingleBlog from "./Pages/SingleBlog";
 
+
 function App() {
   const location = useLocation();
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/user-profile" element={<Userprofile />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />  
+       
         
         <Route path="/singleproduct" element={<SingleProduct />} />
         <Route path="/cart" element={<Singleaddtocart />} />
