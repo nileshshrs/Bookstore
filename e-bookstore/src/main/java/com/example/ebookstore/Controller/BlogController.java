@@ -12,7 +12,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("api/v2/blogs")
-@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"})
+@CrossOrigin(origins = "http://localhost:5173")
 public class BlogController {
     private final BlogService blogService;
     private final UserService userService;

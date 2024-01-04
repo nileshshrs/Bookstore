@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import "../css/createblog.scss"; // Import your CSS file
 
-const CreateBlogModal = ({ isOpen, onRequestClose }) => {
+const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  console.log(id)
 
   const handleCreateBlog = (e) => {
     e.preventDefault();

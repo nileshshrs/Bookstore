@@ -19,7 +19,7 @@ public class Blog {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users author;
-    @Column(name = "blog_details")
+    @Column(name = "blog_details" ,columnDefinition = "TEXT", length=10000)
     private String blogDetails;
 
     @Column(name = "image_path")
