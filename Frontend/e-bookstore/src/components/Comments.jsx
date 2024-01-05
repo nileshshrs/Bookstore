@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/comments.scss";
 
-
-const Comments = ({ comment, fetch, blogID}) => {
-
-  console.log(blogID)
-  const {user}= useAuthContext()
-  const userID = user.id
+const Comments = ({ comment, fetch, blogID }) => {
+  const { user } = useAuthContext();
+  const userID = user ? user.id: null;
+  const role = user ?user.roles:null;
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
-  console.log(comment)
+  console.log(comment);
 
   const handleEditClick = (commentId, currentText) => {
     setEditCommentId(commentId);
@@ -34,7 +32,7 @@ const Comments = ({ comment, fetch, blogID}) => {
       // Update the local state to reflect the changes
       setEditCommentId(null);
       setEditedCommentText("");
-      fetch()
+      fetch();
     } catch (error) {
       console.error("Error updating comment:", error);
       // Handle error appropriately (show message to the user, log, etc.)
@@ -60,6 +58,8 @@ const Comments = ({ comment, fetch, blogID}) => {
         <div className="comments">
           {comment.map((x) => {
             const isEditing = x.commentId === editCommentId;
+            const canEdit = userID === x.userId;
+            const canDelete = userID === x.userId || role === "admin";
 
             return (
               <div
@@ -90,14 +90,16 @@ const Comments = ({ comment, fetch, blogID}) => {
                 <div className="comment-btn px-3">
                   {isEditing ? null : (
                     <>
-                      <button
-                        onClick={() =>
-                          handleEditClick(x.commentId, x.commentText)
-                        }
-                      >
-                        edit
-                      </button>
-                      <button className="">delete</button>
+                      {canEdit && (
+                        <button
+                          onClick={() =>
+                            handleEditClick(x.commentId, x.commentText)
+                          }
+                        >
+                          edit
+                        </button>
+                      )}
+                      {canDelete && <button className="">delete</button>}
                     </>
                   )}
                 </div>
