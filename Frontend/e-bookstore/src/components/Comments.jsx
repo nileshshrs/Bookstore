@@ -3,7 +3,27 @@ import { useAuthContext } from "../context/useAuthContext";
 import { Link } from "react-router-dom";
 import "../css/comments.scss";
 
-const Comments = ({}) => {
+const Comments = ({ comment }) => {
+  const [editCommentId, setEditCommentId] = useState(null);
+  const [editedCommentText, setEditedCommentText] = useState("");
+
+  const handleEditClick = (commentId, currentText) => {
+    setEditCommentId(commentId);
+    setEditedCommentText(currentText);
+  };
+
+  const handleCancelEdit = () => {
+    setEditCommentId(null);
+    setEditedCommentText("");
+  };
+
+  const handleSaveEdit = (commentId) => {
+    // Add logic to update the comment in your data source (e.g., API call, state update)
+    console.log(`Saving edit for comment ${commentId}: ${editedCommentText}`);
+    setEditCommentId(null);
+    setEditedCommentText("");
+  };
+
   return (
     <div className="comment-section">
       <div className="comment-header">
@@ -21,20 +41,52 @@ const Comments = ({}) => {
       <div className="comments-container">
         <h4 className="font-bold text-md">Comments: </h4>
         <div className="comments">
-          <div className="pb-3" style={{ borderBottom: "1px solid #FFFFFF" }}>
-            <Link to="">
-              <h4 className="">Username</h4>
-            </Link>
-            <p className="">nice blog</p>
-            <div className="comment-btn">
-              <>
-                <button className="">edit</button>
-                <>
-                  <button className="">delete</button>
-                </>
-              </>
-            </div>
-          </div>
+          {comment.map((x) => {
+            const isEditing = x.commentId === editCommentId;
+
+            return (
+              <div
+                className="pb-3"
+                style={{ borderBottom: "1px solid #FFFFFF" }}
+                key={x.commentId}
+              >
+                <Link to="">
+                  <h4 className="">{x.userName}</h4>
+                </Link>
+                {isEditing ? (
+                  <div className="px-3">
+                    <textarea
+                      value={editedCommentText}
+                      onChange={(e) => setEditedCommentText(e.target.value)}
+                      className="w-full rounded-md border border-black py-1 px-2 h-[50px]"
+                    ></textarea>
+                    <div className="comment-btn">
+                      <button onClick={() => handleSaveEdit(x.commentId)}>
+                        Save
+                      </button>
+                      <button onClick={handleCancelEdit}>Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="px-3">{x.commentText}</p>
+                )}
+                <div className="comment-btn px-3">
+                  {isEditing ? null : (
+                    <>
+                      <button
+                        onClick={() =>
+                          handleEditClick(x.commentId, x.commentText)
+                        }
+                      >
+                        edit
+                      </button>
+                      <button className="">delete</button>
+                    </>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
