@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/comments.scss";
 
-const Comments = ({ comment, fetch}) => {
+
+const Comments = ({ comment, fetch, blogID}) => {
+
+  console.log(blogID)
+  const {user}= useAuthContext()
+  const userID = user.id
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
+  console.log(comment)
 
   const handleEditClick = (commentId, currentText) => {
     setEditCommentId(commentId);

@@ -33,9 +33,8 @@ const SingleBlog = () => {
           <img src={post.imagePath} alt="" srcset=""  className="object-contain max-h-[328px]"/>
         </div>
       </div>
-      <article className="posts">
-        {post.blogDetails}
-      </article>
+      <article className="posts">{post.blogDetails}</article>
+      <Comments comment={singleComment} fetch={fetchComments} blogID={parseInt(id)}/>
     </section>
   );
 };
