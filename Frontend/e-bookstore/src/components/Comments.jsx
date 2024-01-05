@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../context/useAuthContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../css/comments.scss";
 
-const Comments = ({ comment }) => {
+const Comments = ({ comment, fetch}) => {
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
 
@@ -17,11 +18,21 @@ const Comments = ({ comment }) => {
     setEditedCommentText("");
   };
 
-  const handleSaveEdit = (commentId) => {
-    // Add logic to update the comment in your data source (e.g., API call, state update)
-    console.log(`Saving edit for comment ${commentId}: ${editedCommentText}`);
-    setEditCommentId(null);
-    setEditedCommentText("");
+  const handleSaveEdit = async (commentId) => {
+    try {
+      // Make a PATCH request to update the comment
+      await axios.patch(`http://localhost:8080/api/v2/blogs/comments/editComment/${commentId}`, {
+        commentText: editedCommentText,
+      });
+
+      // Update the local state to reflect the changes
+      setEditCommentId(null);
+      setEditedCommentText("");
+      fetch()
+    } catch (error) {
+      console.error("Error updating comment:", error);
+      // Handle error appropriately (show message to the user, log, etc.)
+    }
   };
 
   return (

@@ -54,7 +54,7 @@ const SingleBlog = () => {
         </div>
       </div>
       <article className="posts">{post.blogDetails}</article>
-      <Comments comment={singleComment}/>
+      <Comments comment={singleComment} fetch={fetchComments}/>
     </section>
   );
 };
