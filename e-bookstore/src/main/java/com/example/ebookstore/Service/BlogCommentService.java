@@ -67,8 +67,11 @@ public class BlogCommentService {
             throw new IllegalArgumentException("Comment with given id does not exist.");
         }
         BlogComment existingComment= optionalComment.get();
-        existingComment.setCommentText(commentText);
-
+        if (commentText != null && (!commentText.isBlank())) {
+            existingComment.setCommentText(commentText);
+        }else {
+            throw new IllegalArgumentException("Comment text is not provided or is empty.");
+        }
         commentRepository.save(existingComment);
 
         Map<String,Object> singleComment=new HashMap<>();
@@ -94,4 +97,11 @@ public class BlogCommentService {
         return singleComment;
     }
 
+    public void deleteComment(Long commentId){
+        Optional<BlogComment> existingComment=commentRepository.findById(commentId);
+        if (existingComment.isEmpty()){
+            throw new IllegalArgumentException("Comment with given id does not exist.");
+        }
+        commentRepository.deleteById(commentId);
+    }
 }

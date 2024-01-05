@@ -70,7 +70,46 @@ public class BlogCommentController {
             return new ResponseEntity<>(errors,HttpStatus.CONFLICT);
         }
     }
-//    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
-//    public ResponseEntity<Map<String,Object>>(Map<String,Object> requestBody)
+    @PatchMapping("/editComment/{commentId}")
+    public ResponseEntity<Map<String,Object>> editCommentText(@PathVariable Long commentId,@RequestBody Map<String,Object> requestBody){
+        try{
+            String commentText = (String) requestBody.get("commentText");
+
+            Map<String,Object> comment=commentService.updateCommentText(commentId,commentText);
+
+            return new ResponseEntity<>(comment,HttpStatus.OK);
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("Message",e.getMessage());
+            return new ResponseEntity<>(errorResponse,HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/getById/{commentId}")
+    public ResponseEntity<Map<String,Object>> getCommentById(@PathVariable Long commentId){
+        try{
+            Map<String, Object> comment = commentService.getCommentById(commentId);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        }catch (IllegalArgumentException e) {
+            Map<String,Object> errorResponse=new HashMap<>();
+            errorResponse.put("Message",e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        }
+    }
+
+    @DeleteMapping("delete/{commentId}")
+    public ResponseEntity<Map<String,Object>> deleteCommentById(@PathVariable Long commentId){
+        try{
+            commentService.deleteComment(commentId);
+            Map<String,Object> successMessage=new HashMap<>();
+            successMessage.put("message","Comment Deleted Successfully");
+            return new ResponseEntity<>(successMessage,HttpStatus.OK);
+
+        }catch (IllegalArgumentException e){
+            Map<String,Object> errorMessage=new HashMap<>();
+            errorMessage.put("message",e.getMessage());
+            return new ResponseEntity<>(errorMessage,HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
