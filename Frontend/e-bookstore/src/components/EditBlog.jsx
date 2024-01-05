@@ -9,6 +9,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../Firebase/Firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditBlog = ({ isOpen, onRequestClose, post }) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -24,7 +26,6 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
       setSelectedImage(post.imagePath || null);
     }
   }, [isOpen, post]);
-  console.log(post)
 
   //handling image upload here
   const handleImageUpload = (e) => {
@@ -72,7 +73,7 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
             // Assuming you have a Submit function defined elsewhere
             // Modify this part according to your logic
             //calls the submit to database
-            console.log(url);
+            handleSubmit(url);
           })
       );
     }
@@ -88,16 +89,30 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
       blogDetails: blogDetails,
       imagePath: url,
     };
-    try{
-      const res = await axios.patch(`http://localhost:8080/api/v2/blogs/update/${post.blogId}`, formData)
-      console.log(res.data)
-    }catch(err){
-      console.log(err)
+    try {
+      const res = await axios.patch(
+        `http://localhost:8080/api/v2/blogs/update/${post.blogId}`,
+        formData
+      );
+      console.log(res.data);
+      setBlogTitle("");
+      setBlogDetails("");
+      setImage(null);
+      setSelectedImage(null);
+      toast.success("Book has been added sucessfully", {
+        position: "top-center",
+      });
+      setTimeout(() => {
+        onRequestClose();
+      }, 3000);
+    } catch (err) {
+      toast.error(err.response.data.Message, {
+        position: "top-center",
+      });
     }
   };
 
   //patching blog here
-
 
   //shortening image path
   const truncatedImage =
@@ -184,6 +199,7 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </Modal>
   );
 };

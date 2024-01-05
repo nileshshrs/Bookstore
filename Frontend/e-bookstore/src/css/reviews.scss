@@ -1,11 +1,11 @@
 @media (min-width: 512px) and (max-width: 768px) {
   .review-section {
-    width: 100%;
+    width: 100% !important;
   }
 }
 @media (max-width: 512px) {
   .review-section {
-    width: 100%;
+    width: 100% !important;
     padding:20px !important ;
     .review-content{
         padding: 10px !important;

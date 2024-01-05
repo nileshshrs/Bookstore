@@ -42,12 +42,18 @@
 }
 
 @media (min-width: 512px) and (max-width: 768px) {
+  .blog-content{
+    width: 90%;
+  }
   .blog-title-container {
     flex-wrap: wrap;
   }
 }
 
 @media (max-width: 512px) {
+  .blog-content{
+    width: 90%;
+  }
   .blog-title-container {
     flex-wrap: wrap;
   }

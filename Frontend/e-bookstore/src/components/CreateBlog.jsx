@@ -99,17 +99,16 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
       toast.success("Book has been added sucessfully", {
         position: "top-center",
       });
-      setTimeout(()=>{
+      setTimeout(() => {
         onRequestClose();
-      }, 3000)
+      }, 3000);
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message, {
         position: "top-center",
-        toastStyle: { width: '100px !important' }
+        toastStyle: { width: "100px !important" },
       });
     }
-   
   };
 
   //uploading image to firebase
