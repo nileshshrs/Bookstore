@@ -51,10 +51,10 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
     } else {
       const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
       const randomString = Math.random().toString(36).substring(2, 8);
-      const fileName = ${timestamp}_${randomString}_${file.name};
+      const fileName = `${timestamp}_${randomString}_${file.name}`;
 
       const storage = getStorage(app);
-      const REF = ref(storage, upload/${fileName});
+      const REF = ref(storage, `upload/${fileName}`);
       const uploadTask = uploadBytesResumable(REF, file);
       uploadTask.on(
         "state_changed",
