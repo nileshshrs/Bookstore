@@ -3,9 +3,7 @@ package com.example.ebookstore.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "blog_comments",uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id","blog_id"})
-})
+@Table(name = "blog_comments")
 public class BlogComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
