@@ -1,93 +1,118 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import "../css/createblog.scss"; // Import your CSS file
 import axios from "axios";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../Firebase/Firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// this is origin 
 const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  console.log(id);
+
   const [selectedImage, setSelectedImage] = useState(null);
-  const [posts, setPosts] = useState([]);
-  // console.log(id)
+  const [blogTitle, setBlogTitle] = useState("");
+  const [blogDetails, setBlogDetails] = useState("");
+  const [image, setImage] = useState(null);
 
-  // const handleCreateBlog = (e) => {
-  //   e.preventDefault();
-  //   console.log("Creating blog with title:", title, "and content:", content);
-
-  //   // Clear the form
-  //   setTitle("");
-  //   setContent("");
-
-  //   // Close the modal after creating the blog post
-  //   onRequestClose();
-  // };
-
-  // const [selectedImage, setSelectedImage] = useState(null);
-
-  // const handleImageUpload = (e) => {
-  //   const file = e.target.files[0];
-  //   setSelectedImage(file ? file.name : null);
-  //   // Add additional logic for handling the image upload
-  // };
-
-  const fetchPosts = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/api/v2/blogs/getAll");
-      setPosts(res.data); // Assuming the response data is an array of blog posts
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
-
-
-
-  
-
-  useEffect(() => {
-    fetchPosts(); // Fetch posts on component mount or when isOpen changes
-  }, [isOpen]);
-
-  const handleCreateBlog = async (e) => {
-    e.preventDefault();
-    
-    // Assuming you have an API endpoint to add a blog post
-    try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
-      formData.append("image", selectedImage);
-
-      const res = await axios.post(
-        `http://localhost:8080/api/v2/blogs/add`, // Replace with your backend endpoint
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      console.log("Blog created:", res.data);
-
-      // Clear the form after successful submission
-      setTitle("");
-      setContent("");
-      setSelectedImage(null);
-      
-
-      // Close the modal after creating the blog post
-      onRequestClose();
-    } catch (error) {
-      console.error("Error creating blog:", error);
-    }
-  };
-
+  //handling image upload here
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setSelectedImage(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setSelectedImage(file.name);
+        setImage(file);
+      };
+      reader.readAsDataURL(file);
+    }
   };
+  // handling image upload here
+  //shortening image path
+  const truncatedImage =
+    selectedImage && selectedImage.length > 30
+      ? selectedImage.substring(0, 30) + "..."
+      : selectedImage;
+
+  //shortening image path
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const file = image;
+
+    if (!file) {
+      handleSubmit(null);
+    } else {
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+      const randomString = Math.random().toString(36).substring(2, 8);
+      const fileName = ${timestamp}_${randomString}_${file.name};
+
+      const storage = getStorage(app);
+      const REF = ref(storage, upload/${fileName});
+      const uploadTask = uploadBytesResumable(REF, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // console.log(progress);
+        },
+        (err) => {
+          console.log(err);
+        },
+        () =>
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            // Assuming you have a Submit function defined elsewhere
+            // Modify this part according to your logic
+            //calls the submit to database
+            handleSubmit(url);
+          })
+      );
+    }
+  };
+
+  const handleSubmit = async (url) => {
+    const formData = {
+      userId: id,
+      blogTitle: blogTitle,
+      blogDetails: blogDetails,
+      imagePath: url,
+    };
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v2/blogs/add",
+        formData
+      );
+      console.log(res.data);
+
+      setBlogTitle("");
+      setBlogDetails("");
+      setImage(null);
+      setSelectedImage(null);
+
+      toast.success("Book has been added sucessfully", {
+        position: "top-center",
+      });
+      setTimeout(()=>{
+        onRequestClose();
+      }, 3000)
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message, {
+        position: "top-center",
+        toastStyle: { width: '100px !important' }
+      });
+    }
+   
+  };
+
+  //uploading image to firebase
 
   return (
     <Modal
@@ -100,10 +125,7 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
     >
       <div className="modal-content">
         <form
-//adding here 
-          onSubmit={handleCreateBlog}
-
-          // action=""
+          action=""
           className="p-3 flex flex-col items-start justify-start gap-4 h-full border"
         >
           <h2 className="font-bold text-lg w-full text-center">
@@ -117,14 +139,12 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
               <h2 className="text-sm font-bold">Title</h2>
             </label>
             <input
+              value={blogTitle}
               type="text"
               id="post-title"
-              //adding 
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-
               placeholder="post title..."
               className="w-full border border-black rounded-[5px] p-2 h-[30px]"
+              onChange={(e) => setBlogTitle(e.target.value)}
             />
           </div>
 
@@ -145,46 +165,36 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
                 accept="image/*"
                 className="hidden h-[30px]"
                 onChange={(e) => handleImageUpload(e)}
+                autoComplete="off"
               />
               <span className="ml-2 text-black h-[30px] flex items-center image-name-span">
-                {selectedImage ? selectedImage : "No file chosen"}
+                {truncatedImage || "No file chosen"}
               </span>
             </div>
           </div>
 
           <div className="w-full h-full border">
             <textarea
-              // name=""
-              // adding 
-              value={content}
-              onChange={(e) => setContent(e.target.value)}  
-
+              name=""
               id="blog-post"
               className="w-full h-full border-black border rounded-[5px] p-2"
               placeholder="Write something..."
+              onChange={(e) => setBlogDetails(e.target.value)}
+              value={blogDetails}
             />
           </div>
 
           <div className="w-full">
-            <button type="submit" className="border border-black px-3 font-bold bg-black text-white py-[3px] rounded-md">
+            <button
+              onClick={uploadImage}
+              className="border border-black px-3 font-bold bg-black text-white py-[3px] rounded-md"
+            >
               Submit
             </button>
           </div>
         </form>
       </div>
-       {/* Displaying the updated list of blog posts */}
-       <div className="blog-posts">
-        <h2>Recent Blog Posts</h2>
-        <ul>
-  {posts.map((post) => (
-    <li key={post.id}>
-      <h3>{post.title}</h3>
-      <p>{post.content}</p>
-      {post.image && <img src={`http://localhost:8080/${post.image}`} alt="Blog" />}
-    </li>
-  ))}
-</ul>
-      </div>
+      <ToastContainer />
     </Modal>
   );
 };
