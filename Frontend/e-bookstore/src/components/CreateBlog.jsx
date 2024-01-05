@@ -51,10 +51,10 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
     } else {
       const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
       const randomString = Math.random().toString(36).substring(2, 8);
-      const fileName = ${timestamp}_${randomString}_${file.name};
+      const fileName = `${timestamp}_${randomString}_${file.name}`;
 
       const storage = getStorage(app);
-      const REF = ref(storage, upload/${fileName});
+      const REF = ref(storage, `upload/${fileName}`);
       const uploadTask = uploadBytesResumable(REF, file);
       uploadTask.on(
         "state_changed",
@@ -99,17 +99,16 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
       toast.success("Book has been added sucessfully", {
         position: "top-center",
       });
-      setTimeout(()=>{
+      setTimeout(() => {
         onRequestClose();
-      }, 3000)
+      }, 3000);
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message, {
         position: "top-center",
-        toastStyle: { width: '100px !important' }
+        toastStyle: { width: "100px !important" },
       });
     }
-   
   };
 
   //uploading image to firebase

@@ -31,7 +31,7 @@ public class BlogCommentController {
     public ResponseEntity<Map<String,Object>> addComment(@RequestBody Map<String,Object> requestBody){
         try{
             if (requestBody.get("commentText") == null || requestBody.get("userId") == null || requestBody.get("blogId")==null) {
-                throw new IllegalArgumentException("Null values present");
+                throw new IllegalArgumentException("All fields must be filled");
             }
             String commentText = (String) requestBody.get("commentText");
             Long userId = ((Number) requestBody.get("userId")).longValue();
