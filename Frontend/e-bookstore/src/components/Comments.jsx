@@ -4,15 +4,40 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/comments.scss";
 
-
-const Comments = ({ comment, fetch, blogID}) => {
-
-  console.log(blogID)
-  const {user}= useAuthContext()
-  const userID = user.id
+const Comments = ({ comment, fetch, blogID }) => {
+  const { user } = useAuthContext();
+  const userID = user ? user.id: null;
+  const role = user ?user.roles:null;
+  const [newCommentText,setNewCommentText]=useState("")
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
-  console.log(comment)
+  console.log(comment);
+
+//adding comments
+//adding comments
+const handleCommentSubmit =async(e) =>{
+  e.preventDefault();
+
+  console.log(newCommentText);
+  try{
+    const response =await axios.post("http://localhost:8080/api/v2/blogs/comments/addComment",
+    {
+      commentText:newCommentText,
+      userId: userID,
+      blogId:blogID
+
+    }
+    );
+
+    setNewCommentText("");
+    fetch();
+  }catch(error){
+    console.error("Error adding comments", error);
+    
+  }
+  }
+
+
 
   const handleEditClick = (commentId, currentText) => {
     setEditCommentId(commentId);
@@ -34,12 +59,14 @@ const Comments = ({ comment, fetch, blogID}) => {
       // Update the local state to reflect the changes
       setEditCommentId(null);
       setEditedCommentText("");
-      fetch()
+      fetch();
     } catch (error) {
       console.error("Error updating comment:", error);
       // Handle error appropriately (show message to the user, log, etc.)
     }
   };
+
+
 
   return (
     <div className="comment-section">
@@ -49,8 +76,10 @@ const Comments = ({ comment, fetch, blogID}) => {
           <textarea
             placeholder="Enter the comment..."
             className="w-full rounded-md border border-black py-1 px-2"
+            onChange={(e)=> setNewCommentText(e.target.value)}
+            value={newCommentText}
           ></textarea>
-          <button className="" type="submit">
+          <button onClick={handleCommentSubmit} className="" >
             Comment
           </button>
         </form>
@@ -60,6 +89,8 @@ const Comments = ({ comment, fetch, blogID}) => {
         <div className="comments">
           {comment.map((x) => {
             const isEditing = x.commentId === editCommentId;
+            const canEdit = userID === x.userId;
+            const canDelete = userID === x.userId || role === "admin";
 
             return (
               <div
@@ -90,14 +121,16 @@ const Comments = ({ comment, fetch, blogID}) => {
                 <div className="comment-btn px-3">
                   {isEditing ? null : (
                     <>
-                      <button
-                        onClick={() =>
-                          handleEditClick(x.commentId, x.commentText)
-                        }
-                      >
-                        edit
-                      </button>
-                      <button className="">delete</button>
+                      {canEdit && (
+                        <button
+                          onClick={() =>
+                            handleEditClick(x.commentId, x.commentText)
+                          }
+                        >
+                          edit
+                        </button>
+                      )}
+                      {canDelete && <button className="">delete</button>}
                     </>
                   )}
                 </div>
