@@ -8,9 +8,36 @@ const Comments = ({ comment, fetch, blogID }) => {
   const { user } = useAuthContext();
   const userID = user ? user.id: null;
   const role = user ?user.roles:null;
+  const [newCommentText,setNewCommentText]=useState("")
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
   console.log(comment);
+
+//adding comments
+//adding comments
+const handleCommentSubmit =async(e) =>{
+  e.preventDefault();
+
+  console.log(newCommentText);
+  try{
+    const response =await axios.post("http://localhost:8080/api/v2/blogs/comments/addComment",
+    {
+      commentText:newCommentText,
+      userId: userID,
+      blogId:blogID
+
+    }
+    );
+
+    setNewCommentText("");
+    fetch();
+  }catch(error){
+    console.error("Error adding comments", error);
+    
+  }
+  }
+
+
 
   const handleEditClick = (commentId, currentText) => {
     setEditCommentId(commentId);
@@ -39,6 +66,8 @@ const Comments = ({ comment, fetch, blogID }) => {
     }
   };
 
+
+
   return (
     <div className="comment-section">
       <div className="comment-header">
@@ -47,8 +76,10 @@ const Comments = ({ comment, fetch, blogID }) => {
           <textarea
             placeholder="Enter the comment..."
             className="w-full rounded-md border border-black py-1 px-2"
+            onChange={(e)=> setNewCommentText(e.target.value)}
+            value={newCommentText}
           ></textarea>
-          <button className="" type="submit">
+          <button onClick={handleCommentSubmit} className="" >
             Comment
           </button>
         </form>
