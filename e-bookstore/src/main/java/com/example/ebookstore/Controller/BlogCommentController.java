@@ -27,14 +27,15 @@ public class BlogCommentController {
         this.blogService = blogService;
     }
 
-    @PostMapping("/addComment/{blogId}")
-    public ResponseEntity<Map<String,Object>> addComment(@PathVariable Long blogId,@RequestBody Map<String,Object> requestBody){
+    @PostMapping("/addComment")
+    public ResponseEntity<Map<String,Object>> addComment(@RequestBody Map<String,Object> requestBody){
         try{
-            if (requestBody.get("commentText") == null || requestBody.get("userId") == null) {
-                throw new IllegalArgumentException("Null values present");
+            if (requestBody.get("commentText") == null || requestBody.get("userId") == null || requestBody.get("blogId")==null) {
+                throw new IllegalArgumentException("All fields must be filled");
             }
             String commentText = (String) requestBody.get("commentText");
             Long userId = ((Number) requestBody.get("userId")).longValue();
+            Long blogId=((Number) requestBody.get("blogId")).longValue();
 
 
             Optional<Users> userOptional = userService.getUsersById(userId);

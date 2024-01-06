@@ -10,26 +10,30 @@ const Reviews = ({ reviews, bookID, fetchReviews }) => {
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    console.log('form submission');
+    console.log("form submission");
     console.log(newReviewText);
     try {
-      const response = await axios.post("http://localhost:8080/api/v2/reviews/add", {
-        reviewText: newReviewText,
-        userId: user.id,
-        bookId: parseInt(bookID),
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/v2/reviews/add",
+        {
+          reviewText: newReviewText,
+          userId: user.id,
+          bookId: parseInt(bookID),
+        }
+      );
       const addedReview = response.data; // Rename the variable here
       setNewReviewText("");
-      fetchReviews()
+      fetchReviews();
     } catch (error) {
       console.error("Error adding review:", error);
     }
   };
 
-  
   const handleDeleteReview = async (reviewId) => {
     try {
-      const response = await axios.delete(`http://localhost:8080/api/v2/reviews/delete/${reviewId}`);
+      const response = await axios.delete(
+        `http://localhost:8080/api/v2/reviews/delete/${reviewId}`
+      );
       console.log(response.data); // Log the response if needed
       fetchReviews(); // Fetch reviews after deletion
     } catch (error) {
@@ -64,33 +68,35 @@ const Reviews = ({ reviews, bookID, fetchReviews }) => {
         {reviews.map((review, index) => (
           <div key={index} className="px-3">
             <div
-              className="flex flex-col gap-2 px-2 py-1 m-0 "
+              className="flex flex-col gap-1 px-2 py-1 m-0 "
               style={{ borderBottom: "1px solid #FFFFFF" }}
             >
               <Link to="">
-                <h4 className="font-bold text-sm">{review.userName}</h4>
+                <h4 className="font-bold text-[15px]">{review.userName}</h4>
               </Link>
-              <p className="m-0 text-sm">{review.reviewText}</p>
-              <div className="flex gap-3 py-2">
+              <p className="m-0 text-[14px]">{review.reviewText}</p>
+              <div className="flex gap-2">
                 {user &&
                   (user.role === "admin" || user.id === review.userId) && (
                     <>
-                      <button className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded">
+                      <button className="text-black font-semibold text-[12px] underline">
                         edit
                       </button>
 
-              {user &&
-                (user.role === "admin" || user.id === review.userId) && (
-                  <>
-                    <button
-                      className="border border-black bg-black text-white px-2 py-1 w-[90px] font-semibold text-sm rounded"
-                      onClick={() => handleDeleteReview(review.reviewId)} 
-                    >
-                      delete
-                    </button>
-                  </>
-                )}
-            
+                      {user &&
+                        (user.role === "admin" ||
+                          user.id === review.userId) && (
+                          <>
+                            <button
+                              className="text-black font-semibold text-[12px] underline"
+                              onClick={() =>
+                                handleDeleteReview(review.reviewId)
+                              }
+                            >
+                              delete
+                            </button>
+                          </>
+                        )}
                     </>
                   )}
               </div>

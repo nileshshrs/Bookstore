@@ -23,9 +23,6 @@ public class BlogCommentService {
         if (user == null || blog==null || commentText==null || commentText.isBlank()) {
             throw new IllegalArgumentException("Invalid input parameters");
         }
-        if (commentRepository.existsByBlogAndUser(blog,user)){
-            throw new IllegalArgumentException("Comment already exist.");
-        }
 
         newComment.setCommentText(commentText);
         newComment.setBlog(blog);
