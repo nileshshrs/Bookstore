@@ -5,44 +5,37 @@ const Order = () => {
     
   return (
     <>
-     <div className="bg-white flex flex-row justify-center w-full">
-      <div className="bg-white w-[120px] h-[1024px] relative">
-        <div className="w-[814px] h-[725px] left-[51px] absolute top-[194px] bg-[#edebe4]">
-          <div className="absolute w-[393px] top-[21px] left-[20px] [font-family:'Roboto',Helvetica] font-semibold text-black text-[40px] tracking-[0] leading-[normal] whitespace-nowrap">
-            Shipping Information
-          </div>
-        </div>
-        <div className="w-[491px] h-[523px] left-[894px] absolute top-[194px] bg-[#edebe4]">
-          <div className="absolute w-[81px] top-[467px] left-[386px] [font-family:'Roboto',Helvetica] font-light text-black text-[30px] tracking-[0] leading-[normal]">
-            100
-          </div>
-          <div className="absolute w-[286px] top-[21px] left-[103px] [font-family:'Roboto',Helvetica] font-semibold text-black text-[40px] tracking-[0] leading-[normal] whitespace-nowrap">
-            Order Summary
-          </div>
-          <div className="absolute w-[157px] top-[458px] left-[15px] [font-family:'Roboto',Helvetica] font-semibold text-black text-[40px] tracking-[0] leading-[normal] whitespace-nowrap">
-            Subtotal
-          </div>
-          <div className="absolute top-[109px] left-[15px] [font-family:'Roboto',Helvetica] font-light text-black text-[35px] tracking-[0] leading-[normal] whitespace-nowrap">
-            Items
-          </div>
-          <div className="absolute w-[157px] top-[190px] left-[15px] [font-family:'Roboto',Helvetica] font-light text-black text-[30px] tracking-[0] leading-[normal]">
-            The Nature
-          </div>
-          <div className="w-[35px] left-[252px] absolute top-[190px] [font-family:'Roboto',Helvetica] font-light text-black text-[30px] tracking-[0] leading-[normal]">
-            1
-          </div>
-          <div className="w-[81px] left-[389px] absolute top-[190px] [font-family:'Roboto',Helvetica] font-light text-black text-[30px] tracking-[0] leading-[normal]">
-            100
-          </div>
-          <div className="absolute top-[109px] left-[205px] [font-family:'Roboto',Helvetica] font-light text-black text-[35px] tracking-[0] leading-[normal] whitespace-nowrap">
-            Quantity
-          </div>
-          <div className="absolute top-[109px] left-[388px] [font-family:'Roboto',Helvetica] font-light text-black text-[35px] tracking-[0] leading-[normal] whitespace-nowrap">
-            Price
+      <div className="container border-t mx-auto mt-8 mb-8" style={{ maxWidth: "800px"}}>
+                
+        <h3 className="text-lg font-bold text-gray-900 p-4">1. Order Summary</h3>
+        <hr className="border-t border-gray-450" />
+        <div
+          className="max-w-lg mx-auto rounded-md overflow-hidden shadow-lg"
+          style={{ maxWidth: "900px", backgroundColor: "#edebe4" }}
+        >
+          <h2 className="text-lg font-medium text-gray-900 p-4">
+            <span className="flex justify-between">
+              <span>Your Books</span>
+              <span>Quantity</span>
+              <span>Price</span>
+            </span>
+          </h2>
+
+          <div className="max-h-[300px] overflow-y-auto  pl-2 pr-2">
+            <div className="flex mb-3">
+              <div className="ml-4 flex flex-1 flex-col">
+                <div>
+                  <div className="flex justify-between text-base font-medium text-gray-900">
+                    <p className="">The nature</p>
+                    <p className="">2</p>
+                    <p className="">$ 200</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
