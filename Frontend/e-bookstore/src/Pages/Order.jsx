@@ -8,7 +8,7 @@ const Order = () => {
 
   return (
     <div className="container border-t mx-auto mt-8 mb-8" style={{ maxWidth: "800px" }}>
-      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: "30px" }}>
+      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily:"Prata",fontWeight:"700",fontSize: "30px" }}>
         1. Order Summary
       </h3>
       <hr className="border-t border-gray-450" />
@@ -47,7 +47,7 @@ const Order = () => {
 
         <hr className="border-t border-gray-450" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4">2. Shipping Information</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4" style={{fontFamily:"Prata",fontWeight:"700",}}>2. Shipping Information</h3>
         <hr className="border-t border-gray-450" />
 
 
@@ -65,7 +65,7 @@ const Order = () => {
 
         <hr className="border-t border-gray-450 mt-4" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4" id="payment">3. Payment Method</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4" id="payment" style={{fontFamily:"Prata",fontWeight:"700",}}>3. Payment Method</h3>
         <hr className="border-t border-gray-450" />
 
         <div className="flex mt-4 p-2">
