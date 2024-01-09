@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/useAuthContext";
+import { Link } from 'react-router-dom';
+
 
 const Singlepagecart = () => {
   const { user } = useAuthContext();
@@ -139,14 +141,14 @@ const Singlepagecart = () => {
             "New books, new adventures. Happy reading!"
           </p>
           <div className="mt-6">
-            <a
-              href="#"
-              className="items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-              style={{ backgroundColor: "black" }}
-            >
-              Checkout
-            </a>
-          </div>
+          <Link
+            to="/order"  
+            className="items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+            style={{ backgroundColor: "black" }}
+          >
+            Checkout
+          </Link>
+        </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
               <button
