@@ -6,11 +6,10 @@ import "../css/comments.scss";
 
 const Comments = ({ comment, fetch, blogID }) => {
   const { user } = useAuthContext();
-  const userID = user ? user.id: null;
-  const role = user ?user.roles:null;
+  const userID = user ? user.id : null;
+  const role = user ? user.roles : null;
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
-  console.log(comment);
 
   const handleEditClick = (commentId, currentText) => {
     setEditCommentId(commentId);
@@ -25,9 +24,12 @@ const Comments = ({ comment, fetch, blogID }) => {
   const handleSaveEdit = async (commentId) => {
     try {
       // Make a PATCH request to update the comment
-      await axios.patch(`http://localhost:8080/api/v2/blogs/comments/editComment/${commentId}`, {
-        commentText: editedCommentText,
-      });
+      await axios.patch(
+        `http://localhost:8080/api/v2/blogs/comments/editComment/${commentId}`,
+        {
+          commentText: editedCommentText,
+        }
+      );
 
       // Update the local state to reflect the changes
       setEditCommentId(null);
