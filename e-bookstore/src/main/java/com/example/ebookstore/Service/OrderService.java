@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -83,5 +84,56 @@ public class OrderService {
 
         return result;
     }
+    public List<Map<String, Object>> getAllOrders() {
+        List<Order> allOrders = orderRepository.findAll();
+
+        return allOrders.stream()
+                .map(order -> {
+                    Map<String, Object> orderMap = new HashMap<>();
+                    orderMap.put("orderId", order.getOrderId());
+                    orderMap.put("bookId", order.getBook().getBookId());
+                    orderMap.put("bookTitle", order.getBook().getTitle());
+                    orderMap.put("bookPrice", order.getBook().getPrice());
+                    orderMap.put("bookImage", order.getBook().getImagePath());
+                    orderMap.put("userId", order.getUser().getId());
+                    orderMap.put("username", order.getUser().getUsername());
+                    orderMap.put("userEmail", order.getUser().getEmail());
+                    orderMap.put("quantity", order.getQuantity());
+                    orderMap.put("shippingAddress", order.getShippingAddress());
+                    orderMap.put("paymentMethod", order.getPaymentMethod());
+                    orderMap.put("totalPrice", order.getTotalPrice());
+                    orderMap.put("status", order.getStatus());
+                    orderMap.put("orderDate", order.getOrderDate());
+                    return orderMap;
+                })
+                .collect(Collectors.toList());
+    }
+    public List<Map<String, Object>> getOrdersByUserId(Long userId) {
+        List<Order> userOrders = orderRepository.findByUserId(userId);
+
+        return userOrders.stream()
+                .map(order -> {
+                    Map<String, Object> orderMap = new HashMap<>();
+                    orderMap.put("orderId", order.getOrderId());
+                    orderMap.put("bookId", order.getBook().getBookId());
+                    orderMap.put("bookTitle", order.getBook().getTitle());
+                    orderMap.put("bookPrice", order.getBook().getPrice());
+                    orderMap.put("bookImage", order.getBook().getImagePath());
+                    orderMap.put("userId", order.getUser().getId());
+                    orderMap.put("username", order.getUser().getUsername());
+                    orderMap.put("userEmail", order.getUser().getEmail());
+                    orderMap.put("quantity", order.getQuantity());
+                    orderMap.put("shippingAddress", order.getShippingAddress());
+                    orderMap.put("paymentMethod", order.getPaymentMethod());
+                    orderMap.put("totalPrice", order.getTotalPrice());
+                    orderMap.put("status", order.getStatus());
+                    orderMap.put("orderDate", order.getOrderDate());
+                    return orderMap;
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }
+
+
