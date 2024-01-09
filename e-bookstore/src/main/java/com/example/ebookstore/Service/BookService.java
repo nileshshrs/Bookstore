@@ -62,7 +62,7 @@ public class BookService {
         // Then delete the book
         bookRepository.delete(existingBook);
         reviewRepository.deleteByBook(existingBook);
-        orderRepository.delete(existingBook);
+        orderRepository.deleteByBook(existingBook);
     }
 
     public synchronized Book putBook(Long bookId, Book updatedBook) {
