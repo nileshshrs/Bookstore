@@ -55,8 +55,8 @@ const Order = () => {
         {/* shipping garna ko lagi */}
 
         <form className="p-4 flex flex-col md:flex-row justify-between">
-          <input type="text" required placeholder="Address" className="rounded h-8 w-full md:w-1/2 h-12 p-2 border mb-2 md:mb-0 ml-3" />
-          <input type="number" required placeholder="Phone Number" className="rounded h-8 w-full md:w-1/2 h-12 p-2 border ml-3" />
+          <input type="text" required placeholder="Address" className="rounded h-8 w-full md:w-1/2  md:h-12 p-2 border mb-2 md:mb-0 ml-3" />
+          <input type="number" required placeholder="Phone Number" className="rounded h-8 w-full md:w-1/2  md:h-12 p-2 border ml-3" />
         </form>
 
         <button type="submit" className="ml-6 px-3 py-2 rounded text-white bg-black hover:bg-indigo-700">
