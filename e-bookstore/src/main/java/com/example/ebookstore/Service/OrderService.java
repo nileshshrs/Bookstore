@@ -29,7 +29,7 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
-    public List<Map<String, Object>> createOrder(List<Map<String, Object>> cartItems, LocalDateTime orderDate, String shippingAddress, String paymentMethod) {
+    public synchronized List<Map<String, Object>> createOrder(List<Map<String, Object>> cartItems, LocalDateTime orderDate, String shippingAddress, String paymentMethod) {
         List<Map<String, Object>> result = new ArrayList<>();
 
         for (Map<String, Object> cartItem : cartItems) {
@@ -84,7 +84,7 @@ public class OrderService {
 
         return result;
     }
-    public List<Map<String, Object>> getAllOrders() {
+    public synchronized List<Map<String, Object>> getAllOrders() {
         List<Order> allOrders = orderRepository.findAll();
 
         return allOrders.stream()
@@ -108,7 +108,7 @@ public class OrderService {
                 })
                 .collect(Collectors.toList());
     }
-    public List<Map<String, Object>> getOrdersByUserId(Long userId) {
+    public synchronized List<Map<String, Object>> getOrdersByUserId(Long userId) {
         List<Order> userOrders = orderRepository.findByUserId(userId);
 
         return userOrders.stream()
