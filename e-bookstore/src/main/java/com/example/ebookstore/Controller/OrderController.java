@@ -57,4 +57,31 @@ public class OrderController {
         }
     }
 
+    @DeleteMapping("/delete/{orderId}")
+    public ResponseEntity<Object> deleteOrder(@PathVariable Long orderId){
+        try {
+            orderService.deleteOrder(orderId);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Order deleted successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            String errorMessage = e.getMessage();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+    }
+    @PatchMapping("/update/{orderId}")
+    public ResponseEntity<Map<String, Object>> patchOrder(@PathVariable Long orderId, @RequestBody Map<String, Object> patchData) {
+        try {
+            Map<String, Object> updatedOrder = orderService.patchOrder(orderId, patchData);
+            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -133,6 +133,69 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    public synchronized void deleteOrder(Long orderId){
+        Optional<Order> userOrder = orderRepository.findById(orderId);
+        if(userOrder.isPresent())   {
+            orderRepository.deleteById(orderId);
+        }else{
+            throw new IllegalArgumentException("Cart not found with ID: " + orderId);
+        }
+    }
+
+    public synchronized Map<String, Object> patchOrder(Long orderId, Map<String, Object> patchData) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+
+            // Update fields based on the patchData
+            if (patchData.containsKey("shippingAddress")) {
+                order.setShippingAddress((String) patchData.get("shippingAddress"));
+            }
+            if (patchData.containsKey("paymentMethod")) {
+                order.setPaymentMethod((String) patchData.get("paymentMethod"));
+            }
+            if (patchData.containsKey("quantity")) {
+                int newQuantity = (int) patchData.get("quantity");
+                order.setQuantity(newQuantity);
+
+                // Recalculate total price based on the new quantity
+                BigDecimal unitPrice = order.getBook().getPrice();
+                BigDecimal newTotalPrice = unitPrice.multiply(BigDecimal.valueOf(newQuantity));
+                order.setTotalPrice(newTotalPrice);
+            }
+            if (patchData.containsKey("status")) {
+                order.setStatus((boolean) patchData.get("status"));
+            }
+            // Add more fields to update as needed
+
+            // Save the updated order
+            Order updatedOrder = orderRepository.save(order);
+
+            // Return the updated order details
+            Map<String, Object> orderMap = new HashMap<>();
+            orderMap.put("orderId", updatedOrder.getOrderId());
+            orderMap.put("bookId", updatedOrder.getBook().getBookId());
+            orderMap.put("bookTitle", updatedOrder.getBook().getTitle());
+            orderMap.put("bookPrice", updatedOrder.getBook().getPrice());
+            orderMap.put("bookImage", updatedOrder.getBook().getImagePath());
+            orderMap.put("userId", updatedOrder.getUser().getId());
+            orderMap.put("username", updatedOrder.getUser().getUsername());
+            orderMap.put("userEmail", updatedOrder.getUser().getEmail());
+            orderMap.put("quantity", updatedOrder.getQuantity());
+            orderMap.put("shippingAddress", updatedOrder.getShippingAddress());
+            orderMap.put("paymentMethod", updatedOrder.getPaymentMethod());
+            orderMap.put("totalPrice", updatedOrder.getTotalPrice());
+            orderMap.put("status", updatedOrder.getStatus());
+            orderMap.put("orderDate", updatedOrder.getOrderDate());
+
+            return orderMap;
+        } else {
+            // Handle the case where the order is not found
+            throw new IllegalArgumentException("Order not found with ID: " + orderId);
+        }
+    }
+
 
 }
 
