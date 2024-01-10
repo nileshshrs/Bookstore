@@ -12,7 +12,7 @@ import { app } from "../Firebase/Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
+const CreateBlogModal = ({ isOpen, onRequestClose, id, blog }) => {
   console.log(id);
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -96,12 +96,14 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id }) => {
       setImage(null);
       setSelectedImage(null);
 
+      blog();
       toast.success("Book has been added sucessfully", {
         position: "top-center",
       });
       setTimeout(() => {
         onRequestClose();
       }, 3000);
+
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message, {
