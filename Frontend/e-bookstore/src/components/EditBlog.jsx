@@ -99,6 +99,7 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
       setBlogDetails("");
       setImage(null);
       setSelectedImage(null);
+      blog();
       toast.success("Book has been added sucessfully", {
         position: "top-center",
       });
