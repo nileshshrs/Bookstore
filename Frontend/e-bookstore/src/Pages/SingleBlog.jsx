@@ -49,7 +49,7 @@ const SingleBlog = () => {
             src={post.imagePath}
             alt=""
             srcset=""
-            className="object-contain max-h-[328px]"
+            className="object-contain max-h-[328px] rounded"
           />
         </div>
       </div>

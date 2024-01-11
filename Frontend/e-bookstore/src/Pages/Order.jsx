@@ -27,7 +27,7 @@ const Order = () => {
   }, [userId]);
   return (
     <div className="container border-t mx-auto mt-8 mb-8" style={{ maxWidth: "800px" }}>
-      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: "30px" }}>
+      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily:"Prata",fontWeight:"700",fontSize: "25px" }}>
         1. Order Summary
       </h3>
       <hr className="border-t border-gray-450" />
@@ -61,7 +61,7 @@ const Order = () => {
 
         <hr className="border-t border-gray-450" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4">2. Shipping Information</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4" style={{fontFamily:"Prata",fontWeight:"700",fontSize:"25px"}}>2. Shipping Information</h3>
         <hr className="border-t border-gray-450" />
 
 
@@ -69,17 +69,17 @@ const Order = () => {
         {/* shipping garna ko lagi */}
 
         <form className="p-4 flex flex-col md:flex-row justify-between">
-          <input type="text" required placeholder="Address" className="rounded h-8 w-full md:w-1/2  md:h-12 p-2 border mb-2 md:mb-0 ml-3" />
-          <input type="number" required placeholder="Phone Number" className="rounded h-8 w-full md:w-1/2  md:h-12 p-2 border ml-3" />
+          <input type="text" required placeholder="Address" className="shadow appearance-none leading-tight focus:outline-none focus:shadow-outline rounded h-10 w-full md:w-1/2 h-12 p-2 border mb-2 md:mb-0 ml-3" />
+          <input type="number" required placeholder="Phone Number" className="shadow appearance-none leading-tight focus:outline-none focus:shadow-outline rounded h-10 w-full md:w-1/2 h-12 p-2 border ml-3" />
         </form>
 
-        <button type="submit" className="ml-6 px-3 py-2 rounded text-white bg-black hover:bg-indigo-700">
+        <button type="submit" className="ml-9 px-3 py-2 rounded text-white bg-black hover:bg-indigo-700">
           Save and Continue
         </button>
 
         <hr className="border-t border-gray-450 mt-4" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4" id="payment">3. Payment Method</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4" id="payment" style={{fontFamily:"Prata",fontWeight:"700",fontSize:"25px"}}>3. Payment Method</h3>
         <hr className="border-t border-gray-450" />
 
         <div className="flex mt-4 p-2">
