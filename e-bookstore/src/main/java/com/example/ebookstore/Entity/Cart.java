@@ -5,12 +5,9 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(
-        name = "carts",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"user_id", "book_id"})
-        }
-)
+@Table(name = "carts", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "user_id", "book_id" })
+})
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +15,11 @@ public class Cart {
     private Long cartId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "user_id")
     private Users user;
 
     @ManyToOne
-    @JoinColumn(name = "book_id",referencedColumnName = "book_id",nullable = false)
+    @JoinColumn(name = "book_id")
     private Book book;
 
     @Column(name = "quantity")
