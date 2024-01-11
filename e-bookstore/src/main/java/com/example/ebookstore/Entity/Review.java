@@ -14,7 +14,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
     @Column(name = "review_text",columnDefinition = "TEXT")
