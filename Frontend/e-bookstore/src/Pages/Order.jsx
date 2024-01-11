@@ -1,14 +1,33 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Khalti from "../assets/khalti.png";
+import {useAuthContext} from "../context/useAuthContext";
+import axios from "axios";
 
 const Order = () => {
+  const { user } = useAuthContext();
+  const userId = user ? user.id: null;
+  const [cart, setCart] = useState([]);
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   };
 
+  // localhost:8080/api/v2/orders/user/1
+  const fetchCart = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/v2/carts/get-by-user/${userId}`);
+      res.data.sort((a,b)=>a.bookId-b.bookId);
+      setCart(res.data);
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, [userId]);
   return (
     <div className="container border-t mx-auto mt-8 mb-8" style={{ maxWidth: "800px" }}>
-      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: "30px" }}>
+      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily:"Prata",fontWeight:"700",fontSize: "25px" }}>
         1. Order Summary
       </h3>
       <hr className="border-t border-gray-450" />
@@ -29,17 +48,12 @@ const Order = () => {
 
               <div>
                  {/* add to cart bata tanney   product */}
-                <div className="flex justify-between text-base font-medium text-gray-900">
-                  <p>{truncateText("The nature", 10)}</p>
-                  <p className="pl-2">2</p>
-                  <p style={{ marginRight: "18px" }}>$ 200</p>
-                </div>
 
-                <div className="flex justify-between text-base font-medium text-gray-900">
-                  <p>{truncateText("Another Book Name", 10)}</p>
-                  <p>2</p>
-                  <p style={{ marginRight: "18px" }}>$ 200</p>
-                </div>
+                {cart.map((product,index)=>(<div key={index} className="flex justify-between text-base font-medium text-gray-900">
+                  <p>{truncateText(product.title, 10)}</p>
+                  <p className="pl-2">{product.quantity}</p>
+                  <p style={{ marginRight: "18px" }}>$ {product.price}</p>
+                </div>))}
               </div>
             </div>
           </div>
@@ -47,7 +61,7 @@ const Order = () => {
 
         <hr className="border-t border-gray-450" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4">2. Shipping Information</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4" style={{fontFamily:"Prata",fontWeight:"700",fontSize:"25px"}}>2. Shipping Information</h3>
         <hr className="border-t border-gray-450" />
 
 
@@ -55,17 +69,17 @@ const Order = () => {
         {/* shipping garna ko lagi */}
 
         <form className="p-4 flex flex-col md:flex-row justify-between">
-          <input type="text" required placeholder="Address" className="rounded h-8 w-full md:w-1/2  md:h-12 p-2 border mb-2 md:mb-0 ml-3" />
-          <input type="number" required placeholder="Phone Number" className="rounded h-8 w-full md:w-1/2  md:h-12 p-2 border ml-3" />
+          <input type="text" required placeholder="Address" className="shadow appearance-none leading-tight focus:outline-none focus:shadow-outline rounded h-10 w-full md:w-1/2 h-12 p-2 border mb-2 md:mb-0 ml-3" />
+          <input type="number" required placeholder="Phone Number" className="shadow appearance-none leading-tight focus:outline-none focus:shadow-outline rounded h-10 w-full md:w-1/2 h-12 p-2 border ml-3" />
         </form>
 
-        <button type="submit" className="ml-6 px-3 py-2 rounded text-white bg-black hover:bg-indigo-700">
+        <button type="submit" className="ml-9 px-3 py-2 rounded text-white bg-black hover:bg-indigo-700">
           Save and Continue
         </button>
 
         <hr className="border-t border-gray-450 mt-4" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4" id="payment">3. Payment Method</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4" id="payment" style={{fontFamily:"Prata",fontWeight:"700",fontSize:"25px"}}>3. Payment Method</h3>
         <hr className="border-t border-gray-450" />
 
         <div className="flex mt-4 p-2">
@@ -99,7 +113,7 @@ const Order = () => {
 
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Subtotal</p>
-            <p>$300</p>
+            <p>$ {cart.reduce((total, product) => total + product.total, 0).toFixed(2)}</p>
           </div>
 
           <p className="mt-0.5 text-sm text-gray-500">

@@ -14,7 +14,7 @@ public class BlogComment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
