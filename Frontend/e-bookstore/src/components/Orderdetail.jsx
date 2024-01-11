@@ -3,10 +3,13 @@ import "../css/orderdetail.scss";
 
 const Orderdetail = () => {
   const [status, setStatus] = useState("Pending");
+  const [statusbtn, setStatusbtn] = useState("Complete");
 
   const handleCompleteClick = () => {
     setStatus(status === "Pending" ? "Completed" : "Pending");
+    setStatusbtn(statusbtn === "Complete" ? "Pending" : "Complete");
   };
+
 
   return (
     <>
@@ -16,7 +19,7 @@ const Orderdetail = () => {
         </h3>
 
         <div className="max-w-lg mx-auto rounded-md shadow-lg table-container" style={{ maxWidth: "900px", backgroundColor: "#edebe4" }}>
-          <table className="table-whole w-full ml-4" style={{ fontFamily: "Prata", fontWeight: "100", fontSize: "15px" }}>
+          <table className="w-full ml-4" style={{ fontFamily: "Prata", fontWeight: "100", fontSize: "15px" }}>
             <thead>
               <tr>
                 <th className="p-2">User</th>
@@ -46,9 +49,11 @@ const Orderdetail = () => {
                 <td style={{paddingBottom:"20px"}}>
                   <button className="action-button rounded text-white bg-black p-1 w-12 mr-2">Edit</button>
                   <button className="action-button rounded text-white bg-black  p-1 mr-2 w-auto">Delete</button>
-                  <button className="action-button rounded text-white bg-black p-1 w-auto" onClick={handleCompleteClick}>Complete</button>
+                  <button className="action-button rounded text-white bg-black p-1 w-auto" onClick={handleCompleteClick}>{statusbtn}</button>
                 </td>
               </tr>
+
+ 
             </tbody>
           </table>
         </div>
