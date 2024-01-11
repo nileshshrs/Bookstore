@@ -18,11 +18,11 @@ public class Cart {
     private Long cartId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
     private Users user;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
-    @JoinColumn(name = "book_id")
+    @ManyToOne
+    @JoinColumn(name = "book_id",referencedColumnName = "book_id",nullable = false)
     private Book book;
 
     @Column(name = "quantity")
