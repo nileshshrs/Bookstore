@@ -11,6 +11,6 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByUserId(Long userId);
 
-    void deleteByBook(Book book);
+
     // You can add custom query methods if needed
 }

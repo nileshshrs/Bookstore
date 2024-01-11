@@ -12,12 +12,11 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
-
+    @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
