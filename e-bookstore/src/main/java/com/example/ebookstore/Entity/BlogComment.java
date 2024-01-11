@@ -12,10 +12,10 @@ public class BlogComment {
     @Column(name = "comment_text",columnDefinition = "TEXT",length = 2500)
     private String commentText;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
     private Users user;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
-    @JoinColumn(name = "blog_id")
+    @ManyToOne
+    @JoinColumn(name = "blog_id",referencedColumnName = "blog_id",nullable = false)
     private Blog blog;
 
     public Long getCommentId() {
