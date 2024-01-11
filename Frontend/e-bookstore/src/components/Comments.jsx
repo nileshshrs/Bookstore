@@ -8,6 +8,7 @@ const Comments = ({ comment, fetch, blogID }) => {
   const { user } = useAuthContext();
   const userID = user ? user.id : null;
   const role = user ? user.roles : null;
+  const [newComment,setComment]=useState("");
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
 
@@ -40,6 +41,26 @@ const Comments = ({ comment, fetch, blogID }) => {
       // Handle error appropriately (show message to the user, log, etc.)
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Make a PATCH request to update the comment
+      await axios.post(
+        `http://localhost:8080/api/v2/blogs/comments/addComment`,
+        {
+          commentText:newComment,
+          userId:userID,
+          blogId:blogID
+        }
+      );
+
+      // Update the local state to reflect the changes
+      fetch();
+    } catch (error) {
+      console.error("Error updating comment:", error);
+      // Handle error appropriately (show message to the user, log, etc.)
+    }
+  };
 
   return (
     <div className="comment-section">
@@ -47,10 +68,12 @@ const Comments = ({ comment, fetch, blogID }) => {
         <h4 className="font-bold">Add Comment</h4>
         <form className="">
           <textarea
+          onChange={e=>{setComment(e.target.value)}}
             placeholder="Enter the comment..."
             className="w-full rounded-md border border-black py-1 px-2"
           ></textarea>
-          <button className="" type="submit">
+          <button className="" type="submit"
+          onClick={(e)=>handleSubmit(e)}>
             Comment
           </button>
         </form>

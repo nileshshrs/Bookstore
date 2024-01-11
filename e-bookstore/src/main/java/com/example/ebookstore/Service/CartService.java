@@ -4,6 +4,7 @@ import com.example.ebookstore.Entity.Book;
 import com.example.ebookstore.Entity.Cart;
 import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Repository.CartRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Service
+@Transactional
 public class CartService {
 
     private final CartRepository cartRepository;

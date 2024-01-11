@@ -122,11 +122,13 @@ const Blog = () => {
           isOpen={isCreateBlogModalOpen}
           onRequestClose={closeCreateBlogModal}
           id={userID}
+          blog={getBlogs}
         />
         <EditBlog
           isOpen={isEditBlogModalOpen}
           onRequestClose={closeEditBlogModal}
           post={singleBlogPost}
+          blog={getBlogs}
         />
       </section>
     </main>
