@@ -1,12 +1,20 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Khalti from "../assets/khalti.png";
-import {useAuthContext} from "../context/useAuthContext";
+import { useAuthContext } from "../context/useAuthContext";
 import axios from "axios";
 
 const Order = () => {
   const { user } = useAuthContext();
-  const userId = user ? user.id: null;
+  const userId = user ? user.id : null;
+  // const cartId =cart? cart.id:null;
   const [cart, setCart] = useState([]);
+  
+  const [shippingInfo, setShippingInfo] = useState({
+    address: "",
+    phoneNumber: "",
+  });
+  const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery"); // Default to Cash on Delivery
+
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   };
@@ -61,23 +69,9 @@ const Order = () => {
     fetchCart();
   },[]);
 
-  // localhost:8080/api/v2/orders/user/1
-  const fetchCart = async () => {
-    try {
-      const res = await axios.get(`http://localhost:8080/api/v2/carts/get-by-user/${userId}`);
-      res.data.sort((a,b)=>a.bookId-b.bookId);
-      setCart(res.data);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCart();
-  }, [userId]);
   return (
     <div className="container border-t mx-auto mt-8 mb-8" style={{ maxWidth: "800px" }}>
-      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily:"Prata",fontWeight:"700",fontSize: "25px" }}>
+      <h3 className="font-bold text-gray-900 p-4" style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: "30px" }}>
         1. Order Summary
       </h3>
       <hr className="border-t border-gray-450" />
@@ -113,7 +107,7 @@ const Order = () => {
 
         <hr className="border-t border-gray-450" />
 
-        <h3 className="text-lg font-bold text-gray-900 p-4" style={{fontFamily:"Prata",fontWeight:"700",fontSize:"25px"}}>2. Shipping Information</h3>
+        <h3 className="text-lg font-bold text-gray-900 p-4">2. Shipping Information</h3>
         <hr className="border-t border-gray-450" />
 
         <form
