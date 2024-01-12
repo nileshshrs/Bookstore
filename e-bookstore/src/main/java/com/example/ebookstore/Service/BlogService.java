@@ -3,19 +3,24 @@ package com.example.ebookstore.Service;
 
 import com.example.ebookstore.Entity.Blog;
 import com.example.ebookstore.Entity.Users;
+import com.example.ebookstore.Repository.BlogCommentRepository;
 import com.example.ebookstore.Repository.BlogRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class BlogService {
     private final BlogRepository blogRepository;
+    private final BlogCommentRepository commentRepository;
 
     @Autowired
-    public BlogService(BlogRepository blogRepository) {
+    public BlogService(BlogRepository blogRepository, BlogCommentRepository commentRepository) {
         this.blogRepository = blogRepository;
+        this.commentRepository = commentRepository;
     }
 
     public Blog addBlog(String blogTitle, Users user,String imagePath,String blogDetails){
@@ -52,11 +57,13 @@ public class BlogService {
     }
 
     public void deleteBlog(Long blogId){
-        Optional<Blog> existingBlog=blogRepository.findById(blogId);    //Can i just do existsBy??
+        Optional<Blog> existingBlog=blogRepository.findById(blogId);    //Can I just do existsBy??
         if (existingBlog.isEmpty()){
             throw new IllegalArgumentException("Blog does not Exist.");
         }
-        blogRepository.deleteById(blogId);  //if we dont need this optional for delete
+        blogRepository.deleteById(blogId);  //if we don't need this optional for delete
+        //remove any references i.e. in blog_comment section
+        commentRepository.deleteByBlog_BlogId(blogId);
     }
 
     public Blog patchBlog(Blog updatedBlog){
@@ -107,12 +114,6 @@ public class BlogService {
         }
         return blogRepository.save(existingBlog);
 
-//        private Users author;
-//
-//        private String blogDetails;
-//
-//
-//        private String imagePath;
     }
 
     public Optional<Blog> getBlogById(Long blogId){

@@ -10,5 +10,5 @@ import java.util.List;
 public interface BlogCommentRepository extends JpaRepository<BlogComment,Long> {
 
     List<BlogComment> findAllByBlog_BlogId(Long blogId);
-//    void deleteByBlog_BlogId()
+    void deleteByBlog_BlogId(Long blogId);
 }

@@ -17,7 +17,7 @@ public class Blog {
     @Column(name = "blog_title")
     private String blogTitle;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
     private Users author;
     @Column(name = "blog_details" ,columnDefinition = "TEXT", length=10000)
     private String blogDetails;
