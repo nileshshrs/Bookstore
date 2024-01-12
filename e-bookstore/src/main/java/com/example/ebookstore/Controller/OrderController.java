@@ -31,7 +31,7 @@ public class OrderController {
         List<Map<String, Object>> cartItems = (List<Map<String, Object>>) requestData.get("cartItems");
 
         // Convert timestamp to LocalDateTime
-        Instant timestamp = Instant.ofEpochMilli((Long) requestData.get("orderDate"));
+        Instant timestamp = Instant.ofEpochMilli(((Number) requestData.get("orderDate")).longValue());
         LocalDateTime orderDate = LocalDateTime.ofInstant(timestamp, ZoneOffset.UTC);
 
         String shippingAddress = (String) requestData.get("shippingAddress");

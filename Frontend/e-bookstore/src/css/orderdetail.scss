@@ -1,0 +1,25 @@
+/* Orderdetail.scss */
+
+.table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+.table-container::-webkit-scrollbar {
+  display: none;  
+}
+
+@media screen and (max-width: 600px) {
+  .table-container {
+    overflow-x: auto;
+    display: block;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  
+}

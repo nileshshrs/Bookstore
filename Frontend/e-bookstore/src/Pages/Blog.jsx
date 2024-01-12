@@ -58,6 +58,8 @@ const Blog = () => {
     setEditBlogModalOpen(false);
   };
 
+
+
   return (
     <main className="">
       <div className="page-title-container">
@@ -101,7 +103,8 @@ const Blog = () => {
                         >
                           <FaRegEdit />
                         </button>
-                        <button className="text-red-700">
+                        <button
+                          className="text-red-700">
                           <MdAutoDelete />
                         </button>
                       </>

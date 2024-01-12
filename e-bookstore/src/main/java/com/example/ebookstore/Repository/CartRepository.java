@@ -16,6 +16,5 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     List<Cart> findByUserId(Long userId);
 
-    void deleteByBook(Book existingBook);
-    // You can add custom query methods if needed
+    void deleteByBook(Book book);
 }

@@ -19,6 +19,7 @@ public class BookService {
     private final CartRepository cartRepository;
     private final ReviewRepository reviewRepository;
     private final OrderRepository orderRepository;
+
     @Autowired
     public BookService(BookRepository bookRepository, CartRepository cartRepository, ReviewRepository reviewRepository, OrderRepository orderRepository) {
         this.bookRepository = bookRepository;
@@ -57,12 +58,13 @@ public class BookService {
     public synchronized void deleteBook(Long bookId) {
         Book existingBook = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book with the given ID does not exist"));
-        cartRepository.deleteByBook(existingBook);
 
         // Then delete the book
-        bookRepository.delete(existingBook);
+        cartRepository.deleteByBook(existingBook);
         reviewRepository.deleteByBook(existingBook);
         orderRepository.deleteByBook(existingBook);
+        bookRepository.delete(existingBook);
+
     }
 
     public synchronized Book putBook(Long bookId, Book updatedBook) {
