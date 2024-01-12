@@ -8,7 +8,7 @@ const Comments = ({ comment, fetch, blogID }) => {
   const { user } = useAuthContext();
   const userID = user ? user.id : null;
   const role = user ? user.roles : null;
-  const [newComment,setComment]=useState("");
+  const [newComment, setComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
 
@@ -41,6 +41,16 @@ const Comments = ({ comment, fetch, blogID }) => {
       // Handle error appropriately (show message to the user, log, etc.)
     }
   };
+
+  const handleDelete = async (commentId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/v2/blogs/comments/delete/${commentId}`);
+      fetch();
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -48,9 +58,9 @@ const Comments = ({ comment, fetch, blogID }) => {
       await axios.post(
         `http://localhost:8080/api/v2/blogs/comments/addComment`,
         {
-          commentText:newComment,
-          userId:userID,
-          blogId:blogID
+          commentText: newComment,
+          userId: userID,
+          blogId: blogID,
         }
       );
 
@@ -68,12 +78,13 @@ const Comments = ({ comment, fetch, blogID }) => {
         <h4 className="font-bold">Add Comment</h4>
         <form className="">
           <textarea
-          onChange={e=>{setComment(e.target.value)}}
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
             placeholder="Enter the comment..."
             className="w-full rounded-md border border-black py-1 px-2"
           ></textarea>
-          <button className="" type="submit"
-          onClick={(e)=>handleSubmit(e)}>
+          <button className="" type="submit" onClick={(e) => handleSubmit(e)}>
             Comment
           </button>
         </form>
@@ -124,7 +135,11 @@ const Comments = ({ comment, fetch, blogID }) => {
                           edit
                         </button>
                       )}
-                      {canDelete && <button className="">delete</button>}
+                      {canDelete && (
+                        <button onClick={() => handleDelete(x.commentId)}>
+                          delete
+                        </button>
+                      )}
                     </>
                   )}
                 </div>

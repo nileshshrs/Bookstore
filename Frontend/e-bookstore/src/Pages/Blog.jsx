@@ -58,7 +58,15 @@ const Blog = () => {
     setEditBlogModalOpen(false);
   };
 
-
+  const deleteBlog = async (blogId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/v2/blogs/delete/${blogId}`);
+      getBlogs();
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+     
+    }
+  };
 
   return (
     <main className="">
@@ -104,7 +112,11 @@ const Blog = () => {
                           <FaRegEdit />
                         </button>
                         <button
-                          className="text-red-700">
+                          className="text-red-700"
+                          onClick={() => {
+                            deleteBlog(blog.blogId);
+                          }}
+                        >
                           <MdAutoDelete />
                         </button>
                       </>
