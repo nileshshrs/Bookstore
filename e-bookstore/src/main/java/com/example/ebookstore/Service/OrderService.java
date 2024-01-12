@@ -37,8 +37,18 @@ public class OrderService {
             Long userId = ((Number) cartItem.get("userId")).longValue();
             Long bookId = ((Number) cartItem.get("bookId")).longValue();
             int quantity = (int) cartItem.get("quantity");
-            // Convert Double to BigDecimal
-            BigDecimal total = BigDecimal.valueOf((Double) cartItem.get("total"));
+
+            // Convert total to BigDecimal safely
+            BigDecimal total;
+            if (cartItem.get("total") instanceof Double) {
+                total = BigDecimal.valueOf((Double) cartItem.get("total"));
+            } else if (cartItem.get("total") instanceof Integer) {
+                total = BigDecimal.valueOf((Integer) cartItem.get("total"));
+            } else {
+                // Handle the case where total is not a valid numeric type
+                result.add(Map.of("error", "Invalid 'total' value"));
+                continue; // Skip to the next iteration of the loop
+            }
 
             Optional<Users> optionalUser = userRepository.findById(userId);
             Optional<Book> optionalBook = bookRepository.findById(bookId);
@@ -74,7 +84,6 @@ public class OrderService {
                 orderMap.put("status", savedOrder.getStatus());
                 orderMap.put("orderDate", savedOrder.getOrderDate());
 
-
                 result.add(orderMap);
             } else {
                 // Handle the case where user or book is not found
@@ -84,6 +93,7 @@ public class OrderService {
 
         return result;
     }
+
     public synchronized List<Map<String, Object>> getAllOrders() {
         List<Order> allOrders = orderRepository.findAll();
 

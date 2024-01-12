@@ -120,6 +120,18 @@ public class CartService {
             throw new IllegalArgumentException("Cart not found with ID: " + cartId);
         }
     }
+
+    public synchronized void deleteCartItemsByUserId(Long userId) {
+        List<Cart> cartItems = cartRepository.findByUserId(userId);
+
+            if(!cartItems.isEmpty()){
+
+                cartRepository.deleteAll(cartItems);
+            }else {
+                throw new IllegalArgumentException("Cart not found for user with id: " + userId);
+            }
+
+    }
     private BigDecimal calculateTotal(BigDecimal price, int quantity) {
         return price.multiply(BigDecimal.valueOf(quantity));
     }
