@@ -42,6 +42,7 @@ const Comments = ({ comment, fetch, blogID }) => {
     }
   };
 
+  //comment delete
   const handleDelete = async (commentId) => {
     try {
       await axios.delete(`http://localhost:8080/api/v2/blogs/comments/delete/${commentId}`);
