@@ -17,6 +17,7 @@ const Userprofile = () => {
     }
   }, []);
 
+  //tab view
   const toggleTab = () => {
     setActiveTab(activeTab === "UserProfile" ? "OrderDetail" : "UserProfile");
   };
@@ -129,4 +130,5 @@ const Userprofile = () => {
   );
 };
 
+//using tab view
 export default Userprofile;
