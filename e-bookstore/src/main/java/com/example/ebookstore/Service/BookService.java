@@ -16,11 +16,16 @@ import java.util.Optional;
 @Transactional
 public class BookService {
     private final BookRepository bookRepository;
+    private final CartRepository cartRepository;
+    private final ReviewRepository reviewRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
     public BookService(BookRepository bookRepository, CartRepository cartRepository, ReviewRepository reviewRepository, OrderRepository orderRepository) {
         this.bookRepository = bookRepository;
-
+        this.cartRepository=cartRepository;
+        this.reviewRepository=reviewRepository;
+        this.orderRepository=orderRepository;
     }
 
     public synchronized Book createBook(Book newBook) {
@@ -55,6 +60,9 @@ public class BookService {
                 .orElseThrow(() -> new IllegalArgumentException("Book with the given ID does not exist"));
 
         // Then delete the book
+        cartRepository.deleteByBook(existingBook);
+        reviewRepository.deleteByBook(existingBook);
+        orderRepository.deleteByBook(existingBook);
         bookRepository.delete(existingBook);
 
     }

@@ -18,5 +18,5 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
 
     List<Review> findAllByBook_BookId(Long bookId);
 
-
+    void deleteByBook(Book book);
 }
