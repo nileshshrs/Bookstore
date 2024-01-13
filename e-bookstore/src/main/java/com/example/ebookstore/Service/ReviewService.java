@@ -4,12 +4,14 @@ import com.example.ebookstore.Entity.Book;
 import com.example.ebookstore.Entity.Review;
 import com.example.ebookstore.Entity.Users;
 import com.example.ebookstore.Repository.ReviewRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 

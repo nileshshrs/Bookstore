@@ -67,9 +67,9 @@ const DashboardSidebar = ({ toggle }) => {
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/dashboard/orders">
               <BsArchive />
-              Blog
+              Order
             </Link>
           </li>
         </ul>
