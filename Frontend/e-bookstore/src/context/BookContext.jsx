@@ -113,6 +113,7 @@ export const BookProvider = ({ children }) => {
       value={{
         books,
         fetchBooks,
+        setBooks,
         addBook,
         deleteBook,
         getBookById,
