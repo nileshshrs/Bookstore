@@ -18,7 +18,6 @@ import Userprofile from "./Pages/Userprofile";
 import SingleBlog from "./Pages/SingleBlog";
 import Order from "./Pages/Order";
 import Orderdetail from "./components/Orderdetail";
-import Contact from "./Pages/Contact";
 import Userdetail from "./components/Userdetail";
 
 
@@ -47,7 +46,6 @@ function App() {
         <Route path="/cart" element={<Singleaddtocart />} />{" "}
         {/*Just added if addtocart not accepted */}
         <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/blog/:id" element={<SingleBlog />} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
