@@ -30,11 +30,10 @@ const BookType = () => {
     );
     for (let index = 1; index < genreOptions.length; index++) {
       console.log(filteredBooks);
-      filteredBooks = filteredBooks.concat(
+      filteredBooks = (
         filteredBooks.filter((book) => 
         book.genres.includes(genreOptions[index].value))
       );
-      
     }
     console.log("Set",[...new Set(filteredBooks)]);
     setBooks([...new Set(filteredBooks)]);
