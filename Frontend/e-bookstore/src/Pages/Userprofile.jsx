@@ -1,29 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Img1 from "../assets/icon.png";
 import "../css/orderdetail.scss";
+import { useAuthContext } from "../context/useAuthContext";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Userprofile = () => {
+  const { user, setUser } = useAuthContext();
   const [activeTab, setActiveTab] = useState("UserProfile");
-  const [userData, setUserData] = useState({ username: "", email: "" });
+  const [userData, setUserData] = useState({ username: "", email: "", name: "" });
+  const [editMode, setEditMode] = useState(false);
+  const [editedValues, setEditedValues] = useState({
+    name: "",
+  });
 
   useEffect(() => {
-    // Fetch user data from localStorage or context/state
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    if (storedUserData) {
-      setUserData({
-        username: storedUserData.username,
-        email: storedUserData.email,
-      });
-    }
-  }, []);
+    // Fetch user data from the backend when the component mounts
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
+        const fetchedUserData = response.data;
+        setUserData(fetchedUserData);
+      } catch (error) {
+        console.error("Error fetching user information:", error);
+      }
+    };
 
-  //tab view
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
+
   const toggleTab = () => {
     setActiveTab(activeTab === "UserProfile" ? "OrderDetail" : "UserProfile");
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleEditClick = () => {
+    setEditedValues({
+      name: userData.name,
+    });
+    setEditMode(true);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const data = {
+        name: editedValues.name,
+      };
+
+      const response = await axios.patch(`http://localhost:8080/api/v2/users/edit/${user.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const updatedUserData = response.data;
+      setUserData(updatedUserData);
+      setEditMode(false);
+
+      // Update the user data in the context
+      setUser(updatedUserData);
+    } catch (error) {
+      console.error("Error updating user information:", error);
+    }
+  };
   return (
-    <div className="flex items-center justify-center flex-col sm:flex-row ">
+    <div className="flex items-center justify-center flex-col sm:flex-row">
       {activeTab === "UserProfile" && (
         <div className="w-full p-4 sm:p-8 mt-4 mb-4 sm:w-1/2 lg:w-1/3 xl:w-1/4" style={{ maxWidth: "500px" }}>
           <div className="rounded shadow p-4 sm:p-6">
@@ -34,43 +84,61 @@ const Userprofile = () => {
             />
             <h2 className="font-bold mb-4 text-[15px] text-center">Hi, {userData.username}</h2>
             <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
+              Name
+            </label>
+            <input
+              name="name"
+              className="border-2 rounded-r px-4 py-2 w-full"
+              type="text"
+              value={editMode ? editedValues.name: userData.name}
+              onChange={handleInputChange}
+              disabled={!editMode}
+            />
+            {/* Display email, but disable editing */}
+            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
               Username
             </label>
-            <div className="flex">
-              <input
-                disabled
-                id="username"
-                className="border-2 rounded-r px-4 py-2 w-full"
-                type="text"
-                value={userData.username}
-              />
-            </div>
-            <label htmlFor="about" className="font-semibold text-gray-700 block pb-1">
+            <input
+              name="username"
+              className="border-2 rounded-r px-4 py-2 w-full"
+              type="text"
+              value={userData.username}
+              disabled
+            />
+            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
               Email
             </label>
             <input
-              disabled
-              id="email"
+              name="email"
               className="border-2 rounded-r px-4 py-2 w-full"
               type="email"
               value={userData.email}
-            />
-            <span className="text-gray-600 pt-2 block sm:pt-4 opacity-70">
-              Personal login information of your account
-            </span>
-            <button
-              className="border px-3 py-2 mt-4 border-black bg-black text-white font-semibold rounded-md text-sm"
-              type="submit"
-            >
-              Edit
-            </button>
-            <button
               disabled
-              className="border ml-3 px-3 py-2 mt-4 border-black bg-black text-white font-semibold rounded-md text-sm"
-              type="submit"
-            >
-              Save
-            </button>
+            />
+            {editMode ? (
+              <button
+                className="border ml-3 px-3 py-2 mt-4 border-black bg-black text-white font-semibold rounded-md text-sm"
+                onClick={handleSaveClick}
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                className="border px-3 py-2 mt-4 border-black bg-black text-white font-semibold rounded-md text-sm"
+                onClick={handleEditClick}
+              >
+                Edit
+              </button>
+              
+            )}
+        <Link to="/forgotpass">
+                     <button
+                className="border px-3 py-2 mt-4 ml-2 border-black bg-black text-white font-semibold rounded-md text-sm"
+              
+              >
+                Change password
+              </button>
+              </Link>
           </div>
         </div>
       )}
@@ -118,7 +186,7 @@ const Userprofile = () => {
         </div>
       )}
 
-<div className="absolute top-0 right-0 p-4 mt-12">
+      <div className="absolute top-0 right-0 p-4 mt-12">
         <button
           className="border px-3 py-2 border-black bg-black text-white font-semibold rounded-md text-sm"
           onClick={toggleTab}
@@ -130,5 +198,4 @@ const Userprofile = () => {
   );
 };
 
-//using tab view
 export default Userprofile;

@@ -26,7 +26,7 @@ const DashboardSidebar = ({ toggle }) => {
       </header>
       <div className="w-full">
         <Link
-          to="/account"
+          to="/user-profile"
           className="flex bg-[#dadada] items-center justify-center w-full py-2 pl-3 rounded-lg gap-3 hover:bg-black hover:text-white transition ease-linear font-bold"
         >
           <span className="">
@@ -61,7 +61,7 @@ const DashboardSidebar = ({ toggle }) => {
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/dashboard/users">
               <BsPerson />
               Users
             </Link>
