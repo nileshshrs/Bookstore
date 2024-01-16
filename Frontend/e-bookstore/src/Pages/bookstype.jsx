@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useBookContext } from "../context/BookContext"; // Import the BookContext
@@ -11,7 +11,7 @@ import Select from "react-select";
 
 const BookType = () => {
   const { books, fetchBooks, setBooks } = useBookContext(); // Use the BookContext
-  let booksCopy = books;
+  const [booksCopy,setBooksCopy]=useState([...books]);
 
   const genreOptions = [
     { value: "FICTION", label: "Fiction" },
@@ -22,44 +22,45 @@ const BookType = () => {
     { value: "ROMANCE", label: "Romance" },
   ];
 
+  const repetitiveFilter=(genreOptions)=>{
+    let filteredBooks=[];
+    filteredBooks = filteredBooks.concat(
+      booksCopy.filter((book) => 
+      book.genres.includes(genreOptions[0].value))
+    );
+    for (let index = 1; index < genreOptions.length; index++) {
+      console.log(filteredBooks);
+      filteredBooks = filteredBooks.concat(
+        filteredBooks.filter((book) => 
+        book.genres.includes(genreOptions[index].value))
+      );
+      
+    }
+    console.log("Set",[...new Set(filteredBooks)]);
+    setBooks([...new Set(filteredBooks)]);
+  };
+
   const handleFilterGenre = (selectedOptions) => {
     // console.log(selectedOptions);
-    console.log(books);
+    if (!booksCopy.length) {
+      setBooksCopy([...books]);
+    }
     if (
       !selectedOptions ||
       (Array.isArray(selectedOptions) && selectedOptions.length == 0)
     ) {
       setBooks(booksCopy);
+      // fetchBooks();
       return;
     }
     //This is filter by one element/genre
-    if (selectedOptions.length==1) {
-      console.log(
-        books.filter((book)=>
-        book.genres.includes(selectedOptions[0].value))
-        );
-    }
-
-    // for (let index = 0; index < selectedOptions.length; index++) {
-    //   const option = selectedOptions[index];
+    repetitiveFilter(selectedOptions);
       
-    // }
-    // console.log(
-      // selectedOptions.map(
-      //   (option) =>
-          // books.map((book) =>
-          //   book.genres.map((genre)=>console.log(book.title,"||",genre))
-            // .genres.filter((genre) => genre === 'NON_FICTION')
-          // )
-        // option.value==
-      // )
-    // );
-    //This must call a method to change books shown(by use effect probs)
-  };
+    };
 
   useEffect(() => {
     fetchBooks();
-    booksCopy = books; // Fetch books when the component mounts
+    // booksCopy = books; // Fetch books when the component mounts
   }, []);
 
   const { user } = useAuthContext();
