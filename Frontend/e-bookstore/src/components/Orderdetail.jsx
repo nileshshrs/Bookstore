@@ -5,9 +5,24 @@ import "../css/orderdetail.scss";
 const Orderdetail = () => {
   // const [status, setStatus] = useState("Pending");
   const [orders, setOrders] = useState([]);
-  
+  const [statusbtn, setStatusbtn] = useState("Complete");
 
-    const [statusbtn, setStatusbtn] = useState("Complete");
+  
+  const handleDeleteClick = async (orderId) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:8080/api/v2/orders/delete/${orderId}`
+      );
+      
+      if (res.status === 200) {
+        fetchOrders(); // Refresh the orders after deletion
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
+
     const handleCompleteClick = async (order) => {
       
       try {
@@ -101,9 +116,11 @@ const Orderdetail = () => {
                     <button className="action-button rounded text-white bg-black p-1 w-12 mr-2">
                       Edit
                     </button>
-                    <button className="action-button rounded text-white bg-black  p-1 mr-2 w-auto">
-                      Delete
-                    </button>
+                    <button
+                className="action-button rounded text-white bg-black p-1 w-auto"
+                onClick={() => handleDeleteClick(order.orderId)}>
+                Delete
+              </button>
                   
                     <button
                       className="action-button rounded text-white bg-black p-1 w-auto"
