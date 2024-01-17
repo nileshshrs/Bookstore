@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useBookContext } from "../context/BookContext";
 
-const Tabview1 = () => {
+const Tabview5 = () => {
   const { books } = useBookContext();
   const [randomBooks, setRandomBooks] = useState([]);
 
@@ -46,4 +46,4 @@ const Tabview1 = () => {
   );
 };
 
-export default Tabview1;
+export default Tabview5;
