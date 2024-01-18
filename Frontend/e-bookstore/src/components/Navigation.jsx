@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/navigation.scss";
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -11,7 +11,7 @@ const Navigation = () => {
 
   const { user } = useAuthContext();
   const { logout } = useLogout();
-
+  const navigateSearch=useNavigate();
 
   const [searchKey,setSearchKey]=useState("");
 
@@ -22,7 +22,7 @@ const Navigation = () => {
 
   const searchBook=(e)=>{
     e.preventDefault();
-    window.location=("/search/" + searchKey);
+    navigateSearch("/search/" + searchKey);
   }
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
