@@ -12,8 +12,9 @@ const Userdetail = () => {
     name: "",
     email: "",
     password: "",
-    roles: "users", // Default role as "user"
+    roles: "admin", // Default role as "user"
   });
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     fetchUserDetails();
@@ -31,10 +32,53 @@ const Userdetail = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Clear validation errors on input change
+    setValidationErrors({
+      ...validationErrors,
+      [e.target.name]: "",
+    });
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const errors = {};
+
+    // Validate username
+    if (formData.username.length < 4) {
+      isValid = false;
+      errors.username = "Username must be at least 4 characters long";
+    }
+
+    // Validate name
+    if (formData.name.length < 2) {
+      isValid = false;
+      errors.name = "Name must be at least 2 characters long";
+    }
+
+    // Validate email
+    if (!formData.email.includes("@") || !formData.email.endsWith("gmail.com")) {
+      isValid = false;
+      errors.email = "Email must contain '@' and end with 'gmail.com'";
+    }
+
+    // Validate password
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      isValid = false;
+      errors.password = "Password must be 8 characters with one lowercase, one uppercase, and one number";
+    }
+
+    setValidationErrors(errors);
+    return isValid;
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      // If the form is not valid, do not submit
+      return;
+    }
 
     // Replace the URL with your actual registration API endpoint
     const registrationApiUrl = "http://localhost:8080/api/v2/users/register";
@@ -50,7 +94,7 @@ const Userdetail = () => {
           name: "",
           email: "",
           password: "",
-          roles: "users",
+          roles: "admin",
         });
         // Refresh user table
         fetchUserDetails();
@@ -62,6 +106,25 @@ const Userdetail = () => {
       });
   };
 
+  const handleRoleChange = (userId, newRole) => {
+    // Replace the URL with your actual API endpoint for updating user roles
+    const updateRolesApiUrl = `http://localhost:8080/api/v2/users/edit/${userId}`;
+
+    // Make an API call to update user roles
+    axios
+      .patch(updateRolesApiUrl, { roles: newRole })
+      .then((response) => {
+        // Handle successful role change
+        toast.success(`Roles updated successfully`);
+        // Refresh user table
+        fetchUserDetails();
+      })
+      .catch((error) => {
+        // Handle role change error
+        toast.error(`Error updating roles`);
+        console.error(`Error updating roles for user`, error);
+      });
+  };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -83,14 +146,17 @@ const Userdetail = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {users.sort((a, b) => a.id - b.id).map((user) => (
                 <tr key={user.id}>
                   <td style={{ paddingBottom: "20px" }}>{user.username}</td>
                   <td style={{ paddingBottom: "20px" }}>{user.name}</td>
                   <td style={{ paddingBottom: "20px" }}>{user.email}</td>
                   <td style={{ paddingBottom: "20px" }}>{user.roles}</td>
                   <td style={{ paddingBottom: "20px" }}>
-                    <button className="action-button rounded text-white bg-black p-1 w-18 mr-2">
+                    <button
+                      className="action-button rounded text-white bg-black p-1 w-18 mr-2"
+                      onClick={() => handleRoleChange(user.id, user.roles === 'admin' ? 'users' : 'admin')}
+                    >
                       Change roles
                     </button>
                   </td>
@@ -109,44 +175,50 @@ const Userdetail = () => {
           </label>
           <input
             name="username"
-            className="border-2 rounded-r px-4 py-2 w-full"
+            className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.username ? "border-red-500" : ""}`}
             type="text"
             value={formData.username}
             onChange={handleInputChange}
+            autoComplete="off"
           />
+          {validationErrors.username && <div className="text-red-500">{validationErrors.username}</div>}
 
           <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
             Name
           </label>
           <input
             name="name"
-            className="border-2 rounded-r px-4 py-2 w-full"
+            className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.name ? "border-red-500" : ""}`}
             type="text"
             value={formData.name}
             onChange={handleInputChange}
+            autoComplete="off"
           />
+          {validationErrors.name && <div className="text-red-500">{validationErrors.name}</div>}
 
           <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
             Email
           </label>
           <input
             name="email"
-            className="border-2 rounded-r px-4 py-2 w-full"
+            className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.email ? "border-red-500" : ""}`}
             type="text"
             value={formData.email}
             onChange={handleInputChange}
           />
+          {validationErrors.email && <div className="text-red-500">{validationErrors.email}</div>}
 
           <label htmlFor="password" className="font-semibold text-gray-700 block pb-1">
             Password
           </label>
           <input
             name="password"
-            className="border-2 rounded-r px-4 py-2 w-full"
+            className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.password ? "border-red-500" : ""}`}
             type="password"
             value={formData.password}
             onChange={handleInputChange}
           />
+          {validationErrors.password && <div className="text-red-500">{validationErrors.password}</div>}
 
           {/* Roles Input */}
           <label htmlFor="roles" className="font-semibold text-gray-700 block pb-1">
@@ -170,8 +242,8 @@ const Userdetail = () => {
           </button>
         </div>
       </div>
-       {/* Toastify Notifications */}
-       <ToastContainer position="bottom-right" autoClose={3000} />
+      {/* Toastify Notifications */}
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };

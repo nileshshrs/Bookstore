@@ -141,6 +141,9 @@ public class UserService {
                     user.setImage((String) value);
                     break;
                 // Add other fields as needed
+                case "roles":
+                    user.setRoles(Users.Roles.valueOf((String) value));
+                    break;
 
                 default:
                     throw new IllegalArgumentException("Invalid field for update: " + field);

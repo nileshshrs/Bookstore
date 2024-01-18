@@ -13,9 +13,9 @@ const Userprofile = () => {
   const [editedValues, setEditedValues] = useState({
     name: "",
   });
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   useEffect(() => {
-    // Fetch user data from the backend when the component mounts
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
@@ -66,23 +66,48 @@ const Userprofile = () => {
       setUserData(updatedUserData);
       setEditMode(false);
 
-      // Update the user data in the context
       setUser(updatedUserData);
     } catch (error) {
       console.error("Error updating user information:", error);
     }
   };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedPhoto(file);
+  };
+
+  const handleAddPhotoClick = () => {
+    document.getElementById("photoInput").click();
+  };
+
   return (
     <div className="flex items-center justify-center flex-col sm:flex-row">
       {activeTab === "UserProfile" && (
         <div className="w-full p-4 sm:p-8 mt-4 mb-4 sm:w-1/2 lg:w-1/3 xl:w-1/4" style={{ maxWidth: "500px" }}>
           <div className="rounded shadow p-4 sm:p-6">
             <img
-              src={Img1}
+              src={selectedPhoto ? URL.createObjectURL(selectedPhoto) : Img1}
               alt="User"
               className="mx-auto mb-3 h-16 w-16 rounded-full object-cover"
             />
+          
             <h2 className="font-bold mb-4 text-[15px] text-center">Hi, {userData.username}</h2>
+            <input
+              type="file"
+              id="photoInput"
+              name="photo"
+              accept="image/*"
+              className="hidden"
+              onChange={handlePhotoChange}
+            />
+            <button
+              className="border px-3 py-2  border-black bg-black text-white font-semibold rounded-md text-sm"
+              style={{marginLeft:"210px"}}
+              onClick={handleAddPhotoClick}
+            >
+              Edit Photo
+            </button>
             <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
               Name
             </label>
@@ -90,7 +115,7 @@ const Userprofile = () => {
               name="name"
               className="border-2 rounded-r px-4 py-2 w-full"
               type="text"
-              value={editMode ? editedValues.name: userData.name}
+              value={editMode ? editedValues.name : userData.name}
               onChange={handleInputChange}
               disabled={!editMode}
             />
@@ -129,16 +154,16 @@ const Userprofile = () => {
               >
                 Edit
               </button>
-              
             )}
-        <Link to="/forgotpass">
-                     <button
+            <Link to="/forgotpass">
+              <button
                 className="border px-3 py-2 mt-4 ml-2 border-black bg-black text-white font-semibold rounded-md text-sm"
-              
               >
                 Change password
               </button>
-              </Link>
+            </Link>
+
+            
           </div>
         </div>
       )}
