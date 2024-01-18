@@ -18,6 +18,7 @@ import Userprofile from "./Pages/Userprofile";
 import SingleBlog from "./Pages/SingleBlog";
 import Order from "./Pages/Order";
 import Orderdetail from "./components/Orderdetail";
+import Search from "./Pages/Search";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="books" element={<DashboardProducts />} />
           <Route path="orders" element={<Orderdetail />} />
         </Route>
+        <Route path="/search/:searchKey" element={<Search />}/>
       </Routes>
       {showNavigation && <Footer />}
     </>
