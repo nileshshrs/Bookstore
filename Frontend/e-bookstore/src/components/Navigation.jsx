@@ -12,6 +12,7 @@ const Navigation = () => {
   const { user } = useAuthContext();
   const { logout } = useLogout();
 
+
   const [searchKey,setSearchKey]=useState("");
 
   const handleLogout = () => {
@@ -21,7 +22,7 @@ const Navigation = () => {
 
   const searchBook=(e)=>{
     e.preventDefault();
-    window.location="/search/"+searchKey;
+    window.location=("/search/" + searchKey);
   }
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
@@ -83,7 +84,7 @@ const Navigation = () => {
             </li>
             <li className="">
               <form className="search-form flex"
-              onSubmit={searchBook}
+              onSubmit={(e)=>searchBook(e)}
               >
                 <input type="text" 
                 placeholder="search..." 
