@@ -144,6 +144,7 @@ public class UserService {
                 case "roles":
                     user.setRoles(Users.Roles.valueOf((String) value));
                     break;
+                    
 
                 default:
                     throw new IllegalArgumentException("Invalid field for update: " + field);
