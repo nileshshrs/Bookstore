@@ -58,6 +58,9 @@ public class UserService {
 //        this.javaMailSender = javaMailSender;
     }
 
+
+
+
     // register service
     public Users createUser(Users users) {
         // Check if the username is already taken
@@ -128,13 +131,23 @@ public class UserService {
                 throw new IllegalArgumentException(field + " cannot be updated");
             }
 
-            // Set the field value using reflection
-            try {
-                Field userField = Users.class.getDeclaredField(field);
-                userField.setAccessible(true);
-                userField.set(user, value);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                throw new IllegalArgumentException("Invalid field for update: " + field);
+            // Use the correct field names from your Users entity
+            switch (field) {
+                case "name":
+                    user.setName((String) value);
+                    break;
+
+                case "image":
+                    user.setImage((String) value);
+                    break;
+                // Add other fields as needed
+                case "roles":
+                    user.setRoles(Users.Roles.valueOf((String) value));
+                    break;
+                    
+
+                default:
+                    throw new IllegalArgumentException("Invalid field for update: " + field);
             }
         }
 
@@ -200,6 +213,9 @@ public class UserService {
 //    user.setResetToken(null);
 //    userRepository.save(user);
 //}
+public List<Users> getAllUsersss() {
+    return userRepository.findAll();
+}
 
     public Users findUserByEmailAndUsername(String email, String username) {
         return userRepository.findByUsernameOrEmail(username, email)

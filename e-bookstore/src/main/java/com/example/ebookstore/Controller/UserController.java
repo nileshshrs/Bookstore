@@ -22,6 +22,22 @@ public class UserController {
         this.userService = userService;
     }
 
+
+
+
+    // In UserController.java
+    @GetMapping("/all")
+    public ResponseEntity<Object> getAllUsersss() {
+        try {
+            List<Users> users = userService.getAllUsersss();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Object> createUsers(@RequestBody Users users) {
         try {
