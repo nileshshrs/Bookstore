@@ -100,14 +100,14 @@ const Userprofile = () => {
               alt="User"
               className="mx-auto mb-3 h-16 w-16 rounded-full object-cover"
             />
-             <button
-              className="border px-3 py-2 mb-2   border-black bg-black text-white font-semibold rounded-md text-sm"
-              onClick={toggleAvatar}
-              style={{marginLeft:"65px"}}
-              
-            >
-              Chnage Avatar
-            </button>
+          <button
+            className="border px-3 py-2 mb-2 border-black bg-black text-white font-semibold rounded-md text-sm"
+            onClick={toggleAvatar}
+            style={{ marginLeft: "auto", marginRight: "auto", display: "block" }}
+          >
+            Change Avatar
+          </button>
+
           
             <h2 className="font-bold mb-4 text-[15px] text-center">Hi, {userData.username}</h2>
           
