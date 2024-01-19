@@ -54,6 +54,8 @@ const Order = () => {
     // Additional logic for placing the order (e.g., updating inventory, sending confirmation email, etc.)
     console.log("Placing order...");
   };
+  //delete order
+  
 
   const fetchCart = async () => {
     try {
