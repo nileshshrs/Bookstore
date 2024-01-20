@@ -1,0 +1,25 @@
+.contactpage{
+    
+    .contactsection{
+        width: 80%;
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:1rem;
+        margin: 0 auto ;
+        @media (max-width: 768px) {
+
+        .details{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            
+
+
+        }
+        .map-container {
+            margin-top: 20px; // Adjust margin for smaller screens
+          }
+        }
+        
+    }
+}

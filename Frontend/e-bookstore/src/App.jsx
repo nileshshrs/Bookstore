@@ -18,7 +18,7 @@ import Userprofile from "./Pages/Userprofile";
 import SingleBlog from "./Pages/SingleBlog";
 import Order from "./Pages/Order";
 import Orderdetail from "./components/Orderdetail";
-
+import ContactPage from "./Pages/ContactPage";
 
 function App() {
   const location = useLocation();
@@ -37,7 +37,9 @@ function App() {
         <Route path="/user-profile" element={<Userprofile />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />  
-        <Route path="/order" element={<Order/>} />  
+        <Route path="/order" element={<Order/>} /> 
+        <Route path="contactpage" element={<ContactPage/>}/>
+ 
         
         <Route path="/singleproduct" element={<SingleProduct />} />
         <Route path="/cart" element={<Singleaddtocart />} />
