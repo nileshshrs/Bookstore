@@ -67,7 +67,7 @@ const Orderdetail = () => {
         <h3
           className="font-bold text-gray-900 p-2 mb-6"
           style={{ fontSize: "30px", fontFamily: "Prata", fontWeight: "700" }}>
-          Order Detail
+          Order Details
         </h3>
 
         <div
