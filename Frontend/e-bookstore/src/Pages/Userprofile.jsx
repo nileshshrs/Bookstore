@@ -1,37 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import Img1 from "../assets/icon.png";
+import ImgMale from "../assets/male.png";
+import ImgFemale from "../assets/female.png";
 import "../css/orderdetail.scss";
 import { useAuthContext } from "../context/useAuthContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import ImgMale from "../assets/male.png";
-import ImgFemale from "../assets/female.png";
-
+import Cookies from "js-cookie";
 
 const Userprofile = () => {
   const { user, setUser } = useAuthContext();
-  const [currentAvatar, setCurrentAvatar] = useState("male"); // Default avatar is male
   const [activeTab, setActiveTab] = useState("UserProfile");
   const [userData, setUserData] = useState({ username: "", email: "", name: "" });
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState({
     name: "",
   });
-  
+  const [currentAvatar, setCurrentAvatar] = useState("male");
 
   useEffect(() => {
-    // Fetch user data from localStorage or context/state
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    if (storedUserData) {
-      setUserData({
-        username: storedUserData.username,
-        email: storedUserData.email,
-      });
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
+        const fetchedUserData = response.data;
+        setUserData(fetchedUserData);
+      } catch (error) {
+        console.error("Error fetching user information:", error);
+      }
+    };
+
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const savedAvatar = Cookies.get("userAvatar");
+    if (savedAvatar) {
+      setCurrentAvatar(savedAvatar);
     }
   }, []);
-  
 
-  //tab view
   const toggleTab = () => {
     setActiveTab(activeTab === "UserProfile" ? "OrderDetail" : "UserProfile");
   };
@@ -72,42 +81,53 @@ const Userprofile = () => {
       console.error("Error updating user information:", error);
     }
   };
-  // const toggleAvatar = () => {
-  //   const newAvatar = currentAvatar === "male" ? "female" : "male";
-  //   setCurrentAvatar(newAvatar);
-  //   // Save the selected avatar to the cookie
-  //   Cookies.set("userAvatar", newAvatar);
-  // };
-  
 
-  
+  const toggleAvatar = () => {
+    const newAvatar = currentAvatar === "male" ? "female" : "male";
+    setCurrentAvatar(newAvatar);
+    Cookies.set("userAvatar", newAvatar);
+  };
+
   return (
     <div className="flex items-center justify-center flex-col sm:flex-row">
       {activeTab === "UserProfile" && (
-        <div
-          className="w-full p-4 sm:p-8 mt-4 mb-4 sm:w-1/2 lg:w-1/3 xl:w-1/4"
-          style={{ maxWidth: "500px" }}
-        >
+        <div className="w-full p-4 sm:p-8 mt-4 mb-4 sm:w-1/2 lg:w-1/3 xl:w-1/4" style={{ maxWidth: "500px" }}>
           <div className="rounded shadow p-4 sm:p-6">
             <img
               src={currentAvatar === "male" ? ImgMale : ImgFemale}
               alt="User"
               className="mx-auto mb-3 h-16 w-16 rounded-full object-cover"
             />
-            <h2 className="font-bold mb-4 text-[15px] text-center">Hi, {userData.username}</h2>
+            <button
+              className="border px-3 py-2  border-black bg-black text-white font-semibold rounded-md text-sm"
+              style={{ alignContent: "center" }}
+              onClick={toggleAvatar}
+            >
+              Change Avatar
+            </button>
             <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
+              Name
+            </label>
+            <input
+              name="name"
+              className="border-2 rounded-r px-4 py-2 w-full"
+              type="text"
+              value={editMode ? editedValues.name : userData.name}
+              onChange={handleInputChange}
+              disabled={!editMode}
+            />
+            {/* Display email, but disable editing */}
+            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
               Username
             </label>
-            <div className="flex">
-              <input
-                disabled
-                id="username"
-                className="border-2 rounded-r px-4 py-2 w-full"
-                type="text"
-                value={userData.username}
-              />
-            </div>
-            <label htmlFor="about" className="font-semibold text-gray-700 block pb-1">
+            <input
+              name="username"
+              className="border-2 rounded-r px-4 py-2 w-full"
+              type="text"
+              value={userData.username}
+              disabled
+            />
+            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
               Email
             </label>
             <input
@@ -139,8 +159,6 @@ const Userprofile = () => {
                 Change password
               </button>
             </Link>
-
-            
           </div>
         </div>
       )}
