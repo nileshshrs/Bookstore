@@ -18,7 +18,8 @@ import Userprofile from "./Pages/Userprofile";
 import SingleBlog from "./Pages/SingleBlog";
 import Order from "./Pages/Order";
 import Orderdetail from "./components/Orderdetail";
-import ContactPage from "./Pages/ContactPage";
+import ContactPage from "./Pages/ContactPage";import Userdetail from "./components/Userdetail";
+
 
 function App() {
   const location = useLocation();
@@ -54,6 +55,7 @@ function App() {
           <Route index element={<DashboardContent />} />
           <Route path="books" element={<DashboardProducts />} />
           <Route path="orders" element={<Orderdetail />} />
+          <Route path="users" element={<Userdetail />} />
         </Route>
       </Routes>
       {showNavigation && <Footer />}
