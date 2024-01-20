@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/navigation.scss";
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -11,11 +11,19 @@ const Navigation = () => {
 
   const { user } = useAuthContext();
   const { logout } = useLogout();
+  const navigateSearch=useNavigate();
+
+  const [searchKey,setSearchKey]=useState("");
 
   const handleLogout = () => {
     // Dispatch the "LOGOUT" action to update the user state
     logout();
   };
+
+  const searchBook=(e)=>{
+    e.preventDefault();
+    navigateSearch("/search/" + searchKey);
+  }
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [nav, setNav] = useState(false);
@@ -75,9 +83,14 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="">
-              <form className="search-form flex">
-                <input type="text" placeholder="search..." />
-                <button>
+              <form className="search-form flex"
+              onSubmit={(e)=>searchBook(e)}
+              >
+                <input type="text" 
+                placeholder="search..." 
+                onChange={(e)=>setSearchKey(e.target.value)}  //set search
+                />
+                <button type="submit">
                   <FaSearch />
                 </button>
               </form>
