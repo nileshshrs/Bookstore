@@ -35,8 +35,6 @@ const Search = () => {
     setResults([...filteredBooks]);
   };
 
-    console.log("books", books);
-  console.log("results", results);
   return (
     <section className="featured-books-container mb-5">
       <div className="book-container">
