@@ -148,7 +148,7 @@ const Userprofile = () => {
       {activeTab === "OrderDetail" && (
         <div className="w-full container border-t mt-8 mb-8 sm:w-full lg:w-2/3 xl:w-3/4 mx-auto">
           <h3 className="font-bold text-gray-900 text-3xl mb-6">Your Order</h3>
-          <div className="max-w-4xl mx-auto rounded-md shadow-lg overflow-x-auto">
+          <div className="w-full mx-auto rounded-md shadow-lg overflow-x-auto">
             <table className="w-full table-auto border-collapse">
               <thead>
                 <tr className="bg-gray-200">
