@@ -20,6 +20,7 @@ import Order from "./Pages/Order";
 import Orderdetail from "./components/Orderdetail";
 import Userdetail from "./components/Userdetail";
 import Search from "./Pages/Search";
+import ContactPage from "./Pages/ContactPage"
 
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />  
         <Route path="/order" element={<Order/>} /> 
-        <Route path="contactpage" element={<ContactPage/>}/>
+        <Route path="/contact" element={<ContactPage/>}/>
  
         
         <Route path="/singleproduct" element={<SingleProduct />} />

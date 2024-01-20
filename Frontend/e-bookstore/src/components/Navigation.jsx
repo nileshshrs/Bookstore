@@ -78,7 +78,7 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="">
-              <Link to="/contactpage" className="w-full font-bold">
+              <Link to="/contact" className="w-full font-bold">
                 Contact
               </Link>
             </li>
@@ -178,7 +178,7 @@ const Navigation = () => {
                 </Link>
               </li>
               <li>
-                <Link className="w-full font-bold" to="/contactpage">
+                <Link className="w-full font-bold" to="/contact">
                   Contact
                 </Link>
               </li>
