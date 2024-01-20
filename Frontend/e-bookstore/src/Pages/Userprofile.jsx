@@ -6,7 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ImgMale from "../assets/male.png";
 import ImgFemale from "../assets/female.png";
-import Cookies from "js-cookie";
+
 
 const Userprofile = () => {
   const { user, setUser } = useAuthContext();
@@ -20,27 +20,18 @@ const Userprofile = () => {
   
 
   useEffect(() => {
-     // Retrieve the saved avatar from the cookie
-     const savedAvatar = Cookies.get("userAvatar");
-     if (savedAvatar) {
-       setCurrentAvatar(savedAvatar);
-     }
-
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
-        const fetchedUserData = response.data;
-        setUserData(fetchedUserData);
-      } catch (error) {
-        console.error("Error fetching user information:", error);
-      }
-    };
-
-    if (user) {
-      fetchUserData();
+    // Fetch user data from localStorage or context/state
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    if (storedUserData) {
+      setUserData({
+        username: storedUserData.username,
+        email: storedUserData.email,
+      });
     }
-  }, [user]);
+  }, []);
+  
 
+  //tab view
   const toggleTab = () => {
     setActiveTab(activeTab === "UserProfile" ? "OrderDetail" : "UserProfile");
   };
@@ -81,12 +72,12 @@ const Userprofile = () => {
       console.error("Error updating user information:", error);
     }
   };
-  const toggleAvatar = () => {
-    const newAvatar = currentAvatar === "male" ? "female" : "male";
-    setCurrentAvatar(newAvatar);
-    // Save the selected avatar to the cookie
-    Cookies.set("userAvatar", newAvatar);
-  };
+  // const toggleAvatar = () => {
+  //   const newAvatar = currentAvatar === "male" ? "female" : "male";
+  //   setCurrentAvatar(newAvatar);
+  //   // Save the selected avatar to the cookie
+  //   Cookies.set("userAvatar", newAvatar);
+  // };
   
 
   
