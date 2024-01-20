@@ -81,7 +81,7 @@ const BookType = () => {
               isSearchable
               onChange={handleFilterGenre}
               // onMenuClose={(options)=>console.log("||",options)}  //This must call a method to change books shown(by use effect probs)
-              className="w-full rounded-md h-[30px] border-slate-600 outline-none"
+              className="w-40 rounded-md h-[30px] border-slate-600 outline-none"
               // styles={}
             />
           </div>
