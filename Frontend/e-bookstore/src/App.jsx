@@ -19,6 +19,8 @@ import SingleBlog from "./Pages/SingleBlog";
 import Order from "./Pages/Order";
 import Orderdetail from "./components/Orderdetail";
 import Userdetail from "./components/Userdetail";
+import Search from "./Pages/Search";
+import ContactPage from "./Pages/ContactPage"
 
 
 function App() {
@@ -38,7 +40,9 @@ function App() {
         <Route path="/user-profile" element={<Userprofile />} />
         <Route path="/singleproduct" element={<SingleProduct/>} />
         <Route path="/cart" element={<Singleaddtocart/>} />  
-        <Route path="/order" element={<Order/>} />  
+        <Route path="/order" element={<Order/>} /> 
+        <Route path="/contact" element={<ContactPage/>}/>
+ 
         
         <Route path="/singleproduct" element={<SingleProduct />} />
         <Route path="/cart" element={<Singleaddtocart />} />
@@ -55,6 +59,7 @@ function App() {
           <Route path="orders" element={<Orderdetail />} />
           <Route path="users" element={<Userdetail />} />
         </Route>
+        <Route path="/search/:searchKey" element={<Search />}/>
       </Routes>
       {showNavigation && <Footer />}
     </>
