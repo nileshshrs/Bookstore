@@ -50,7 +50,7 @@ const ForgotPass = () => {
 
   return (
     <>
-      <section className="h-screen flex justify-center items-center form-section relative mt-0">
+      <section className="h-screen flex justify-center items-center form-section relative my-0 py-4">
         <div className="absolute w-full h-full top-0 translucent"></div>
         <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form z-[99]" onSubmit={handlePasswordChange}>
           <div>
