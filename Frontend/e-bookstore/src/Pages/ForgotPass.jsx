@@ -50,7 +50,7 @@ const ForgotPass = () => {
 
   return (
     <>
-      <section className="h-screen flex justify-center items-center form-section relative">
+      <section className="h-screen flex justify-center items-center form-section relative mt-0">
         <div className="absolute w-full h-full top-0 translucent"></div>
         <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form z-[99]" onSubmit={handlePasswordChange}>
           <div>
@@ -78,7 +78,7 @@ const ForgotPass = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-            {message && <p className="text-red-500" style={{color:'red'}}>{message}</p>}
+            {message && <p className="text-red-500 m-0" style={{color:'red'}}>{message}</p>}
           <button type="submit" className="form-btn rounded">
             Change Now
           </button>
