@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/navigation.scss";
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -8,15 +8,22 @@ import { useLogout } from "../context/useLogout";
 
 const Navigation = () => {
   //  const { logout } = useLogout();
-  
 
   const { user } = useAuthContext();
   const { logout } = useLogout();
+  const navigateSearch=useNavigate();
+
+  const [searchKey,setSearchKey]=useState("");
 
   const handleLogout = () => {
     // Dispatch the "LOGOUT" action to update the user state
     logout();
   };
+
+  const searchBook=(e)=>{
+    e.preventDefault();
+    navigateSearch("/search/" + searchKey);
+  }
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [nav, setNav] = useState(false);
@@ -50,9 +57,15 @@ const Navigation = () => {
         <nav className="w-full px-5 flex">
           <ul className="flex w-full items-center justify-evenly">
             <li className="">
-              <Link to="/" className="w-full font-bold">
-                Home
-              </Link>
+              {user && user.roles === "admin" ? (
+                <Link to="/dashboard" className="w-full font-bold">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link to="/" className="w-full font-bold">
+                  Home
+                </Link>
+              )}
             </li>
             <li className="">
               <Link to="/books" className="w-full font-bold">
@@ -60,52 +73,67 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="">
-              <Link to="" className="w-full font-bold">
+              <Link to="/blog" className="w-full font-bold">
                 Blog
               </Link>
             </li>
             <li className="">
-              <Link to="" className="w-full font-bold">
+              <Link to="/contact" className="w-full font-bold">
                 Contact
               </Link>
             </li>
             <li className="">
-              <form className="search-form flex">
-                <input type="text" placeholder="search..." />
-                <button>
+              <form className="search-form flex"
+              onSubmit={(e)=>searchBook(e)}
+              >
+                <input type="text" 
+                placeholder="search..." 
+                onChange={(e)=>setSearchKey(e.target.value)}  //set search
+                />
+                <button type="submit">
                   <FaSearch />
                 </button>
               </form>
             </li>
           </ul>
           <div className="flex justify-between items-center gap-3 btn-div">
-            <div>
-              {user ? (
-                <button className="login-btn" onClick={handleLogout}>Logout</button>
-              ) : (
-                <Link to="/login">
-                  <button className="login-btn">Login</button>
-                </Link>
-              )}
-            </div>
-
-            <div>
-              {user ? (
-                <Link to="/account">
-                  <button className="account-btn">{user.username}</button>
-                </Link>
-              ) : null}
-            </div>
-            <div>
-              {user ? (
-                <Link to="/cart">
-                  <button className="flex items-center justify-center font-bold gap-1">
-                    Cart <FaShoppingBag />
-                  </button>
-                </Link>
-              ) : null}
-            </div>
+          <div className="flex gap-2">
+            
+            {user ? (
+              <button className="login-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <>
+              <Link to="/login">
+                <button className="login-btn">Signin</button>
+              </Link>
+            
+              <Link to="/register">
+              <button style={{color:"white",backgroundColor:"black"}} className="login-btn">Signup</button>
+            </Link>
+            </>
+            )}
           </div>
+
+          <div>
+            {user ? (
+              <Link to="/user-profile">
+                <button className="account-btn">{user.username}</button>
+              </Link>
+            ) : null}
+          </div>
+          <div>
+            {user ? (
+              <Link to="/cart">
+                <button className="flex items-center justify-center font-bold gap-1">
+                  Cart <FaShoppingBag />
+                </button>
+              </Link>
+            ) : null}
+          </div>
+        </div>
+
         </nav>
 
         <div
@@ -129,27 +157,36 @@ const Navigation = () => {
           <nav className="h-full flex justify-center items-center">
             <ul className="h-full">
               <li>
-                <Link className="w-full font-bold" to="">
-                  Home
-                </Link>
+                {user && user.roles === "admin" ? (
+                  <Link to="/dashboard" className="w-full font-bold">
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link to="/" className="w-full font-bold">
+                    Home
+                  </Link>
+                )}
               </li>
               <li>
-                <Link className="w-full font-bold" to="">
+                <Link className="w-full font-bold" to="/books">
                   Books
                 </Link>
               </li>
               <li>
-                <Link className="w-full font-bold" to="">
+                <Link className="w-full font-bold" to="/blog">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link className="w-full font-bold" to="">
+                <Link className="w-full font-bold" to="/contact">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link  className="flex items-center justify-start w-full font-bold gap-2">
+                <Link
+                  className="flex items-center justify-start w-full font-bold gap-2"
+                  to="/cart"
+                >
                   <span> Cart </span>
                   <FaShoppingBag />
                 </Link>
@@ -160,7 +197,9 @@ const Navigation = () => {
             {user ? (
               <>
                 <button className="account-btn">Account</button>
-                <button className="login-btn">Sign out</button>
+                <button className="login-btn" onClick={handleLogout}>
+                  Sign out
+                </button>
               </>
             ) : (
               <>

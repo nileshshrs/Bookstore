@@ -4,6 +4,7 @@ import { BsGrid1X2, BsArchive, BsPerson } from "react-icons/bs";
 import { BiLogOut, BiBook, BiHome } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAuthContext } from "../context/useAuthContext";
+import Img1 from "../assets/icon.png";
 import { useLogout } from "../context/useLogout";
 
 const DashboardSidebar = ({ toggle }) => {
@@ -25,14 +26,14 @@ const DashboardSidebar = ({ toggle }) => {
       </header>
       <div className="w-full">
         <Link
-          to="/account"
+          to="/user-profile"
           className="flex bg-[#dadada] items-center justify-center w-full py-2 pl-3 rounded-lg gap-3 hover:bg-black hover:text-white transition ease-linear font-bold"
         >
           <span className="">
             <img
-              src=""
+              src={Img1}
               alt=""
-              className="border rounded-full border-white object-cover"
+              className="border rounded-full border-red object-cover"
               width={"40px"}
               height={"40px"}
             />
@@ -60,15 +61,15 @@ const DashboardSidebar = ({ toggle }) => {
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/dashboard/users">
               <BsPerson />
               Users
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/dashboard/orders">
               <BsArchive />
-              Blog
+              Order
             </Link>
           </li>
         </ul>

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
 import Tabview1 from "./Tabview1";
+import Tabview2 from "./Tabview2";
+import Tabview3 from "./Tabview3";
+import Tabview4 from "./Tabview4";
+import Tabview5 from "./Tabview5";
+import Tabview6 from "./Tabview6";
 
 const Popular = () => {
   const [toggle, setToggle] = useState(1);
@@ -55,22 +60,22 @@ const Popular = () => {
         </div>
         <div className="tab-container">
           <div className={toggle === 1 ? "content active-content" : "content"}>
-            <Tabview1/>
+            <Tabview1 />
           </div>
           <div className={toggle === 2 ? "content active-content" : "content"}>
-            2
+            <Tabview2 />
           </div>
           <div className={toggle === 3 ? "content active-content" : "content"}>
-            3
+            <Tabview3 />
           </div>
           <div className={toggle === 4 ? "content active-content" : "content"}>
-            4
+            <Tabview4 />
           </div>
           <div className={toggle === 5 ? "content active-content" : "content"}>
-            5
+            <Tabview5 />
           </div>
           <div className={toggle === 6 ? "content active-content" : "content"}>
-            6
+            <Tabview6 />
           </div>
         </div>
       </div>

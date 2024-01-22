@@ -13,13 +13,29 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v2/users")
-@CrossOrigin(origins = "http://localhost:5173") // change the url value f or it to work on your server
+@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"}) // change the url value f or it to work on your server
 public class UserController {
     private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+
+
+
+    // In UserController.java
+    @GetMapping("/all")
+    public ResponseEntity<Object> getAllUsersss() {
+        try {
+            List<Users> users = userService.getAllUsersss();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/register")
@@ -130,5 +146,60 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
+
+
+    //forgot pass
+// In UserController.java
+//@PostMapping("/forgot-password")
+//public ResponseEntity<Object> forgotPassword(@RequestBody Map<String, String> requestBody) {
+//    String email = requestBody.get("email");
+//
+//    try {
+//        userService.generateResetToken(email);
+//        return new ResponseEntity<>("Reset token sent successfully", HttpStatus.OK);
+//    } catch (IllegalArgumentException e) {
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", e.getMessage());
+//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
+//}
+
+// In UserController.java
+//@PostMapping("/reset-password")
+//public ResponseEntity<Object> resetPassword(@RequestBody Map<String, String> requestBody) {
+//    String resetToken = requestBody.get("resetToken");
+//    String newPassword = requestBody.get("newPassword");
+//
+//    try {
+//        userService.resetPassword(resetToken, newPassword);
+//        return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
+//    } catch (IllegalArgumentException e) {
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", e.getMessage());
+//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
+//}
+@PutMapping("/forgot-password")
+public ResponseEntity<Object> forgotPassword(@RequestBody Map<String, String> userDetails) {
+    try {
+        String email = userDetails.get("email");
+        String username = userDetails.get("username");
+        String newPassword = userDetails.get("newPassword");
+
+        // user khojne by email and username
+        Users user = userService.findUserByEmailAndUsername(email, username);
+
+        // password update garna
+        Users updatedUser = userService.updateUserPassword(user.getId(), newPassword);
+
+        return new ResponseEntity<>("Password updated successfully", HttpStatus.OK);
+    } catch (IllegalArgumentException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+}
+
+
 
 }

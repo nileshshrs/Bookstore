@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v2/carts")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"})
 public class CartController {
 
     private final CartService cartService;
@@ -134,5 +134,20 @@ public class CartController {
             errorResponse.put("message", errorMessage);
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
+    }
+    @DeleteMapping("/deleteByUserId/{userId}")
+    public ResponseEntity<Object> deleteCartItemsByUserId(@PathVariable Long userId) {
+       try{
+           cartService.deleteCartItemsByUserId(userId);
+
+           Map<String, Object> response = new HashMap<>();
+           response.put("message", "Cart items for user with ID " + userId + " deleted successfully.");
+           return ResponseEntity.ok(response);
+       }catch (IllegalArgumentException e){
+           String errorMessage = e.getMessage();
+           Map<String, Object> errorResponse = new HashMap<>();
+           errorResponse.put("message", errorMessage);
+           return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+       }
     }
 }

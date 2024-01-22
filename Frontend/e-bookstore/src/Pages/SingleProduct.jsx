@@ -6,24 +6,45 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useAuthContext } from "../context/useAuthContext";
 import { addToCart } from "../components/AddToCart";
+import Reviews from "../components/Reviews";
 
 const SingleProduct = () => {
   const { id } = useParams();
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
   const url = `http://localhost:8080/api/v2/books/${id}`;
   const { user } = useAuthContext();
   const userID = user ? user.id : null;
 
+  const getBook = async () => {
+    try {
+      const response = await axios.get(url);
+      setBook(response.data || {});
+    } catch (error) {
+      console.error("Error fetching book:", error);
+      setBook({}); // Set empty object in case of an error
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/v2/reviews/getByBook/${id}`
+      );
+      setReviews(Array.isArray(res.data) ? res.data : []);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getBook = async () => {
-      try {
-        const response = await axios.get(url);
-        setBook(response.data || {});
-      } catch (error) {
-        console.error("Error fetching book:", error);
-        setBook({}); // Set empty object in case of an error
-      }
-    };
+    fetchReviews();
+  }, [id]);
+
+  useEffect(() => {
     getBook();
   }, [url]);
 
@@ -87,6 +108,7 @@ const SingleProduct = () => {
           </button>
         </div>
       </div>
+      <Reviews reviews={reviews} bookID={id} fetchReviews={fetchReviews}/>
       <ToastContainer />
     </section>
   );

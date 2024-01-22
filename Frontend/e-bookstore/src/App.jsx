@@ -12,7 +12,16 @@ import DashboardProducts from "./components/DashboardProducts";
 import Bookstype from "./Pages/bookstype";
 import SingleProduct from "./Pages/SingleProduct";
 import Singleaddtocart from "./Pages/Singlepagecart";
+import ForgotPass from "./Pages/ForgotPass";
 import Blog from "./Pages/Blog";
+import Userprofile from "./Pages/Userprofile";
+import SingleBlog from "./Pages/SingleBlog";
+import Order from "./Pages/Order";
+import Orderdetail from "./components/Orderdetail";
+import Userdetail from "./components/Userdetail";
+import Search from "./Pages/Search";
+import ContactPage from "./Pages/ContactPage"
+
 
 function App() {
   const location = useLocation();
@@ -27,16 +36,30 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgotpass" element={<ForgotPass />} />
+        <Route path="/user-profile" element={<Userprofile />} />
+        <Route path="/singleproduct" element={<SingleProduct/>} />
+        <Route path="/cart" element={<Singleaddtocart/>} />  
+        <Route path="/order" element={<Order/>} /> 
+        <Route path="/contact" element={<ContactPage/>}/>
+ 
+        
+        <Route path="/singleproduct" element={<SingleProduct />} />
+        <Route path="/cart" element={<Singleaddtocart />} />
         <Route path="/singleproduct" element={<SingleProduct />} />
         <Route path="/cart" element={<Singleaddtocart />} />{" "}
         {/*Just added if addtocart not accepted */}
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<SingleBlog />} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
           <Route index element={<DashboardContent />} />
           <Route path="books" element={<DashboardProducts />} />
+          <Route path="orders" element={<Orderdetail />} />
+          <Route path="users" element={<Userdetail />} />
         </Route>
+        <Route path="/search/:searchKey" element={<Search />}/>
       </Routes>
       {showNavigation && <Footer />}
     </>

@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="h-screen flex justify-center items-center form-section relative">
+      <section className="h-screen flex justify-center items-center form-section relative m-0">
         <div className="absolute w-full h-full top-0 translucent"></div>
         <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form z-[99]">
           <div>
@@ -47,6 +47,7 @@ const Login = () => {
 
           <input
             placeholder="username or email"
+            required
             type="text"
             id="username"
             autoComplete="off"
@@ -65,6 +66,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="rounded"
           />
+
+         <Link to="/forgotpass"> <button style={{color:'#7f7f7f'}}>Forgot password?</button></Link>
 
           <button className="form-btn rounded" onClick={handleSubmit}>
             Sign in

@@ -75,7 +75,7 @@ h6 {
   }
 }
 p {
-  max-width: 540px;
+  max-width: 100%;
   font-family: "work sans" !important;
 }
 .Toastify {
@@ -192,7 +192,7 @@ body {
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           place-content: center;
           place-items: center;
-          width: 80%;
+          width: 100%;
           .books {
             .img-container {
               position: relative;
