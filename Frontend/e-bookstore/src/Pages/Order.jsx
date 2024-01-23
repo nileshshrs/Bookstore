@@ -80,15 +80,15 @@ const Order = () => {
   return (
     <section className="py-5 ">
       <div className="w-[80%] flex flex-col md:w-[80%] sm:w-full sm:px-1 md:flex-row mx-auto border items-center justify-center shadow-lg rounded-md">
-        <div className="sm:px-2 w-full md:w-2/3 py-5 sm:py-5 lg:px-9 lg:py-4 ">
+        <div className="sm:px-2 w-full  md:w-2/3 py-5 sm:py-5 lg:px-9 lg:py-4 ">
           <h3 className="text-2xl font-bold font-[Prata] mb-4">
             Shopping Cart
           </h3>
-          <div className="h-[500px] overflow-y-auto bg-[#f3f4f6] px-3 max-w-[525px] border border-black rounded-md shadow-lg">
+          <div className="h-[500px] mx-auto overflow-y-auto bg-[#f3f4f6] px-3 max-w-[525px] border border-black rounded-md shadow-lg">
             {cart.map((item) => (
               <div
                 key={item.bookId}
-                className="flex flex-col md:flex-row justify-between items-center border-b py-4 md:py-3"
+                className="flex flex-col md:flex-row justify-between items-start border-b py-4 md:py-3"
               >
                 <div className="flex items-center mb-2 md:mb-0">
                   <img
@@ -105,7 +105,9 @@ const Order = () => {
                     </p>
                   </div>
                 </div>
-                <div className="text-md font-bold">${item.price}</div>
+                <div className="text-md font-bold sm:py-0 md:py-0 py-3">
+                  ${item.price}
+                </div>
               </div>
             ))}
           </div>
@@ -113,29 +115,33 @@ const Order = () => {
         <div className="w-full  md:w-2/3  p-5 flex flex-col gap-3 items-start justify-start h-full">
           <h3 className="text-2xl font-semibold font-[Prata] mb-4">Checkout</h3>
           <div className="flex flex-col w-[80%] mx-auto">
-            <p>{error}</p>
-            <div className="flex flex-col items-start justify-center gap-3 w-full">
-              <h4 className="font-bold text-sm">Shipping Information</h4>
-              <input
-                type="text"
-                placeholder="address"
-                className="text-sm w-full h-[28px] px-2 rounded-[3px] font-semibold outline-0 border border-black"
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
-              />
-              <input
-                type="number"
-                placeholder="contact"
-                className="text-sm w-full h-[28px] px-2 rounded-[3px] font-semibold outline-0 border border-black"
-                onChange={(e) => {
-                  setContact(e.target.value);
-                }}
-              />
+            <div className="text-[firebrick] bg-[pink] text-center font-semibold mb-2">
+              {error}
+            </div>
+            <div className="flex flex-col items-start justify-center gap-5 w-full">
+              <div className="flex flex-col gap-3 w-full mx-auto">
+                <h4 className="font-bold text-md">Shipping Information</h4>
+                <input
+                  type="text"
+                  placeholder="address"
+                  className="text-sm w-full h-[28px] px-2 rounded-[3px] font-semibold outline-0 border border-black"
+                  onChange={(e) => {
+                    setAddress(e.target.value);
+                  }}
+                />
+                <input
+                  type="number"
+                  placeholder="contact"
+                  className="text-sm w-full h-[28px] px-2 rounded-[3px] font-semibold outline-0 border border-black"
+                  onChange={(e) => {
+                    setContact(e.target.value);
+                  }}
+                />
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-3 w-[80%] mx-auto">
-            <h4 className="font-bold text-sm mb-2">Order Summary</h4>
+            <h4 className="font-bold text-md mb-2">Order Summary</h4>
             <div className="flex justify-between mb-2 gap-4">
               <span className="font-bold text-sm">Subtotal:</span>
               <span className="font-bold text-xs">${subtotal.toFixed(2)}</span>
@@ -153,7 +159,7 @@ const Order = () => {
           </div>
           {/* Add your checkout form or summary here */}
           <div className="flex flex-col gap-2 w-[80%] mx-auto">
-            <h4 className="font-bold text-sm">Payment Method</h4>
+            <h4 className="font-bold text-md">Payment Method</h4>
             <div className="flex py-2 justify-between items-center">
               <div className="flex items-center justify-center">
                 <input
@@ -191,7 +197,14 @@ const Order = () => {
           </div>
           <div className="flex flex-col gap-2 w-[80%] mx-auto items-center justify-center p-3">
             {paymentMethod === "khalti" ? (
-              <Payment cart={cart} address={address} contact={contact} paymentMethod={paymentMethod} total={total}/>
+              <Payment
+                cart={cart}
+                address={address}
+                contact={contact}
+                paymentMethod={paymentMethod}
+                total={total}
+                setError={setError}
+              />
             ) : (
               <button
                 className="text-xs bg-black text-white py-2 px-3 rounded-[3px] font-semibold"

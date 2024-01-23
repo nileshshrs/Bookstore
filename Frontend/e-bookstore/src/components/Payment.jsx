@@ -4,9 +4,7 @@ import axios from "axios";
 
 const publicTestKey = "test_public_key_402c2b0e98364222bb1c1ab02369cefd";
 
-
-
-const Payment = ({ cart, address, contact, paymentMethod, total }) => {
+const Payment = ({ cart, address, contact, paymentMethod, total, setError }) => {
   const [checkout, setCheckout] = useState(null);
 
   const config = {
@@ -24,8 +22,6 @@ const Payment = ({ cart, address, contact, paymentMethod, total }) => {
           phoneNumber: contact,
           paymentMethod: paymentMethod,
         };
-        console.log(data);
-
         const saveShippingInfo = async (data) => {
           try {
             const response = await axios.post(
@@ -42,7 +38,7 @@ const Payment = ({ cart, address, contact, paymentMethod, total }) => {
             console.error("Error saving shipping info:", error.message);
           }
         };
-        saveShippingInfo(data)
+        saveShippingInfo(data);
       },
       onError(error) {
         console.log(error);
@@ -74,12 +70,16 @@ const Payment = ({ cart, address, contact, paymentMethod, total }) => {
   }, []); // Run useEffect only once during component mount
 
   const handleConfirmOrder = async () => {
-    if (checkout) {
-      // Check if checkout instance is available
-      console.log(cart, address, contact, paymentMethod, total);
-      checkout.show({ amount: total * 100 });
-    } else {
-      console.error("KhaltiCheckout is not initialized");
+    if (contact !== "" || address !== "") {
+      if (checkout) {
+        // Check if checkout instance is available
+        console.log(cart, address, contact, paymentMethod, total);
+        checkout.show({ amount: total * 100 });
+      } else {
+        console.error("KhaltiCheckout is not initialized");
+      }
+    }else{
+      setError("shipping info cannot be empty")
     }
   };
 
