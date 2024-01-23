@@ -1,35 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import Img1 from "../assets/icon.png";
-import ImgMale from "../assets/male.png";
-import ImgFemale from "../assets/female.png";
 import "../css/orderdetail.scss";
 import { useAuthContext } from "../context/useAuthContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ImgMale from "../assets/male.png";
 import ImgFemale from "../assets/female.png";
-
+import Cookies from "js-cookie";
 
 const Userprofile = () => {
   const { user, setUser } = useAuthContext();
+  const [currentAvatar, setCurrentAvatar] = useState("male"); // Default avatar is male
   const [activeTab, setActiveTab] = useState("UserProfile");
-  const [userData, setUserData] = useState({
-    username: "",
-    email: "",
-    name: "",
-  });
+  const [userData, setUserData] = useState({ username: "", email: "", name: "" });
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState({
     name: "",
   });
-  const [currentAvatar, setCurrentAvatar] = useState("male");
+  
 
   useEffect(() => {
+     // Retrieve the saved avatar from the cookie
+     const savedAvatar = Cookies.get("userAvatar");
+     if (savedAvatar) {
+       setCurrentAvatar(savedAvatar);
+     }
+
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/v2/users/${user.id}`
-        );
+        const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
         const fetchedUserData = response.data;
         setUserData(fetchedUserData);
       } catch (error) {
@@ -42,19 +41,6 @@ const Userprofile = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    // Fetch user data from localStorage or context/state
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    if (storedUserData) {
-      setUserData({
-        username: storedUserData.username,
-        email: storedUserData.email,
-      });
-    }
-  }, []);
-  
-
-  //tab view
   const toggleTab = () => {
     setActiveTab(activeTab === "UserProfile" ? "OrderDetail" : "UserProfile");
   };
@@ -80,15 +66,11 @@ const Userprofile = () => {
         name: editedValues.name,
       };
 
-      const response = await axios.patch(
-        `http://localhost:8080/api/v2/users/edit/${user.id}`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.patch(`http://localhost:8080/api/v2/users/edit/${user.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       const updatedUserData = response.data;
       setUserData(updatedUserData);
@@ -99,12 +81,12 @@ const Userprofile = () => {
       console.error("Error updating user information:", error);
     }
   };
-  // const toggleAvatar = () => {
-  //   const newAvatar = currentAvatar === "male" ? "female" : "male";
-  //   setCurrentAvatar(newAvatar);
-  //   // Save the selected avatar to the cookie
-  //   Cookies.set("userAvatar", newAvatar);
-  // };
+  const toggleAvatar = () => {
+    const newAvatar = currentAvatar === "male" ? "female" : "male";
+    setCurrentAvatar(newAvatar);
+    // Save the selected avatar to the cookie
+    Cookies.set("userAvatar", newAvatar);
+  };
   
 
   
@@ -118,20 +100,41 @@ const Userprofile = () => {
               alt="User"
               className="mx-auto mb-3 h-16 w-16 rounded-full object-cover"
             />
+          <button
+            className="border px-3 py-2 mb-2 border-black bg-black text-white font-semibold rounded-md text-sm"
+            onClick={toggleAvatar}
+            style={{ marginLeft: "auto", marginRight: "auto", display: "block" }}
+          >
+            Change Avatar
+          </button>
+
+          
             <h2 className="font-bold mb-4 text-[15px] text-center">Hi, {userData.username}</h2>
+          
+           
             <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
+              Name
+            </label>
+            <input
+              name="name"
+              className="border-2 rounded-r px-4 py-2 w-full"
+              type="text"
+              value={editMode ? editedValues.name : userData.name}
+              onChange={handleInputChange}
+              disabled={!editMode}
+            />
+            {/* Display email, but disable editing */}
+            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
               Username
             </label>
-            <div className="flex">
-              <input
-                disabled
-                id="username"
-                className="border-2 rounded-r px-4 py-2 w-full"
-                type="text"
-                value={userData.username}
-              />
-            </div>
-            <label htmlFor="about" className="font-semibold text-gray-700 block pb-1">
+            <input
+              name="username"
+              className="border-2 rounded-r px-4 py-2 w-full"
+              type="text"
+              value={userData.username}
+              disabled
+            />
+            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
               Email
             </label>
             <input
@@ -157,10 +160,14 @@ const Userprofile = () => {
               </button>
             )}
             <Link to="/forgotpass">
-              <button className="border px-3 py-2 mt-4 ml-2 border-black bg-black text-white font-semibold rounded-md text-sm">
+              <button
+                className="border px-3 py-2 mt-4 ml-2 border-black bg-black text-white font-semibold rounded-md text-sm"
+              >
                 Change password
               </button>
             </Link>
+
+            
           </div>
         </div>
       )}
