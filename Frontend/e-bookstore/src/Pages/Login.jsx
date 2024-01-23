@@ -43,7 +43,7 @@ const Login = () => {
             <h2 className="font-bold text-[50px]">Sign in</h2>
             <p>Start your journey with us.</p>
           </div>
-          <p className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
+          <p className={errMsg ? "my-0 errmsg" : "offscreen"}>{errMsg}</p>
 
           <input
             placeholder="username or email"
@@ -72,7 +72,7 @@ const Login = () => {
           <button className="form-btn rounded" onClick={handleSubmit}>
             Sign in
           </button>
-          <p>
+          <p className="my-0">
             Don't have an account?{" "}
             <Link to="/register" className="font-bold text-black underline">
               Sign up
