@@ -11,7 +11,11 @@ import Cookies from "js-cookie";
 const Userprofile = () => {
   const { user, setUser } = useAuthContext();
   const [activeTab, setActiveTab] = useState("UserProfile");
-  const [userData, setUserData] = useState({ username: "", email: "", name: "" });
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    name: "",
+  });
   const [editMode, setEditMode] = useState(false);
   const [editedValues, setEditedValues] = useState({
     name: "",
@@ -21,7 +25,9 @@ const Userprofile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
+        const response = await axios.get(
+          `http://localhost:8080/api/v2/users/${user.id}`
+        );
         const fetchedUserData = response.data;
         setUserData(fetchedUserData);
       } catch (error) {
@@ -66,11 +72,15 @@ const Userprofile = () => {
         name: editedValues.name,
       };
 
-      const response = await axios.patch(`http://localhost:8080/api/v2/users/edit/${user.id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.patch(
+        `http://localhost:8080/api/v2/users/edit/${user.id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const updatedUserData = response.data;
       setUserData(updatedUserData);
@@ -91,7 +101,10 @@ const Userprofile = () => {
   return (
     <div className="flex items-center justify-center flex-col sm:flex-row">
       {activeTab === "UserProfile" && (
-        <div className="w-full p-4 sm:p-8 mt-4 mb-4 sm:w-1/2 lg:w-1/3 xl:w-1/4" style={{ maxWidth: "500px" }}>
+        <div
+          className="w-full p-4 sm:p-8 mt-4 mb-4 sm:w-1/2 lg:w-1/3 xl:w-1/4"
+          style={{ maxWidth: "500px" }}
+        >
           <div className="rounded shadow p-4 sm:p-6">
             <img
               src={currentAvatar === "male" ? ImgMale : ImgFemale}
@@ -105,7 +118,10 @@ const Userprofile = () => {
             >
               Change Avatar
             </button>
-            <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
+            <label
+              htmlFor="name"
+              className="font-semibold text-gray-700 block pb-1"
+            >
               Name
             </label>
             <input
@@ -117,7 +133,10 @@ const Userprofile = () => {
               disabled={!editMode}
             />
             {/* Display email, but disable editing */}
-            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
+            <label
+              htmlFor="email"
+              className="font-semibold text-gray-700 block pb-1"
+            >
               Username
             </label>
             <input
@@ -127,7 +146,10 @@ const Userprofile = () => {
               value={userData.username}
               disabled
             />
-            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
+            <label
+              htmlFor="email"
+              className="font-semibold text-gray-700 block pb-1"
+            >
               Email
             </label>
             <input
@@ -153,9 +175,7 @@ const Userprofile = () => {
               </button>
             )}
             <Link to="/forgotpass">
-              <button
-                className="border px-3 py-2 mt-4 ml-2 border-black bg-black text-white font-semibold rounded-md text-sm"
-              >
+              <button className="border px-3 py-2 mt-4 ml-2 border-black bg-black text-white font-semibold rounded-md text-sm">
                 Change password
               </button>
             </Link>
