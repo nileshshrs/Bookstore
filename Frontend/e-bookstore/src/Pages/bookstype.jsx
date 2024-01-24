@@ -62,7 +62,7 @@ const BookType = () => {
         <div className="title-container py-4">
           <h2>Books</h2>
         </div>
-        <div className="books-filter-wrapper w-full">
+        <div className="books-filter-wrapper w-[80%]">
           <div className="filter-container w-max px-10 ms-auto">
             <Select
               options={genreOptions}
@@ -98,7 +98,6 @@ const BookType = () => {
                       alt=""
                       width={"135px"}
                       height={"210px"}
-                      className="w-full h-full"
                     />
                   </Link>
                   <button onClick={() => addToCart(book.bookId, userID)}>
@@ -106,10 +105,10 @@ const BookType = () => {
                   </button>
                 </div>
                 <div className="flex flex-col gap-2 justify-center items-center">
-                  <h3 className="text-[#74642f] text-[16px] text-bold mt-3">
+                  <h3 className="text-[#74642f] text-[16px] text-bold text-center m-0 overflow-hidden whitespace-nowrap capitalize overflow-ellipsis">
                     {book.title}
                   </h3>
-                  <p className="m-0 font-[Segoe UI]">{book.authorName}</p>
+                  <p className="m-0 font-[Segoe UI] capitalize">{book.authorName}</p>
                   <div className="text-[#74642f] text-lg">
                     ${book.price.toFixed(2)}
                   </div>
