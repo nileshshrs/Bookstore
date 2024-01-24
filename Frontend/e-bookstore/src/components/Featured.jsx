@@ -40,7 +40,7 @@ const Featured = () => {
           {randomBooks.map((randomBook, index) => (
             <div key={index} className="books flex flex-col justify-center items-center gap-1">
               <div className="border p-5 bg-[#EFEEE8] img-container">
-                <img src={randomBook.imagePath} alt="" />
+                <img src={randomBook.imagePath} alt="" width={"181px"} height={"278px"}/>
                 <Link to={`/addtocart/${randomBook.bookId}`}>
                   <button>Add to Cart</button>
                 </Link>
