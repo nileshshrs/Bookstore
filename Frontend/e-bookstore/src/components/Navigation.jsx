@@ -23,6 +23,7 @@ const Navigation = () => {
   const searchBook=(e)=>{
     e.preventDefault();
     navigateSearch("/search/" + searchKey);
+    setSearchKey("");
   }
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
@@ -89,6 +90,7 @@ const Navigation = () => {
                 <input type="text" 
                 placeholder="search..." 
                 onChange={(e)=>setSearchKey(e.target.value)}  //set search
+                value={searchKey} 
                 />
                 <button type="submit">
                   <FaSearch />

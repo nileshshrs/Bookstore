@@ -26,7 +26,7 @@ const ContactPage = () => {
                         </div>
                     </div>
 
-                    <div className='flex items-start '>
+                    <div className='flex items-start ' style={{paddingTop:"20px"}}>
 
                         <div >
 
@@ -38,7 +38,7 @@ const ContactPage = () => {
                         </div>
                     </div>
 
-                    <div className='flex items-start '>
+                    <div className='flex items-start ' style={{paddingTop:"40px"}}>
                         <div >
 
                             <h2 className='m-0 flex items-center justify-start gap-2'>  <MdOutlineContactPhone />
@@ -75,12 +75,11 @@ const ContactPage = () => {
 
                 {/* //for map */}
                 <div>
-                    <iframe
-                     src="https://maps.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3205.483450059157!2d139.88860141326907!3d36.54245453215222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601f6789ed57aa47%3A0x604db4127f739b6b!2z44Ko44Kk44Og44K544OI44Os44O844K4IOWuh-mDveWuruewl-eArOeUuuW6lw!5e0!3m2!1sen!2snp!4v1676101173749!5m2!1sen!2snp"
-                     height="300" width={500}
-                        // src="https://www.google.com/maps/place/Softwarica+College/@27.7061431,85.3274043,17z/data=!3m1!4b1!4m6!3m5!1s0x39eb190a74aa1f23:0x74ebef82ad0e5c15!8m2!3d27.7061384!4d85.3299792!16s%2Fg%2F12hvnfc2d?entry=ttu"
-                        allowfullscreen="" loading="lazy" title="Google Map">
-
+                  
+                    <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.3609923548966!2d85.32740427395757!3d27.706138376183237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190a74aa1f23%3A0x74ebef82ad0e5c15!2sSoftwarica%20College!5e0!3m2!1sen!2snp!4v1706061326494!5m2!1sen!2snp"
+                     width={600} height="300"   loading="lazy">
+                 
                     </iframe>
                 </div>
             </div>

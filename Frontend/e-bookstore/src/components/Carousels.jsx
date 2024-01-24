@@ -43,7 +43,7 @@ const Carousels = () => {
           <div className="flex gap-5 m-auto w-[70%] justify-center items-center min-h-[80vh] carousel-items">
             <div className="flex flex-col gap-2 justify-center items-start">
               <h2 className="heading capitalize">{randomBook1?.title}</h2>
-              <p>{randomBook1?.description}</p>
+              <p className="min-w-[540px]">{randomBook1?.description}</p>
               <Link to={`/books/${randomBook1?.bookId}`}>
                 <button>
                   Read more <FaLongArrowAltRight />
@@ -63,7 +63,7 @@ const Carousels = () => {
           <div className="flex gap-5 m-auto w-[70%] justify-center items-center min-h-[80vh] carousel-items">
             <div className="flex flex-col gap-2 justify-center items-start">
               <h2 className="heading capitalize">{randomBook3?.title}</h2>
-              <p>{randomBook3?.description}</p>
+              <p className="min-w-[540px]">{randomBook3?.description}</p>
               <Link to={`/books/${randomBook3?.bookId}`}>
                 <button>
                   Read more <FaLongArrowAltRight />
