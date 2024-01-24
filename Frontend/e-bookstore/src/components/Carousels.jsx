@@ -40,13 +40,10 @@ const Carousels = () => {
         className="mb-5"
       >
         <Carousel.Item>
-          <div
-            className="flex gap-5 m-auto w-[70%] justify-center items-center min-h-[80vh] carousel-items"
-            style={{ height: "500px" }}
-          >
+          <div className="flex gap-5 m-auto w-[70%] justify-between items-center min-h-[80vh] carousel-items">
             <div className="flex flex-col gap-2 justify-center items-start">
               <h2 className="heading capitalize">{randomBook1?.title}</h2>
-              <p className="min-w-[540px]">{randomBook1?.description}</p>
+              <p className="sm:max-w-[350px] md:max-w-[470px] lg:max-w-[540px]">{randomBook1?.description}</p>
               <Link to={`/books/${randomBook1?.bookId}`}>
                 <button>
                   Read more <FaLongArrowAltRight />
@@ -58,19 +55,15 @@ const Carousels = () => {
                 src={randomBook1?.imagePath}
                 alt=""
                 className="h-[500px] min-w-[345px] object-cover"
-                style={{ height: "100%", width: "100%" }}
               />
             </div>
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div
-            className="flex gap-5 m-auto w-[70%] justify-center items-center min-h-[80vh] carousel-items"
-            style={{ height: "500px" }}
-          >
+          <div className="flex gap-5 m-auto w-[70%] justify-center items-center min-h-[80vh] carousel-items">
             <div className="flex flex-col gap-2 justify-center items-start">
               <h2 className="heading capitalize">{randomBook3?.title}</h2>
-              <p className="min-w-[540px]">{randomBook3?.description}</p>
+              <p className="sm:max-w-[350px] md:max-w-[470px] lg:max-w-[540px]">{randomBook3?.description}</p>
               <Link to={`/books/${randomBook3?.bookId}`}>
                 <button>
                   Read more <FaLongArrowAltRight />
@@ -82,7 +75,6 @@ const Carousels = () => {
                 src={randomBook3?.imagePath}
                 alt=""
                 className="h-[500px] min-w-[345px] object-cover"
-                style={{ height: "100%", width: "100%" }}
               />
             </div>
           </div>
