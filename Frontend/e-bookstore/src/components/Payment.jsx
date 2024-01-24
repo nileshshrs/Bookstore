@@ -12,6 +12,7 @@ const Payment = ({
   paymentMethod,
   total,
   setError,
+  fetchCart
 }) => {
   const { user } = useAuthContext();
   const userId = user ? user.id : null;
@@ -28,8 +29,8 @@ const Payment = ({
         const data = {
           cartItems: cart,
           orderDate: Date.now(),
-          address: address,
-          phoneNumber: contact,
+          shippingAddress: address,
+          contact: contact,
           paymentMethod: paymentMethod,
         };
         const saveShippingInfo = async (data) => {
@@ -45,6 +46,7 @@ const Payment = ({
                 const url = `http://localhost:8080/api/v2/carts/deleteByUserId/${userId}`;
                 const res = await axios.delete(url);
                 console.log(res.data);
+                fetchCart()
               } catch (error) {
                 console.log(error);
               }

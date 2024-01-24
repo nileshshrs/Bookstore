@@ -28,8 +28,8 @@ const Order = () => {
       const data = {
         cartItems: cart,
         orderDate: Date.now(),
-        address: address,
-        phoneNumber: contact,
+        shippingAddress: address,
+        contact: contact,
         paymentMethod: paymentMethod,
       };
       console.log(data);
@@ -46,6 +46,7 @@ const Order = () => {
             const url = `http://localhost:8080/api/v2/carts/deleteByUserId/${userId}`;
             const res = await axios.delete(url);
             console.log(res.data);
+            fetchCart()
           } catch (error) {
             console.log(error);
           }
@@ -211,6 +212,7 @@ const Order = () => {
                 paymentMethod={paymentMethod}
                 total={total}
                 setError={setError}
+                fetchCart={fetchCart}
               />
             ) : (
               <button
