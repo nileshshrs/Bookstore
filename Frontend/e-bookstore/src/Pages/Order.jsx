@@ -10,7 +10,7 @@ const Order = () => {
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery");
+  const [paymentMethod, setPaymentMethod] = useState("cash on delivery");
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
@@ -175,7 +175,7 @@ const Order = () => {
                   className="form-radio h-3 text-indigo-500 mr-2"
                   name="paymentMethod"
                   value="cashOnDelivery"
-                  checked={paymentMethod === "cashOnDelivery"}
+                  checked={paymentMethod === "cash on delivery"}
                   onChange={handleInputChange}
                 />
                 <label

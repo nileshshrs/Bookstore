@@ -116,6 +116,7 @@ public class OrderService {
                     orderMap.put("totalPrice", order.getTotalPrice());
                     orderMap.put("status", order.getStatus());
                     orderMap.put("orderDate", order.getOrderDate());
+                    orderMap.put("contact", order.getContact());
                     return orderMap;
                 })
                 .collect(Collectors.toList());
@@ -140,6 +141,7 @@ public class OrderService {
                     orderMap.put("totalPrice", order.getTotalPrice());
                     orderMap.put("status", order.getStatus());
                     orderMap.put("orderDate", order.getOrderDate());
+                    orderMap.put("contact", order.getContact());
                     return orderMap;
                 })
                 .collect(Collectors.toList());
