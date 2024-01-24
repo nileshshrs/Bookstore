@@ -82,7 +82,12 @@ const BookType = () => {
               onChange={handleFilterGenre}
               // onMenuClose={(options)=>console.log("||",options)}  //This must call a method to change books shown(by use effect probs)
               className="w-40 rounded-md h-[30px] border-slate-600 outline-none"
-              // styles={}
+              styles={{container:(base)=>({
+                ...base,
+                width:"100%",
+                minWidth:"10rem"
+              })}}
+              
             />
           </div>
           <div className="featured-books py-12 gap-10 px-10 w-full">
