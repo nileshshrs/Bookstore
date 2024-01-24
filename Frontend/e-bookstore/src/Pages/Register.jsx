@@ -96,10 +96,10 @@ const Register = () => {
     <>
       <section className="h-screen flex justify-center items-center form-section relative m-0">
         <div className="absolute w-full h-full top-0 translucent"></div>
-        <form className="flex flex-col gap-4 bg-[#F8F7F2] registration-form  z-[99]">
+        <form className="flex flex-col gap-3 bg-[#F8F7F2] registration-form  z-[99]">
           <div>
             <h2 className="font-bold text-[50px]">Sign up</h2>
-            <p>Start your journey with us.</p>
+            <p className="mb-0">Start your journey with us.</p>
           </div>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
             {errMsg}
@@ -160,6 +160,7 @@ const Register = () => {
           <p
             className={
               pwdFocus && pwd && !validPwd
+              // true
                 ? "instructions m-0 text-white rounded"
                 : "offscreen m-0 text-white rounded"
             }
@@ -190,7 +191,7 @@ const Register = () => {
           <button className="form-btn rounded" onClick={registerUser}>
             Sign up
           </button>
-          <p>
+          <p className="my-0">
             Already have an account ?{" "}
             <Link to="/login" className="font-bold text-black underline">
               Sign in.
