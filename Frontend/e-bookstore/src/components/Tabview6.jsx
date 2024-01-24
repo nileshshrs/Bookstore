@@ -15,8 +15,16 @@ const Tabview6 = () => {
   useEffect(() => {
     // Fetch 6 random books when the component mounts and books are available
     if (books.length > 0) {
-      const array = Array.from({ length: 6 }, () => getRandomBook());
-      setRandomBooks(array);
+      const selectedBooks = new Set();
+
+      while (selectedBooks.size < 6) {
+        const randomBook = getRandomBook();
+        if (randomBook) {
+          selectedBooks.add(randomBook);
+        }
+      }
+
+      setRandomBooks([...selectedBooks]);
     }
   }, [books]);
 
