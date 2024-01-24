@@ -7,13 +7,12 @@ const Orderdetail = () => {
   const [orders, setOrders] = useState([]);
   const [statusbtn, setStatusbtn] = useState("Complete");
 
-  
   const handleDeleteClick = async (orderId) => {
     try {
       const res = await axios.delete(
         `http://localhost:8080/api/v2/orders/delete/${orderId}`
       );
-      
+
       if (res.status === 200) {
         fetchOrders(); // Refresh the orders after deletion
       }
@@ -22,26 +21,24 @@ const Orderdetail = () => {
     }
   };
 
-
-    const handleCompleteClick = async (order) => {
-      
-      try {
-        const res = await axios.patch(
-          `http://localhost:8080/api/v2/orders/update/${order.orderId}`,
-          {
-            status: !order.status,
-          }
-        );
-        if(res.status===200){
-          fetchOrders();
-          console.log("what");
+  const handleCompleteClick = async (order) => {
+    try {
+      const res = await axios.patch(
+        `http://localhost:8080/api/v2/orders/update/${order.orderId}`,
+        {
+          status: !order.status,
         }
-        console.log(order.status);
-        console.log(order.orderId);
-        setStatusbtn(statusbtn === "Complete" ? "Pending" : "Complete");
-      } catch (e) {
-        console.error("Error updating", e);
+      );
+      if (res.status === 200) {
+        fetchOrders();
+        console.log("what");
       }
+      console.log(order.status);
+      console.log(order.orderId);
+      setStatusbtn(statusbtn === "Complete" ? "Pending" : "Complete");
+    } catch (e) {
+      console.error("Error updating", e);
+    }
   };
 
   const fetchOrders = async () => {
@@ -57,84 +54,70 @@ const Orderdetail = () => {
 
   useEffect(() => {
     fetchOrders();
-  }, [  ]);
+  }, []);
 
   return (
     <>
-      <div
-        className="container border-t ml-8 mt-8 mb-8"
-        style={{ maxWidth: "900px" }}>
-        <h3
-          className="font-bold text-gray-900 p-2 mb-6"
-          style={{ fontSize: "30px", fontFamily: "Prata", fontWeight: "700" }}>
-          Order Detail
-        </h3>
-
-        <div
-          className="max-w-lg mx-auto rounded-md shadow-lg table-container"
-          style={{ maxWidth: "900px", backgroundColor: "#edebe4" }}>
-          <table
-            className="w-full ml-4"
-            style={{
-              fontFamily: "Prata",
-              fontWeight: "100",
-              fontSize: "15px",
-            }}>
-            <thead>
-              <tr>
-                <th className="p-2">User</th>
-                <th className="p-2">Payment</th>
-                <th className="p-2">Address</th>
-                <th className="p-2">Book</th>
-                <th className="p-2">Qnt</th>
-                <th className="p-2">TotalPrice</th>
-                <th className="p-2">Status</th>
-                <th className="p-2">Action</th>
+    <div className="container-fluid border-t w-full">
+      <h3 className="font-bold text-gray-900 text-3xl p-2 mb-6">
+        Order Detail
+      </h3>
+  
+      <div className="w-[95%] mx-auto rounded-md shadow-lg overflow-x-auto bg-gray-100">
+        <table className="w-full table-auto border-collapse">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="py-2 px-4 whitespace-nowrap">User</th>
+              <th className="py-2 px-4 whitespace-nowrap">Payment</th>
+              <th className="py-2 px-4 whitespace-nowrap">Address</th>
+              <th className="py-2 px-4 whitespace-nowrap">Book Title</th>
+              <th className="py-2 px-4 whitespace-nowrap">Quantity</th>
+              <th className="py-2 px-4 whitespace-nowrap">Total Price</th>
+              <th className="py-2 px-4 whitespace-nowrap">Status</th>
+              <th className="py-2 px-4 whitespace-nowrap">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => (
+              <tr key={index}>
+                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">{order.username}</td>
+                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">{order.paymentMethod}</td>
+                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">{order.shippingAddress}</td>
+                <td
+                  className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold"
+                  style={{ minWidth: `${order.bookTitle.length * 8}px` }}
+                >
+                  {order.bookTitle}
+                </td>
+                <td className="py-2 px-4 text-center whitespace-nowrap text-[12px] font-semibold">{order.quantity}</td>
+                <td className="py-2 px-4 text-start whitespace-nowrap text-[12px] font-semibold">$ {" "}{order.totalPrice}</td>
+                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                  {order.status ? "Completed" : "Pending"}
+                </td>
+                <td className="py-2 px-4 flex gap-2 items-center justify-center">
+                  <button
+                    className="action-button rounded text-white bg-black px-2 py-2 w-[100px] text-[10px] font-semibold"
+                    onClick={() => handleDeleteClick(order.orderId)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className={`action-button rounded text-white text-[10px] w-[100px] py-2 bg-black font-semibold bg-${
+                      order.status ? "green" : "orange"
+                    }`}
+                    onClick={() => handleCompleteClick(order)}
+                  >
+                    {order.status ? "Order Complete" : "Completed"}
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {orders.map((order, index) => (
-                <tr key={index}>
-                  <td style={{ paddingBottom: "20px" }}>{order.username}</td>
-                  <td style={{ paddingBottom: "20px" }}>{order.paymentMethod}</td>
-                  <td style={{ paddingBottom: "20px" }}>
-                    {order.shippingAddress}
-                  </td>
-                  <td style={{ paddingBottom: "20px" }}>
-                    {/* <select style={{ backgroundColor: "#edebe4" }}>
-                    <option value="" style={{ backgroundColor: "#edebe4" }}>The earth</option>
-                    <option value="" style={{ backgroundColor: "#edebe4" }}>The Nature</option>
-                  </select> */}
-                    {order.bookTitle}
-                  </td>
-                  <td style={{ paddingBottom: "20px",textAlign:"center"}}>{order.quantity}</td>
-                  <td style={{ paddingBottom: "20px",textAlign:"center"}}>{order.totalPrice}</td>
-                  <td style={{ paddingBottom: "20px" }}>
-                    {order.status === true? "Completed" : "Pending"}
-                  </td>
-                  <td style={{ paddingBottom: "20px" }}>
-                    <button className="action-button rounded text-white bg-black p-1 w-12 mr-2">
-                      Edit
-                    </button>
-                    <button
-                className="action-button rounded text-white bg-black p-1 w-auto"
-                onClick={() => handleDeleteClick(order.orderId)}>
-                Delete
-              </button>
-                  
-                    <button
-                      className="action-button rounded text-white bg-black p-1 w-auto"
-                      onClick={() => handleCompleteClick(order)}>
-                      {order.status === true? "Complete" : "Pending"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
+  </>
+  
   );
 };
 

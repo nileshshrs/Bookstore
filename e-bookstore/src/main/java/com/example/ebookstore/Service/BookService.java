@@ -80,8 +80,8 @@ public class BookService {
                 || updatedBook.getImagePath() ==null || updatedBook.getImagePath().isBlank()) {
             throw new IllegalArgumentException("Fields CANNOT BE Empty.");
         }
-        if(bookRepository.existsBookByIsbn(existingBook.getIsbn())){
-            throw new IllegalArgumentException("Book with the given ID does not exist");
+        if(bookRepository.existsBookByIsbn(updatedBook.getIsbn()) && !(existingBook.getIsbn().equals(updatedBook.getIsbn()))){
+            throw new IllegalArgumentException("Book with the given ID already exist");
         }
         // Update the fields of the existing book
         existingBook.setTitle(updatedBook.getTitle());
