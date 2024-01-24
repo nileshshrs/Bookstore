@@ -42,6 +42,13 @@ const Order = () => {
 
         if (response.status >= 200 && response.status < 300) {
           console.log("Shipping info saved successfully!");
+          try {
+            const url = `http://localhost:8080/api/v2/carts/deleteByUserId/${userId}`;
+            const res = await axios.delete(url);
+            console.log(res.data);
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           console.error("Unexpected status code:", response.status);
         }
