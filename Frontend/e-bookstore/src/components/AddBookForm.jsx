@@ -127,30 +127,76 @@ const AddBookForm = ({ open, handleOpen }) => {
   };
   //upload image
 
+  // const handleSubmit = async (url) => {
+  //   const formData = {
+  //     title: title,
+  //     isbn: isbn,
+  //     authorName: author,
+  //     price: price,
+  //     description: description,
+  //     imagePath: url,
+  //     inStock: true,
+  //     categories: categories,
+  //     genres: genres,
+  //   };
+  //   await addBook(formData);
+
+  //   // Fetch updated books
+  //   fetchBooks();
+
+  //   toast.success("Book has been added sucessfully", {
+  //     position: "top-right",
+  //   });
+  //   formRef.current.reset();
+  //   resetImage();
+  //   clearSelectValues();
+  // };
+
+
+
   const handleSubmit = async (url) => {
-    const formData = {
-      title: title,
-      isbn: isbn,
-      authorName: author,
-      price: price,
-      description: description,
-      imagePath: url,
-      inStock: true,
-      categories: categories,
-      genres: genres,
-    };
-    await addBook(formData);
-
-    // Fetch updated books
-    fetchBooks();
-
-    toast.success("Book has been added sucessfully", {
-      position: "top-right",
-    });
-    formRef.current.reset();
-    resetImage();
-    clearSelectValues();
+    try {
+      if (!title || !isbn || !author || !price || !description || !url || categories.length === 0 || genres.length === 0) {
+        // Check if any required field is missing
+        throw new Error("Please fill in all the required fields and upload an image.");
+      }
+  
+      const formData = {
+        title: title,
+        isbn: isbn,
+        authorName: author,
+        price: price,
+        description: description,
+        imagePath: url,
+        inStock: true,
+        categories: categories,
+        genres: genres,
+      };
+  
+      await addBook(formData);
+  
+      // Fetch updated books
+      fetchBooks();
+  
+      toast.success("Book has been added successfully", {
+        position: "top-right",
+      });
+  
+      formRef.current.reset();
+      resetImage();
+      clearSelectValues();
+    } catch (error) {
+      // Display an error message
+      toast.error(error.message, {
+        position: "top-right",
+      });
+    }
   };
+  
+
+
+
+
 
   //react select
 
