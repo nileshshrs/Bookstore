@@ -6,7 +6,7 @@ import axios from 'axios';
  import "../css/chart.css"
 
 
-
+//Used react recharts library , npm install recharts= before running 
 
 function DashboardContent() {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -104,6 +104,7 @@ function DashboardContent() {
 </div>
 
 <div className='charts'>
+       {/* barchart */}
         <ResponsiveContainer width='100%' height='100%'>
           <BarChart
             width={500}
@@ -125,6 +126,7 @@ function DashboardContent() {
           </BarChart>
         </ResponsiveContainer>
 
+{/* line chart section */}
         <ResponsiveContainer width='100%' height='100%'>
           <LineChart
             width={500}
