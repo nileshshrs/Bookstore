@@ -21,7 +21,7 @@ import Orderdetail from "./components/Orderdetail";
 import Userdetail from "./components/Userdetail";
 import Search from "./Pages/Search";
 import ContactPage from "./Pages/ContactPage"
-
+//deleted unnecessary code
 
 
 function App() {
