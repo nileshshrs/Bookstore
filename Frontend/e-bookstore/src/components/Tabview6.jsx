@@ -15,8 +15,16 @@ const Tabview6 = () => {
   useEffect(() => {
     // Fetch 6 random books when the component mounts and books are available
     if (books.length > 0) {
-      const array = Array.from({ length: 6 }, () => getRandomBook());
-      setRandomBooks(array);
+      const selectedBooks = new Set();
+
+      while (selectedBooks.size < 6) {
+        const randomBook = getRandomBook();
+        if (randomBook) {
+          selectedBooks.add(randomBook);
+        }
+      }
+
+      setRandomBooks([...selectedBooks]);
     }
   }, [books]);
 
@@ -33,7 +41,7 @@ const Tabview6 = () => {
           className="popularbooks flex flex-col justify-center items-center gap-1"
         >
           <div className="img-container border p-5 bg-[#EFEEE8]">
-            <img src={randomBook.imagePath} alt="" />
+            <img src={randomBook.imagePath} alt="" width={"181px"} height={"278px"} />
             <Link to={`/addtocart/${randomBook.bookId}`}>
               <button>Add to Cart</button>
             </Link>

@@ -7,32 +7,30 @@ const BestSelling = () => {
   const { books } = useBookContext();
   const [randomBook, setRandomBook] = useState(null);
 
-  // Function to get a random book from the array
   const getRandomBook = () => {
     const randomIndex = Math.floor(Math.random() * books.length);
     return books[randomIndex];
   };
 
   useEffect(() => {
-    // Fetch a random book when the component mounts and books are available
     if (books.length > 0) {
       setRandomBook(getRandomBook());
     }
   }, [books]);
 
   if (books.length === 0 || !randomBook) {
-    // Return a loading state or placeholder while books are being fetched
     return null;
   }
 
   return (
     <section className="bestselling my-12 py-24">
       <div className="w-[80%] mx-auto flex gap-5 justify-center items-center bestselling-books">
-        <div className="">
+        <div className="image-container">
           <img
             src={randomBook.imagePath}
             alt=""
             className="h-[500px] min-w-[345px] object-cover"
+            style={{ height: "100%", width: "100%" }}
           />
         </div>
         <div className="flex flex-col gap-3 justify-center items-start px-4">

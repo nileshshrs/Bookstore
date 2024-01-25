@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="w-[80%] footer-links">
         <div className="">
           <h2 className="text-[22px]">Bookstore</h2>
-          <p className="text-black text=[15px]">
+          <p className="text-black text-[13px]">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto,
             alias.
           </p>

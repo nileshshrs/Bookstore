@@ -7,6 +7,8 @@ const Orderdetail = () => {
   const [orders, setOrders] = useState([]);
   const [statusbtn, setStatusbtn] = useState("Complete");
 
+  console.log(orders);
+
   const handleDeleteClick = async (orderId) => {
     try {
       const res = await axios.delete(
@@ -58,66 +60,93 @@ const Orderdetail = () => {
 
   return (
     <>
-    <div className="container-fluid border-t w-full">
-      <h3 className="font-bold text-gray-900 text-3xl p-2 mb-6">
-        Order Detail
-      </h3>
-  
-      <div className="w-[95%] mx-auto rounded-md shadow-lg overflow-x-auto bg-gray-100">
-        <table className="w-full table-auto border-collapse">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="py-2 px-4 whitespace-nowrap">User</th>
-              <th className="py-2 px-4 whitespace-nowrap">Payment</th>
-              <th className="py-2 px-4 whitespace-nowrap">Address</th>
-              <th className="py-2 px-4 whitespace-nowrap">Book Title</th>
-              <th className="py-2 px-4 whitespace-nowrap">Quantity</th>
-              <th className="py-2 px-4 whitespace-nowrap">Total Price</th>
-              <th className="py-2 px-4 whitespace-nowrap">Status</th>
-              <th className="py-2 px-4 whitespace-nowrap">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order, index) => (
-              <tr key={index}>
-                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">{order.username}</td>
-                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">{order.paymentMethod}</td>
-                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">{order.shippingAddress}</td>
-                <td
-                  className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold"
-                  style={{ minWidth: `${order.bookTitle.length * 8}px` }}
-                >
-                  {order.bookTitle}
-                </td>
-                <td className="py-2 px-4 text-center whitespace-nowrap text-[12px] font-semibold">{order.quantity}</td>
-                <td className="py-2 px-4 text-start whitespace-nowrap text-[12px] font-semibold">$ {" "}{order.totalPrice}</td>
-                <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
-                  {order.status ? "Completed" : "Pending"}
-                </td>
-                <td className="py-2 px-4 flex gap-2 items-center justify-center">
-                  <button
-                    className="action-button rounded text-white bg-black px-2 py-2 w-[100px] text-[10px] font-semibold"
-                    onClick={() => handleDeleteClick(order.orderId)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className={`action-button rounded text-white text-[10px] w-[100px] py-2 bg-black font-semibold bg-${
-                      order.status ? "green" : "orange"
-                    }`}
-                    onClick={() => handleCompleteClick(order)}
-                  >
-                    {order.status ? "Order Complete" : "Completed"}
-                  </button>
-                </td>
+      <div className="container-fluid border-t w-full">
+        <h3 className="font-bold text-gray-900 text-3xl p-2 mb-6">
+          Order Detail
+        </h3>
+
+        <div className="w-[95%] mx-auto rounded-md shadow-lg overflow-x-auto bg-gray-100">
+          <table className="w-full table-auto border-collapse">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="py-2 px-4 whitespace-nowrap">S. No.</th>
+                <th className="py-2 px-4 whitespace-nowrap">Image</th>
+                <th className="py-2 px-4 whitespace-nowrap">Book Title</th>
+                <th className="py-2 px-4 whitespace-nowrap">User</th>
+                <th className="py-2 px-4 whitespace-nowrap">Payment</th>
+                <th className="py-2 px-4 whitespace-nowrap">Address</th>
+                <th className="py-2 px-4 whitespace-nowrap">Contact</th>
+                <th className="py-2 px-4 whitespace-nowrap">Quantity</th>
+                <th className="py-2 px-4 whitespace-nowrap">Total Price</th>
+                <th className="py-2 px-4 whitespace-nowrap">Status</th>
+                <th className="py-2 px-4 whitespace-nowrap">Order Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {orders.map((order, index) => (
+                <tr key={index}>
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold text-center">
+                    {index + 1}
+                  </td>
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                    <img
+                      src={order.bookImage}
+                      alt=""
+                      height={"70px"}
+                      width={"45px"}
+                    />
+                  </td>
+                  <td
+                    className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold"
+                    style={{ minWidth: `${order.bookTitle.length * 8}px` }}
+                  >
+                    {order.bookTitle}
+                  </td>
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                    {order.username}
+                  </td>
+
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                    {order.paymentMethod}
+                  </td>
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                    {order.shippingAddress}
+                  </td>
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                    {order.contact}
+                  </td>
+                  <td className="py-2 px-4 text-center whitespace-nowrap text-[12px] font-semibold">
+                    {order.quantity}
+                  </td>
+                  <td className="py-2 px-4 text-center whitespace-nowrap text-[12px] font-semibold">
+                    $ {order.totalPrice}
+                  </td>
+                  <td className="py-2 px-4 whitespace-nowrap text-[12px] font-semibold">
+                    {order.status ? "Completed" : "Pending"}
+                  </td>
+                  <td className="py-2 px-4">
+                    {/* <button
+                      className="action-button rounded text-white bg-black px-2 py-2 w-[100px] text-[10px] font-semibold"
+                      onClick={() => handleDeleteClick(order.orderId)}
+                    >
+                      Delete
+                    </button> */}
+                    <button
+                      className={`action-button rounded text-white text-[10px] w-[100px] py-2 bg-black font-semibold bg-${
+                        order.status ? "green" : "orange"
+                      }`}
+                      onClick={() => handleCompleteClick(order)}
+                    >
+                      {order.status ? "Completed" : "Complete Order"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </>
-  
+    </>
   );
 };
 

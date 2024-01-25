@@ -10,7 +10,7 @@ const Order = () => {
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery");
+  const [paymentMethod, setPaymentMethod] = useState("cash on delivery");
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
@@ -28,8 +28,8 @@ const Order = () => {
       const data = {
         cartItems: cart,
         orderDate: Date.now(),
-        address: address,
-        phoneNumber: contact,
+        shippingAddress: address,
+        contact: contact,
         paymentMethod: paymentMethod,
       };
       console.log(data);
@@ -42,6 +42,14 @@ const Order = () => {
 
         if (response.status >= 200 && response.status < 300) {
           console.log("Shipping info saved successfully!");
+          try {
+            const url = `http://localhost:8080/api/v2/carts/deleteByUserId/${userId}`;
+            const res = await axios.delete(url);
+            console.log(res.data);
+            fetchCart()
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           console.error("Unexpected status code:", response.status);
         }
@@ -167,7 +175,7 @@ const Order = () => {
                   className="form-radio h-3 text-indigo-500 mr-2"
                   name="paymentMethod"
                   value="cashOnDelivery"
-                  checked={paymentMethod === "cashOnDelivery"}
+                  checked={paymentMethod === "cash on delivery"}
                   onChange={handleInputChange}
                 />
                 <label
@@ -204,6 +212,7 @@ const Order = () => {
                 paymentMethod={paymentMethod}
                 total={total}
                 setError={setError}
+                fetchCart={fetchCart}
               />
             ) : (
               <button

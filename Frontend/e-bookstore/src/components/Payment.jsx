@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import KhaltiCheckout from "khalti-checkout-web";
 import axios from "axios";
+import { useAuthContext } from "../context/useAuthContext";
 
 const publicTestKey = "test_public_key_402c2b0e98364222bb1c1ab02369cefd";
 
-const Payment = ({ cart, address, contact, paymentMethod, total, setError }) => {
+const Payment = ({
+  cart,
+  address,
+  contact,
+  paymentMethod,
+  total,
+  setError,
+  fetchCart
+}) => {
+  const { user } = useAuthContext();
+  const userId = user ? user.id : null;
   const [checkout, setCheckout] = useState(null);
 
   const config = {
@@ -18,8 +29,8 @@ const Payment = ({ cart, address, contact, paymentMethod, total, setError }) => 
         const data = {
           cartItems: cart,
           orderDate: Date.now(),
-          address: address,
-          phoneNumber: contact,
+          shippingAddress: address,
+          contact: contact,
           paymentMethod: paymentMethod,
         };
         const saveShippingInfo = async (data) => {
@@ -31,6 +42,14 @@ const Payment = ({ cart, address, contact, paymentMethod, total, setError }) => 
 
             if (response.status >= 200 && response.status < 300) {
               console.log("Shipping info saved successfully!");
+              try {
+                const url = `http://localhost:8080/api/v2/carts/deleteByUserId/${userId}`;
+                const res = await axios.delete(url);
+                console.log(res.data);
+                fetchCart()
+              } catch (error) {
+                console.log(error);
+              }
             } else {
               console.error("Unexpected status code:", response.status);
             }
@@ -78,8 +97,8 @@ const Payment = ({ cart, address, contact, paymentMethod, total, setError }) => 
       } else {
         console.error("KhaltiCheckout is not initialized");
       }
-    }else{
-      setError("shipping info cannot be empty")
+    } else {
+      setError("shipping info cannot be empty");
     }
   };
 
