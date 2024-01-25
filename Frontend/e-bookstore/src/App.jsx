@@ -21,7 +21,7 @@ import Orderdetail from "./components/Orderdetail";
 import Userdetail from "./components/Userdetail";
 import Search from "./Pages/Search";
 import ContactPage from "./Pages/ContactPage"
-import DashboardMain from "./components/DashboardMain";
+
 
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
           <Route path="books" element={<DashboardProducts />} />
           <Route path="orders" element={<Orderdetail />} />
           <Route path="users" element={<Userdetail />} />
-          <Route path="dashboard" element={<DashboardMain/>} />
+         
 
         </Route>
         <Route path="/search/:searchKey" element={<Search />}/>
