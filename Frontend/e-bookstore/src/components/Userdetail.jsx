@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AiOutlineDelete } from "react-icons/ai";
 
-import "../css/userdetail.scss";
+import "../css/orderdetail.scss";
 
 const Userdetail = () => {
   const [users, setUsers] = useState([]);
@@ -128,48 +129,59 @@ const Userdetail = () => {
 
   return (
     <div className="flex flex-col md:flex-row">
-      {/* User Details Section */}
-      <div className="w-full md:w-6/10 container border-t ml-8 mt-8 mb-8" style={{ maxWidth: "100%" }}>
-        <h3 className="font-bold text-gray-900 p-2 mb-6" style={{ fontSize: "30px", fontFamily: "Prata", fontWeight: "700" }}>
-          User Details
-        </h3>
+    {/* User Details Section */}
+    <div className="w-full md:w-6/10 container border-t   mb-8" style={{ maxWidth: "80%" }}>
+      <h3 className="font-bold text-gray-900 p-2 mb-6 mt-8" style={{ fontSize: "30px", fontFamily: "Prata", fontWeight: "700" }}>
+        User Details
+      </h3>
 
-        <div className="max-w-lg rounded-md shadow-lg table-container" style={{ maxWidth: "100%" }}>
-          <table className="w-full ml-4 mt-4" style={{ fontFamily: "Prata", fontWeight: "100", fontSize: "15px" }}>
-            <thead>
-              <tr>
-                <th className="">Username</th>
-                <th className="">Name</th>
-                <th className="">Email</th>
-                <th className="">Roles</th>
-                <th className="">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.sort((a, b) => a.id - b.id).map((user) => (
-                <tr key={user.id}>
-                  <td style={{ paddingBottom: "20px" }}>{user.username}</td>
-                  <td style={{ paddingBottom: "20px" }}>{user.name}</td>
-                  <td style={{ paddingBottom: "20px" }}>{user.email}</td>
-                  <td style={{ paddingBottom: "20px" }}>{user.roles}</td>
-                  <td style={{ paddingBottom: "20px" }}>
-                    <button
+      <div className="max-w-lg rounded-md shadow-lg table-container" style={{ maxWidth: "100%" }}>
+        <table className="w-full  " style={{ fontFamily: "Prata", fontWeight: "100", fontSize: "15px" }}>
+          <thead>
+            <tr className="bg-gray-200">
+              <th className=" px-4 whitespace-nowrap">Username</th>
+              <th className=" px-4 whitespace-nowrap">Name</th>
+              <th className=" px-4 whitespace-nowrap">Email</th>
+              <th className=" px-4 whitespace-nowrap">Roles</th>
+              <th className=" px-4 whitespace-nowrap">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.sort((a, b) => a.id - b.id).map((user) => (
+              <tr key={user.id}>
+                <td className="py-2 px-4 whitespace-nowrap" style={{ paddingBottom: "20px" }}>{user.username}</td>
+                <td className="py-2 px-4 whitespace-nowrap" style={{ paddingBottom: "20px" }}>{user.name}</td>
+                <td className="py-2 px-4 whitespace-nowrap" style={{ paddingBottom: "20px" }}>{user.email}</td>
+                <td className="py-2 px-4 whitespace-nowrap" style={{ paddingBottom: "20px" }}>{user.roles}</td>
+                <td className="py-2 px-4 whitespace-nowrap" style={{ paddingBottom: "20px" }}>
+                <button
                       className="action-button rounded text-white bg-black p-1 w-18 mr-2"
                       onClick={() => handleRoleChange(user.id, user.roles === 'admin' ? 'users' : 'admin')}
                     >
                       Change roles
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                    <button
+                      className="action-button rounded text-white bg-red-500 p-1 w-18"
+                      
+                    >
+                      <AiOutlineDelete size={18} />
+                    </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+    </div>
+
 
       {/* Form Section */}
-      <div className="w-full md:w-4/10 sm:p-8 mt-8 mb-4 lg:w-2/5 xl:w-2/5" style={{ maxWidth: "100%" }}>
-        <div className="rounded shadow p-4 sm:p-6">
+      <div className="w-full md:w-4/10 sm:p-8  mb-4 lg:w-2/5 xl:w-2/5" style={{ maxWidth: "100%" }}>
+        
+        <div className="rounded shadow  sm:p-6 mt-20" style={{maxHeight:"600px"}}>
+        <h3 className="font-bold text-gray-900  mb-6 " style={{ fontSize: "30px", fontFamily: "Prata", fontWeight: "700" }}>
+        Create User
+      </h3>
           <label htmlFor="username" className="font-semibold text-gray-700 block pb-1">
             Username
           </label>

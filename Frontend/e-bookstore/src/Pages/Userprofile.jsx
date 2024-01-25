@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 
 const Userprofile = () => {
   const { user, setUser } = useAuthContext();
+  const [orders, setOrders] = useState([]);
   const [currentAvatar, setCurrentAvatar] = useState("male"); // Default avatar is male
   const [activeTab, setActiveTab] = useState("UserProfile");
   const [userData, setUserData] = useState({ username: "", email: "", name: "" });
@@ -26,11 +27,16 @@ const Userprofile = () => {
        setCurrentAvatar(savedAvatar);
      }
 
-    const fetchUserData = async () => {
+     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
-        const fetchedUserData = response.data;
+        const userResponse = await axios.get(`http://localhost:8080/api/v2/users/${user.id}`);
+        const ordersResponse = await axios.get(`http://localhost:8080/api/v2/orders/user/${user.id}`);
+
+        const fetchedUserData = userResponse.data;
+        const userOrders = ordersResponse.data;
+
         setUserData(fetchedUserData);
+        setOrders(userOrders);
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
@@ -40,6 +46,7 @@ const Userprofile = () => {
       fetchUserData();
     }
   }, [user]);
+
 
   const toggleTab = () => {
     setActiveTab(activeTab === "UserProfile" ? "OrderDetail" : "UserProfile");
@@ -175,11 +182,12 @@ const Userprofile = () => {
       
 {activeTab === "OrderDetail" && (
         <div className="w-full container border-t mt-8 mb-8 sm:w-full lg:w-2/3 xl:w-3/4 mx-auto">
-          <h3 className="font-bold text-gray-900 text-3xl mb-6">Your Order</h3>
+          <h3 className="font-bold text-gray-900 text-3xl mb-6">Your Orders</h3>
           <div className="max-w-4xl mx-auto rounded-md shadow-lg overflow-x-auto">
             <table className="w-full table-auto border-collapse">
               <thead>
                 <tr className="bg-gray-200">
+                  <th className="py-2 px-4 whitespace-nowrap">Order ID</th>
                   <th className="py-2 px-4 whitespace-nowrap">User</th>
                   <th className="py-2 px-4 whitespace-nowrap">Number</th>
                   <th className="py-2 px-4 whitespace-nowrap">Address</th>
@@ -191,26 +199,23 @@ const Userprofile = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="py-2 px-4 whitespace-nowrap">Bibhakta</td>
-                  <td className="py-2 px-4 whitespace-nowrap">9813056161</td>
-                  <td className="py-2 px-4 whitespace-nowrap">kalanki</td>
-                  <td className="py-2 px-4 whitespace-nowrap">
-                    <select className="bg-gray-200 p-1">
-                      <option value="">The earth</option>
-                      <option value="">The Nature</option>
-                    </select>
-                  </td>
-                  <td className="py-2 px-4 whitespace-nowrap">2</td>
-                  <td className="py-2 px-4 whitespace-nowrap">$20</td>
-                  <td className="py-2 px-4 whitespace-nowrap">status</td>
-                  <td className="py-2 px-4 whitespace-nowrap">
-                    <button className="action-button rounded text-white bg-black p-1">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                {/* Add more rows as needed */}
+                {orders.map((order) => (
+                  <tr key={order.orderId}>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.orderId}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.username}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.contact}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.shippingAddress}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.bookTitle}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.quantity}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">${order.totalPrice}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">{order.status ? "Completed" : "Pending"}</td>
+                    <td className="py-2 px-4 whitespace-nowrap">
+                      <button className="action-button rounded text-white bg-black p-1">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -228,5 +233,5 @@ const Userprofile = () => {
     </div>
   );
 };
-//using tab view
+
 export default Userprofile;

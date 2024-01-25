@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 
-function DashboardContent() {
+function DashboardMain() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalBooks, setTotalBooks] = useState(0);
@@ -66,14 +66,14 @@ function DashboardContent() {
      
 
   return (
-    <main className='main-container ml-1'>
-        <div className='flex items-center justify-between '>
+    <main className='main-container'>
+        <div className='flex items-center justify-between'>
     <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Dashboard</h1>
 
-    
+    <button className='bg-[#2E59D9] h-[32px] rounded-[3px] text-white flex items-center justify-center px-[8px]'>Generate Report</button>
 </div>
 
-<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[30px] mt-[25px] pb-[15px] ' style={{ paddingLeft: "70px", '@media (max-width: 768px)': { paddingLeft: '0px' } }}>
+<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[30px] mt-[25px] pb-[15px]'>
     <div className='h-[80px] rounded-[8px] bg-white border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
         <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Total Users</h2>
@@ -150,4 +150,4 @@ function DashboardContent() {
   )
 }
 
-export default DashboardContent
+export default DashboardMain
