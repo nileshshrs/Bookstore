@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import ImgMale from "../assets/male.png";
 import ImgFemale from "../assets/female.png";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const Userprofile = () => {
   const { user, setUser } = useAuthContext();
@@ -95,6 +96,24 @@ const Userprofile = () => {
     Cookies.set("userAvatar", newAvatar);
   };
   
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      // Make an API call to delete the order
+      const response = await axios.delete(`http://localhost:8080/api/v2/orders/delete/${orderId}`);
+
+      // Handle successful order deletion
+      toast.success(response.data);
+
+      // Refresh order list
+      const updatedOrders = orders.filter((order) => order.orderId !== orderId);
+      setOrders(updatedOrders);
+    } catch (error) {
+      // Handle order deletion error
+      toast.error("Error deleting order");
+      console.error("Error deleting order:", error);
+    }
+  };
+ 
 
   
   return (
@@ -183,7 +202,7 @@ const Userprofile = () => {
 {activeTab === "OrderDetail" && (
         <div className="w-full container border-t mt-8 mb-8 sm:w-full lg:w-2/3 xl:w-3/4 mx-auto">
           <h3 className="font-bold text-gray-900 text-3xl mb-6">Your Orders</h3>
-          <div className="max-w-4xl mx-auto rounded-md shadow-lg overflow-x-auto">
+          <div className="max-w-4xl mx-auto rounded-md shadow-lg overflow-x-auto" style={{maxWidth:"1200px"}}>
             <table className="w-full table-auto border-collapse">
               <thead>
                 <tr className="bg-gray-200">
@@ -210,7 +229,9 @@ const Userprofile = () => {
                     <td className="py-2 px-4 whitespace-nowrap">${order.totalPrice}</td>
                     <td className="py-2 px-4 whitespace-nowrap">{order.status ? "Completed" : "Pending"}</td>
                     <td className="py-2 px-4 whitespace-nowrap">
-                      <button className="action-button rounded text-white bg-black p-1">
+                      <button className="action-button rounded 
+                      text-white bg-black p-1"  onClick={() => handleDeleteOrder(order.orderId)}
+                      >
                         Delete
                       </button>
                     </td>
