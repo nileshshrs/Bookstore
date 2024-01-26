@@ -74,28 +74,28 @@ function DashboardContent() {
 </div>
 
 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[30px] mt-[25px] pb-[15px] ' style={{ paddingLeft: "70px", '@media (max-width: 768px)': { paddingLeft: '0px' } }}>
-    <div className='h-[80px] rounded-[8px] bg-white border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+    <div className='h-[80px] rounded-[8px] bg-[#EDEBE4] shadow-lg border-l-[4px] border-[#4E73DF]  flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
         <div>
             <h2 className='text-[#B589DF] text-[11px] leading-[17px] font-bold'>Total Users</h2>
             <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{totalUsers}</h1>
         </div>
     </div>
 
-    <div className='h-[80px] rounded-[8px] bg-white border-l-[4px] border-[#1CC88A] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+    <div className='h-[80px] rounded-[8px] bg-[#EDEBE4] shadow-lg border-l-[4px] border-[#1CC88A] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
         <div>
             <h2 className='text-[#1cc88a] text-[11px] leading-[17px] font-bold'>Total Orders</h2>
             <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{totalOrders}</h1>
         </div>
     </div>
 
-    <div className='h-[80px] rounded-[8px] bg-white border-l-[4px] border-[#36B9CC] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+    <div className='h-[80px] rounded-[8px] bg-[#EDEBE4] shadow-lg border-l-[4px] border-[#36B9CC] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
         <div>
             <h2 className='text-[#1cc88a] text-[11px] leading-[17px] font-bold'>Total Book </h2>
             <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{totalBooks}</h1>
         </div>
     </div>
 
-    <div className='h-[80px] rounded-[8px] bg-white border-l-[4px] border-[#F6C23E] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+    <div className='h-[80px] rounded-[8px] bg-[#EDEBE4] shadow-lg border-l-[4px] border-[#F6C23E] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
         <div>
             <h2 className='text-[#1cc88a] text-[11px] leading-[17px] font-bold'>Total Carts</h2>
             <h1 className='text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]'>{totalCarts}</h1>
