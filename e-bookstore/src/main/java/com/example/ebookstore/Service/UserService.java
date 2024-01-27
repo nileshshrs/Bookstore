@@ -64,6 +64,9 @@ public class UserService {
     // register service
     public Users createUser(Users users) {
         // Check if the username is already taken
+        if (users.getUsername().isBlank() || users.getEmail().isBlank() || users.getPassword().isBlank()) {
+            throw new IllegalArgumentException("Empty fields provided.");
+        }
         if (userRepository.existsByUsernameOrEmail(users.getUsername(), users.getEmail())) {
             throw new IllegalArgumentException("Username or email is already taken");
         }

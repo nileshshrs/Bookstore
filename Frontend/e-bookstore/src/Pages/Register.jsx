@@ -64,6 +64,10 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     try {
+      console.log(validName,validEmail,validPwd,validMatch);
+      if(!validName || !validPwd || !validMatch || !validEmail){
+        throw new Error("Invalid inputs given");
+      }
       const response = await axios.post(url, {
         username: user,
         email: email,
@@ -89,6 +93,10 @@ const Register = () => {
       const errorMessage = error?.response?.data?.message;
       // console.log(errorMessage);
       setErrMsg(errorMessage);
+      if (!errorMessage) {
+        console.log(error.message);
+        setErrMsg(error.message);
+      }
     }
   };
 
@@ -107,6 +115,7 @@ const Register = () => {
           <input
             placeholder="username"
             type="text"
+            required
             id="username"
             ref={userRef}
             autoComplete="off"
