@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Register = () => {
@@ -64,34 +64,41 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     try {
+      console.log(validName, validEmail, validPwd, validMatch);
+      if (!validName || !validPwd || !validMatch || !validEmail) {
+        throw new Error("Invalid inputs given");
+      }
       const response = await axios.post(url, {
         username: user,
         email: email,
         password: pwd,
       });
-
+  
       console.log(response);
       if (response.status === 201) {
-        // console.log("Sign Up Successful. Redirecting to /login...");
         toast.success("Sign Up Successful. Please login!", {
           position: "top-right",
         });
-
+  
         setTimeout(() => {
           console.log("Sign Up Successful. Redirecting to /login...");
-          // Use navigate to navigate to /login
-          // window.location = "/login";
           navigate("/login");
-        }, 2500); //2.5 millisecond
+        }, 2500);
       }
-      e.target.reset();
+      // Reset state values
+      setUser("");
+      setPwd("");
+      setMatchPwd("");
+      setEmail("");
     } catch (error) {
       const errorMessage = error?.response?.data?.message;
-      // console.log(errorMessage);
       setErrMsg(errorMessage);
+      if (!errorMessage) {
+        console.log(error.message);
+        setErrMsg(error.message);
+      }
     }
   };
-
   return (
     <>
       <section className="h-screen flex justify-center items-center form-section relative m-0">
@@ -107,6 +114,7 @@ const Register = () => {
           <input
             placeholder="username"
             type="text"
+            required
             id="username"
             ref={userRef}
             autoComplete="off"
