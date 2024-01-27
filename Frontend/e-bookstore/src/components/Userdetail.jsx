@@ -202,88 +202,96 @@ const Userdetail = () => {
 
       {/* Create User Section */}
       {activeTab === "CreateUser" && (
-        <div className="w-full md:w-4/10 sm:p-8 mb-4 lg:w-2/5 xl:w-2/5" style={{ maxWidth: "100%",marginLeft:"360px" }}>
-          <div className="rounded shadow sm:p-6 mt-20" style={{ maxHeight: "700px" }}>
-            <h3 className="font-bold text-gray-900 mb-6 " style={{ fontSize: "30px", fontFamily: "Prata", fontWeight: "700" }}>
-              Create User
-            </h3>
-            <label htmlFor="username" className="font-semibold text-gray-700 block pb-1">
-              Username
-            </label>
-            <input
-              name="username"
-              className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.username ? "border-red-500" : ""}`}
-              type="text"
-              value={formData.username}
-              onChange={handleInputChange}
-              autoComplete="off"
-            />
-            {validationErrors.username && <div className="text-red-500">{validationErrors.username}</div>}
-
-            <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
-              Name
-            </label>
-            <input
-              name="name"
-              className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.name ? "border-red-500" : ""}`}
-              type="text"
-              value={formData.name}
-              onChange={handleInputChange}
-              autoComplete="off"
-            />
-            {validationErrors.name && <div className="text-red-500">{validationErrors.name}</div>}
-
-            <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
-              Email
-            </label>
-            <input
-              name="email"
-              className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.email ? "border-red-500" : ""}`}
-              type="text"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            {validationErrors.email && <div className="text-red-500">{validationErrors.email}</div>}
-
-            <label htmlFor="password" className="font-semibold text-gray-700 block pb-1">
-              Password
-            </label>
-            <input
-              name="password"
-              className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.password ? "border-red-500" : ""}`}
-              type="password"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-            {validationErrors.password && <div className="text-red-500">{validationErrors.password}</div>}
-
-            {/* Roles Input */}
-            <label htmlFor="roles" className="font-semibold text-gray-700 block pb-1">
-              Roles
-            </label>
-            <input
-              type="text"
-              id="roles"
-              name="roles"
-              className="border-2 rounded-r px-4 py-2 w-full"
-              value={formData.roles}
-              onChange={handleInputChange}
-              disabled
-            />
-
-            {/* Form Submission */}
-            <button
-              onClick={handleFormSubmit}
-              className="border ml-3 px-3 py-2 mt-4 border-black bg-black text-white font-semibold rounded-md text-sm"
-            >
-              Create
-            </button>
-          </div>
-        </div>
+     <div className=" sm:w-3/5 lg:w-3/5  mx-auto my-10" style={{maxWidth:"450px"}}>
+      
+     <div className="rounded shadow p-4 sm:p-6">
+      
+       <h3 className="font-bold text-gray-900 mb-6 text-2xl font-prata">
+         Create User
+       </h3>
+   
+       {/* Username Input */}
+       <label htmlFor="username" className="font-semibold text-gray-700 block pb-1">
+         Username
+       </label>
+       <input
+         name="username"
+         className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.username ? "border-red-500" : ""}`}
+         type="text"
+         value={formData.username}
+         onChange={handleInputChange}
+         autoComplete="off"
+       />
+       {validationErrors.username && <div className="text-red-500">{validationErrors.username}</div>}
+   
+       {/* Name Input */}
+       <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
+         Name
+       </label>
+       <input
+         name="name"
+         className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.name ? "border-red-500" : ""}`}
+         type="text"
+         value={formData.name}
+         onChange={handleInputChange}
+         autoComplete="off"
+       />
+       {validationErrors.name && <div className="text-red-500">{validationErrors.name}</div>}
+   
+       {/* Email Input */}
+       <label htmlFor="email" className="font-semibold text-gray-700 block pb-1">
+         Email
+       </label>
+       <input
+         name="email"
+         className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.email ? "border-red-500" : ""}`}
+         type="text"
+         value={formData.email}
+         onChange={handleInputChange}
+       />
+       {validationErrors.email && <div className="text-red-500">{validationErrors.email}</div>}
+   
+       {/* Password Input */}
+       <label htmlFor="password" className="font-semibold text-gray-700 block pb-1">
+         Password
+       </label>
+       <input
+         name="password"
+         className={`border-2 rounded-r px-4 py-2 w-full ${validationErrors.password ? "border-red-500" : ""}`}
+         type="password"
+         value={formData.password}
+         onChange={handleInputChange}
+       />
+       {validationErrors.password && <div className="text-red-500">{validationErrors.password}</div>}
+   
+       {/* Roles Input */}
+       <label htmlFor="roles" className="font-semibold text-gray-700 block pb-1">
+         Roles
+       </label>
+       <input
+         type="text"
+         id="roles"
+         name="roles"
+         className="border-2 rounded-r px-4 py-2 w-full"
+         value={formData.roles}
+         onChange={handleInputChange}
+         disabled
+       />
+   
+       {/* Form Submission */}
+       <button
+         onClick={handleFormSubmit}
+         className="border ml-3 px-3 py-2 mt-4 border-black bg-black text-white font-semibold rounded-md text-sm"
+       >
+         Create
+       </button>
+     </div>
+   </div>
+   
       )}
 
       {/* Toggle Tab Button */}
-      <div className="absolute  right-0 p-4 ">
+      <div className="absolute  right-0 p-2 ">
         <button
           className="border px-3 py-2 border-black bg-black text-white font-semibold rounded-md text-sm"
           onClick={toggleTab}
