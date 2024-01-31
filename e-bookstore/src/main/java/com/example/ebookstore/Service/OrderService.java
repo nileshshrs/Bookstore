@@ -29,7 +29,7 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
-    public synchronized List<Map<String, Object>> createOrder(List<Map<String, Object>> cartItems, LocalDateTime orderDate, String shippingAddress, String paymentMethod) {
+    public synchronized List<Map<String, Object>> createOrder(List<Map<String, Object>> cartItems, LocalDateTime orderDate, String shippingAddress, String paymentMethod, String contact) {
         List<Map<String, Object>> result = new ArrayList<>();
 
         for (Map<String, Object> cartItem : cartItems) {
@@ -65,6 +65,7 @@ public class OrderService {
                 order.setShippingAddress(shippingAddress);
                 order.setPaymentMethod(paymentMethod);
                 order.setTotalPrice(total);
+                order.setContact(contact);
 
                 Order savedOrder = orderRepository.save(order);
 
@@ -83,6 +84,7 @@ public class OrderService {
                 orderMap.put("totalPrice", savedOrder.getTotalPrice());
                 orderMap.put("status", savedOrder.getStatus());
                 orderMap.put("orderDate", savedOrder.getOrderDate());
+                orderMap.put("contact", savedOrder.getContact());
 
                 result.add(orderMap);
             } else {
@@ -114,6 +116,7 @@ public class OrderService {
                     orderMap.put("totalPrice", order.getTotalPrice());
                     orderMap.put("status", order.getStatus());
                     orderMap.put("orderDate", order.getOrderDate());
+                    orderMap.put("contact", order.getContact());
                     return orderMap;
                 })
                 .collect(Collectors.toList());
@@ -138,6 +141,7 @@ public class OrderService {
                     orderMap.put("totalPrice", order.getTotalPrice());
                     orderMap.put("status", order.getStatus());
                     orderMap.put("orderDate", order.getOrderDate());
+                    orderMap.put("contact", order.getContact());
                     return orderMap;
                 })
                 .collect(Collectors.toList());

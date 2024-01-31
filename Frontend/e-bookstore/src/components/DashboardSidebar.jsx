@@ -44,7 +44,7 @@ const DashboardSidebar = ({ toggle }) => {
       <nav>
         <ul>
           <li>
-            <Link to="">
+            <Link to="/dashboard">
               <BsGrid1X2 />
               Dashboard
             </Link>

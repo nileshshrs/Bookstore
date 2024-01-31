@@ -21,6 +21,7 @@ import Orderdetail from "./components/Orderdetail";
 import Userdetail from "./components/Userdetail";
 import Search from "./Pages/Search";
 import ContactPage from "./Pages/ContactPage"
+//deleted unnecessary code
 
 
 function App() {
@@ -58,6 +59,8 @@ function App() {
           <Route path="books" element={<DashboardProducts />} />
           <Route path="orders" element={<Orderdetail />} />
           <Route path="users" element={<Userdetail />} />
+         
+
         </Route>
         <Route path="/search/:searchKey" element={<Search />}/>
       </Routes>

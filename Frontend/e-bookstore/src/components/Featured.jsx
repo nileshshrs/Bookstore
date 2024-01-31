@@ -14,20 +14,27 @@ const Featured = () => {
   };
 
   useEffect(() => {
-    // Fetch 4 random books when the component mounts and books are available
     if (books.length > 0) {
       const getRandomBooksArray = () => {
-        const array = Array.from({ length: 4 }, () => getRandomBook());
-        setRandomBooks(array);
+        const selectedBooks = new Set();
+
+        while (selectedBooks.size < 4) {
+          const randomBook = getRandomBook();
+          if (randomBook) {
+            selectedBooks.add(randomBook);
+          }
+        }
+
+        setRandomBooks([...selectedBooks]);
       };
 
       getRandomBooksArray();
     }
   }, [books]);
 
-  if (books.length === 0) {
+  if (randomBooks.length === 0) {
     // Return a loading state or placeholder while books are being fetched
-    return null
+    return null;
   }
 
   return (
@@ -40,13 +47,13 @@ const Featured = () => {
           {randomBooks.map((randomBook, index) => (
             <div key={index} className="books flex flex-col justify-center items-center gap-1">
               <div className="border p-5 bg-[#EFEEE8] img-container">
-                <img src={randomBook.imagePath} alt="" />
-                <Link to={`/addtocart/${randomBook.bookId}`}>
-                  <button>Add to Cart</button>
+                <img src={randomBook.imagePath} alt="" width={"181px"} height={"278px"}/>
+                <Link to={`/books/${randomBook.bookId}`}>
+                  <button>View Details</button>
                 </Link>
               </div>
               <div className="flex flex-col gap-2 justify-center items-center">
-                <h3 className="text-[#74642f] text-[16px] text-bold mt-3">{randomBook.title}</h3>
+                <h3 className="text-[#74642f] text-[16px] text-bold mt-3 text-center">{randomBook.title}</h3>
                 <p className="m-0 font-[Segoe UI]">{randomBook.author}</p>
                 <div className="text-[#74642f] text-lg">{`$ ${randomBook.price.toFixed(2)}`}</div>
               </div>

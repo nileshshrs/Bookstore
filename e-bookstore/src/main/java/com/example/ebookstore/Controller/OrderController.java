@@ -33,11 +33,11 @@ public class OrderController {
         // Convert timestamp to LocalDateTime
         Instant timestamp = Instant.ofEpochMilli(((Number) requestData.get("orderDate")).longValue());
         LocalDateTime orderDate = LocalDateTime.ofInstant(timestamp, ZoneOffset.UTC);
-
+        String contact =(String) requestData.get("contact") ;
         String shippingAddress = (String) requestData.get("shippingAddress");
         String paymentMethod = (String) requestData.get("paymentMethod");
 
-        return orderService.createOrder(cartItems, orderDate, shippingAddress, paymentMethod);
+        return orderService.createOrder(cartItems, orderDate, shippingAddress, paymentMethod, contact);
     }
     @GetMapping("/all")
     public List<Map<String, Object>> getAllOrders() {

@@ -31,6 +31,9 @@ public class Order {
     @Column(name = "shipping_address")
     private String shippingAddress;
 
+    @Column(name ="contact")
+    private String contact;
+
     @Column(name = "payment_method")
     private String paymentMethod;
 
@@ -114,5 +117,13 @@ public class Order {
     public boolean isStatus() {
         return status;
     }
-    // other getters and setters as needed
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+// other getters and setters as needed
 }
