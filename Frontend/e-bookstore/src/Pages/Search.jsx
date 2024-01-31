@@ -51,8 +51,9 @@ const Search = () => {
                   <img
                     src={book.imagePath}
                     alt=""
-                    width={"100%"}
-                    className="w-full h-full"
+                    width={"135px"}
+                    height={"210px"}
+                    className=""
                   />
                 </Link>
                 <button onClick={() => addToCart(book.bookId, userID)}>

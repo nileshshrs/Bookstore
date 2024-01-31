@@ -21,6 +21,7 @@ import Orderdetail from "./components/Orderdetail";
 import Userdetail from "./components/Userdetail";
 import Search from "./Pages/Search";
 import ContactPage from "./Pages/ContactPage"
+import Success from "./Pages/Success";
 //deleted unnecessary code
 
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/cart" element={<Singleaddtocart/>} />  
         <Route path="/order" element={<Order/>} /> 
         <Route path="/contact" element={<ContactPage/>}/>
+        <Route path="/s" element={<Success/>}/>
  
         
         <Route path="/singleproduct" element={<SingleProduct />} />
