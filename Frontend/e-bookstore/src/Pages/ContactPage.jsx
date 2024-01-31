@@ -22,7 +22,7 @@ const ContactPage = () => {
                             <h2 className='m-0 flex items-center justify-start gap-2'>  <IoChatboxEllipsesOutline /><b>Chat With Us</b></h2>
                             <p className='m-0'> Our frendly support team is here to help you </p>
                             <p className='m-0'> 
-                            <a href='mailto:hi@zenstore.com'>hi@zenstore.com</a></p>
+                            <a href='mailto:hi@zenstore.com'><u>hi@zenstore.com</u></a></p>
                         </div>
                     </div>
 
@@ -43,10 +43,10 @@ const ContactPage = () => {
 
                             <h2 className='m-0 flex items-center justify-start gap-2'>  <MdOutlineContactPhone />
                                <b> Phone and Email</b></h2>
-                            <p className='m-0'> <a href='tel:+9822338765'></a> </p>
+                            <p className='m-0'> 9822338765</p> 
                             <p className='m-0'> 098764532 </p>
                             <p className='m-0'>
-                                <a href="mailto:zenstore99@gmail.com">zenstore99@gmail.com</a>
+                                <a href="mailto:zenstore99@gmail.com"><u>zenstore99@gmail.com</u></a>
                             </p>
                         </div>
                     </div>
