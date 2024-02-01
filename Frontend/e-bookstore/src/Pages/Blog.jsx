@@ -101,7 +101,7 @@ const Blog = () => {
               <div className="mt-2 flex flex-col gap-3">
                 <div className="post-date text-gray-500 flex justify-between items-center">
                   <span>Mar 30, 2021</span>
-                  <div className="flex items-center gap-2 justify-between">
+                  <div className="flex items-center gap-2 justify-between" style={{paddingLeft:"120px"}}>
                     {isAdmin && (
                       <>
                         <button
