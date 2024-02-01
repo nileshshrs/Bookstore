@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import Register from "./Pages/Register";
@@ -22,11 +22,14 @@ import Userdetail from "./components/Userdetail";
 import Search from "./Pages/Search";
 import ContactPage from "./Pages/ContactPage"
 import Success from "./Pages/Success";
+import { useAuthContext } from "./context/useAuthContext";
 //deleted unnecessary code
 
 
 function App() {
   const location = useLocation();
+  const { user } = useAuthContext();
+  const roles = user?.user?.roles;
 
   // Determine whether to show the Navigation component based on the current route
   const showNavigation = !location.pathname.startsWith("/dashboard");
@@ -48,15 +51,17 @@ function App() {
  
         
         <Route path="/singleproduct" element={<SingleProduct />} />
-        <Route path="/cart" element={<Singleaddtocart />} />
         <Route path="/singleproduct" element={<SingleProduct />} />
-        <Route path="/cart" element={<Singleaddtocart />} />{" "}
+        <Route path="/cart" element={!user ? <Singleaddtocart />:<Navigate to="/login" />} />{" "}
         {/*Just added if addtocart not accepted */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<SingleBlog />} />
         <Route path="/books" element={<Bookstype />} />
         <Route path="/books/:id" element={<SingleProduct />} />
-        <Route path="/dashboard/*" element={<Dashboard />}>
+        <Route
+          path="/dashboard/*"
+          element={user && roles === "admin" ? <Dashboard /> : <Navigate to="/" />}
+        >
           <Route index element={<DashboardContent />} />
           <Route path="books" element={<DashboardProducts />} />
           <Route path="orders" element={<Orderdetail />} />

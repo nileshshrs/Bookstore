@@ -7,7 +7,7 @@ import { useBookContext } from "../context/BookContext";
 const Carousels = () => {
   const { books } = useBookContext();
 
-  // Check if books are not yet fetched
+  // Check if books are not yet fetched 
   if (!books || books.length === 0) {
     // Return null or a placeholder
     return null; // You can also return a loading state or placeholder component

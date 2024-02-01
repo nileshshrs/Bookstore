@@ -4,33 +4,33 @@ import { useSignin } from "../context/useSignin";
 import "../css/login.scss";
 
 const Login = () => {
-  const { signin } = useSignin();
+  const { signin, error } = useSignin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errMsg, setErrMsg] = useState("");
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      setErrMsg("Please enter a valid email address.");
-      return;
-    }
+    // // Email format validation
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!email || !emailRegex.test(email)) {
+    //   setErrMsg("Please enter a valid email address.");
+    //   return;
+    // }
 
-    // Password length validation
-    if (!password || password.length < 6) {
-      setErrMsg("Password must be at least 6 characters long.");
-      return;
-    }
+    // // Password length validation
+    // if (!password || password.length < 6) {
+    //   setErrMsg("Password must be at least 6 characters long.");
+    //   return;
+    // }
 
     // If validation passes, attempt to sign in
     try {
       await signin(email, password);
-    } catch (error) {
-      console.error("Error during signin:", error);
-      setErrMsg("An error occurred during signin");
+    } catch (err) {
+      console.error("Error during signin:", err);
+      // setErrMsg("An error occurred during signin");
     }
   };
 
@@ -43,7 +43,7 @@ const Login = () => {
             <h2 className="font-bold text-[50px]">Sign in</h2>
             <p>Start your journey with us.</p>
           </div>
-          <p className={errMsg ? "my-0 errmsg" : "offscreen"}>{errMsg}</p>
+          <p className={error ? "my-0 errmsg" : "offscreen"}>{error}</p>
 
           <input
             placeholder="username or email"

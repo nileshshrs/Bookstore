@@ -95,7 +95,7 @@ const Blog = () => {
             >
               <div className="post-img hover:scale-110 transition-transform duration-300 transform-gpu">
                 <Link to={`/blog/${blog.blogId}`}>
-                  <img src={blog?.ImgPath} alt="" className="w-full h-auto" />
+                  <img src={blog?.ImgPath} alt="" className="w-full h-auto max-w-[100%] max-h-[204px]" />
                 </Link>
               </div>
               <div className="mt-2 flex flex-col gap-3">
