@@ -150,7 +150,9 @@ const Singlepagecart = () => {
           </Link>
         </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+            <Link to="/books">
             <p>
+
               <button
                 type="button"
                 className="font-medium text-black hover:text-indigo-500"
@@ -159,6 +161,7 @@ const Singlepagecart = () => {
                 <span aria-hidden="true"> &rarr;</span>
               </button>
             </p>
+            </Link>
           </div>
         </div>
       </div>

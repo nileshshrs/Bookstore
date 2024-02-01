@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import "../css/createblog.scss"; // Import your CSS file
 import axios from "axios";
+import { FaTimes } from 'react-icons/fa';
 import {
   getStorage,
   ref,
@@ -124,7 +125,17 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id, blog }) => {
       overlayClassName="custom-overlay"
       appElement={document.getElementById("root")}
     >
+      
+      
       <div className="modal-content">
+    
+        <button
+          onClick={onRequestClose}
+          className="close-button"
+          style={{paddingLeft:"900px"}}
+        >
+          <FaTimes/>
+        </button>
         <form
           action=""
           className="p-3 flex flex-col items-start justify-start gap-4 h-full border"
