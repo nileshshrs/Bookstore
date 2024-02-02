@@ -100,7 +100,7 @@ const EditBlog = ({ isOpen, onRequestClose, post, blog }) => {
       setImage(null);
       setSelectedImage(null);
       blog();
-      toast.success("Book has been added sucessfully", {
+      toast.success("Blog has been edited sucessfully", {
         position: "top-center",
       });
       setTimeout(() => {
