@@ -8,10 +8,9 @@ const Footer = () => {
     <footer>
       <div className="w-[80%] footer-links">
         <div className="">
-          <h2 className="text-[22px]">Bookstore</h2>
+          <h2 className="text-[22px]">Zenstore</h2>
           <p className="text-black text-[13px]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto,
-            alias.
+            Best bookstore in market.
           </p>
         </div>
         <div className="w-full flex flex-col gap-3 justify-center items-start px-3">
@@ -51,10 +50,10 @@ const Footer = () => {
         </div>
         <div className="flex flex-col justify-center items-center gap-3">
           <div className="w-full flex flex-col gap-3 justify-start items-center px-3">
-            <img src={img1} alt="" />
+            <img src={img1} alt="" style={{maxWidth:"150px"}}/>
           </div>
           <div>
-            <img src={img2} alt="" />
+            <img src={img2} alt=""  style={{maxWidth:"150px"}} />
           </div>
         </div>
       </div>
