@@ -98,7 +98,7 @@ const CreateBlogModal = ({ isOpen, onRequestClose, id, blog }) => {
       setSelectedImage(null);
 
       blog();
-      toast.success("Book has been added sucessfully", {
+      toast.success("Blog has been added sucessfully", {
         position: "top-center",
       });
       setTimeout(() => {

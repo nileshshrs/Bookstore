@@ -29,7 +29,7 @@ import { useAuthContext } from "./context/useAuthContext";
 function App() {
   const location = useLocation();
   const { user } = useAuthContext();
-  const roles = user?.user?.roles;
+  const roles = user.roles;
 
   // Determine whether to show the Navigation component based on the current route
   const showNavigation = !location.pathname.startsWith("/dashboard");
