@@ -29,7 +29,7 @@ const Footer = () => {
           <h2 className="text-[22px]">My Account</h2>
           <ul className="flex flex-col justify-center items-start gap-3">
             <li>
-              <Link to="/login" className="font-semibold">Sign In</Link>
+              <Link to="/user-profile" className="font-semibold">Profile</Link>
             </li>
             <li>
               <Link to="/cart" className="font-semibold">View Cart</Link>

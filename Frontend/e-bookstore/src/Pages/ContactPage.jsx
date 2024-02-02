@@ -20,7 +20,7 @@ const ContactPage = () => {
 
                         <div >
                             <h2 className='m-0 flex items-center justify-start gap-2'>  <IoChatboxEllipsesOutline /><b>Chat With Us</b></h2>
-                            <p className='m-0'> Our frendly support team is here to help you </p>
+                            <p className='m-0'> Our friendly support team is here to help you </p>
                             <p className='m-0'> 
                             <a href='mailto:hi@zenstore.com'><u>hi@zenstore.com</u></a></p>
                         </div>
