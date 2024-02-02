@@ -35,7 +35,7 @@ const Featured = () => {
   if (randomBooks.length === 0) {
     // Return a loading state or placeholder while books are being fetched
     return null;
-  }
+  } 
 
   return (
     <section className="featured-books-container mb-5">

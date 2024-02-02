@@ -21,7 +21,7 @@ const DashboardSidebar = ({ toggle }) => {
       </button>
       <header className="w-full">
         <Link to="/">
-          <h2 className="px-3">Bookstore</h2>
+          <h2 className="px-3">Zenstore</h2>
         </Link>
       </header>
       <div className="w-full">

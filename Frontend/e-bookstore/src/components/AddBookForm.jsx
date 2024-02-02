@@ -17,10 +17,12 @@ import { MdClose } from "react-icons/md";
 
 const AddBookForm = ({ open, handleOpen }) => {
   const { addBook, fetchBooks } = useBookContext();
+  
 
   const imageInputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [image, setImage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const resetImage = () => {
     setSelectedImage(null);
@@ -117,9 +119,7 @@ const AddBookForm = ({ open, handleOpen }) => {
         },
         () =>
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            // Assuming you have a Submit function defined elsewhere
-            // Modify this part according to your logic
-            //calls the submit to database
+
             handleSubmit(url);
           })
       );
@@ -127,30 +127,46 @@ const AddBookForm = ({ open, handleOpen }) => {
   };
   //upload image
 
+
   const handleSubmit = async (url) => {
-    const formData = {
-      title: title,
-      isbn: isbn,
-      authorName: author,
-      price: price,
-      description: description,
-      imagePath: url,
-      inStock: true,
-      categories: categories,
-      genres: genres,
-    };
-    await addBook(formData);
-
-    // Fetch updated books
-    fetchBooks();
-
-    toast.success("Book has been added sucessfully", {
-      position: "top-right",
-    });
-    formRef.current.reset();
-    resetImage();
-    clearSelectValues();
+    try {
+      if (!title || !isbn || !author || !price || !description || !url || categories.length === 0 || genres.length === 0) {
+        throw new Error("Please fill in all the required fields and upload an image.");
+      }
+  
+      const formData = {
+        title: title,
+        isbn: isbn,
+        authorName: author,
+        price: price,
+        description: description,
+        imagePath: url,
+        inStock: true,
+        categories: categories,
+        genres: genres,
+      };
+  
+      await addBook(formData);
+  
+  
+      // Fetch updated books
+      fetchBooks();
+  
+      toast.success("Book has been added successfully", {
+        position: "top-right",
+      });
+  
+      formRef.current.reset();
+      resetImage();
+      clearSelectValues();
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-right",
+      });
+    }
   };
+  
+
 
   //react select
 

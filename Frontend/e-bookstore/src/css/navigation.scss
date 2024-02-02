@@ -16,7 +16,8 @@ header {
   .sidebar-nav {
     position: fixed;
     top: 0;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     max-width: min(75vw, 400px);
     box-shadow: -10px 0px 30px -15px var(--navy-shadow);
     right: 0;
@@ -26,7 +27,7 @@ header {
     transform: translateX(100vw);
     transition: var(--transition);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding: 20px 50px;
     align-items: center;
     overflow-y: scroll;

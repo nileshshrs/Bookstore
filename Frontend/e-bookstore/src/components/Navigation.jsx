@@ -11,20 +11,20 @@ const Navigation = () => {
 
   const { user } = useAuthContext();
   const { logout } = useLogout();
-  const navigateSearch=useNavigate();
+  const navigateSearch = useNavigate();
 
-  const [searchKey,setSearchKey]=useState("");
+  const [searchKey, setSearchKey] = useState("");
 
   const handleLogout = () => {
     // Dispatch the "LOGOUT" action to update the user state
     logout();
   };
 
-  const searchBook=(e)=>{
+  const searchBook = (e) => {
     e.preventDefault();
     navigateSearch("/search/" + searchKey);
     setSearchKey("");
-  }
+  };
 
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [nav, setNav] = useState(false);
@@ -84,13 +84,15 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="">
-              <form className="search-form flex"
-              onSubmit={(e)=>searchBook(e)}
+              <form
+                className="search-form flex"
+                onSubmit={(e) => searchBook(e)}
               >
-                <input type="text" 
-                placeholder="search..." 
-                onChange={(e)=>setSearchKey(e.target.value)}  //set search
-                value={searchKey} 
+                <input
+                  type="text"
+                  placeholder="search..."
+                  onChange={(e) => setSearchKey(e.target.value)} //set search
+                  value={searchKey}
                 />
                 <button type="submit">
                   <FaSearch />
@@ -99,43 +101,46 @@ const Navigation = () => {
             </li>
           </ul>
           <div className="flex justify-between items-center gap-3 btn-div">
-          <div className="flex gap-2">
-            
-            {user ? (
-              <button className="login-btn" onClick={handleLogout}>
-                Logout
-              </button>
-            ) : (
-              <>
-              <Link to="/login">
-                <button className="login-btn">Signin</button>
-              </Link>
-            
-              <Link to="/register">
-              <button style={{color:"white",backgroundColor:"black"}} className="login-btn">Signup</button>
-            </Link>
-            </>
-            )}
-          </div>
-
-          <div>
-            {user ? (
-              <Link to="/user-profile">
-                <button className="account-btn">{user.username}</button>
-              </Link>
-            ) : null}
-          </div>
-          <div>
-            {user ? (
-              <Link to="/cart">
-                <button className="flex items-center justify-center font-bold gap-1">
-                  Cart <FaShoppingBag />
+            <div className="flex gap-2">
+              {user ? (
+                <button className="login-btn" onClick={handleLogout}>
+                  Logout
                 </button>
-              </Link>
-            ) : null}
-          </div>
-        </div>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <button className="login-btn">Signin</button>
+                  </Link>
 
+                  <Link to="/register">
+                    <button
+                      style={{ color: "white", backgroundColor: "black" }}
+                      className="login-btn"
+                    >
+                      Signup
+                    </button>
+                  </Link>
+                </>
+              )}
+            </div>
+
+            <div>
+              {user ? (
+                <Link to="/user-profile">
+                  <button className="account-btn">{user.username}</button>
+                </Link>
+              ) : null}
+            </div>
+            <div>
+              {user ? (
+                <Link to="/cart">
+                  <button className="flex items-center justify-center font-bold gap-1">
+                    Cart <FaShoppingBag />
+                  </button>
+                </Link>
+              ) : null}
+            </div>
+          </div>
         </nav>
 
         <div
@@ -198,15 +203,27 @@ const Navigation = () => {
           <div className=" flex flex-col items-center jusify-center gap-2 my-10 w-full px-3">
             {user ? (
               <>
-                <button className="account-btn">Account</button>
+                <button className="account-btn">
+                  <Link to="/user-profile" className="w-full">
+                    Account
+                  </Link>
+                </button>
                 <button className="login-btn" onClick={handleLogout}>
                   Sign out
                 </button>
               </>
             ) : (
               <>
-                <button className="account-btn">Sign In</button>
-                <button className="login-btn">Sign Up</button>
+                <button className="account-btn">
+                  <Link to="/login" className="w-full">
+                    Sign In
+                  </Link>
+                </button>
+                <button className="login-btn">
+                  <Link to="/register" className="w-full">
+                    Sign Up
+                  </Link>
+                </button>
               </>
             )}
           </div>

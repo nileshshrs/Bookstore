@@ -12,7 +12,7 @@ import { app } from "../Firebase/Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const EditBlog = ({ isOpen, onRequestClose, post }) => {
+const EditBlog = ({ isOpen, onRequestClose, post, blog }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [blogTitle, setBlogTitle] = useState("");
   const [blogDetails, setBlogDetails] = useState("");
@@ -107,7 +107,7 @@ const EditBlog = ({ isOpen, onRequestClose, post }) => {
         onRequestClose();
       }, 3000);
     } catch (err) {
-      toast.error(err.response.data.Message, {
+      toast.error(err.response.data.message, {
         position: "top-center",
       });
     }

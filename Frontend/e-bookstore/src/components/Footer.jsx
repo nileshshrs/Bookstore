@@ -18,41 +18,34 @@ const Footer = () => {
           <h2 className="text-[22px]">Discover</h2>
           <ul className="flex flex-col justify-center items-start gap-3">
             <li>
-              <Link to="" className="font-semibold">Home</Link>
+              <Link to="/" className="font-semibold">Home</Link>
             </li>
             <li>
-              <Link to="" className="font-semibold">Books</Link>
+              <Link to="/books" className="font-semibold">Books</Link>
             </li>
-            <li>
-              <Link to="" className="font-semibold">Authors</Link>
-            </li>
+
           </ul>
         </div>
         <div className="w-full flex flex-col gap-3 justify-center items-start px-3">
           <h2 className="text-[22px]">My Account</h2>
           <ul className="flex flex-col justify-center items-start gap-3">
             <li>
-              <Link to="" className="font-semibold">Sign In</Link>
+              <Link to="/login" className="font-semibold">Sign In</Link>
             </li>
             <li>
-              <Link to="" className="font-semibold">View Cart</Link>
+              <Link to="/cart" className="font-semibold">View Cart</Link>
             </li>
-            <li>
-              <Link to="" className="font-semibold">Wishlist</Link>
-            </li>
+
           </ul>
         </div>
         <div className="w-full flex flex-col gap-3 justify-center items-start px-3">
           <h2 className="text-[22px]">Help</h2>
           <ul className="flex flex-col justify-center items-start gap-3">
             <li>
-              <Link to="" className="font-semibold">Help center</Link>
+              <Link to="/contact" className="font-semibold">Help center</Link>
             </li>
             <li>
-              <Link to="" className="font-semibold">Report a problem</Link>
-            </li>
-            <li>
-              <Link to="" className="font-semibold">Suggestion</Link>
+              <Link to="/contact" className="font-semibold">Report a problem</Link>
             </li>
           </ul>
         </div>
