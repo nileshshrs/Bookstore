@@ -52,7 +52,7 @@ const Navigation = () => {
       <div className="px-2 py-3 flex justify-evenly items-center w-full gap-3 nav-bar sm:gap-0">
         <div className="px-2">
           <Link to="/">
-            <h2 className="text-[22px]">Bookstore</h2>
+            <h2 className="text-[22px]">Zenstore</h2>
           </Link>
         </div>
         <nav className="w-full px-5 flex">
