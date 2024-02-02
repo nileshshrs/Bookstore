@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import KhaltiCheckout from "khalti-checkout-web";
 import axios from "axios";
 import { useAuthContext } from "../context/useAuthContext";
+import Success from "../Pages/Success";
+import { useNavigate } from "react-router-dom";
 
 const publicTestKey = "test_public_key_402c2b0e98364222bb1c1ab02369cefd";
 
@@ -17,6 +19,7 @@ const Payment = ({
   const { user } = useAuthContext();
   const userId = user ? user.id : null;
   const [checkout, setCheckout] = useState(null);
+  const navigate = useNavigate();
 
   const config = {
     publicKey: publicTestKey,
@@ -47,6 +50,7 @@ const Payment = ({
                 const res = await axios.delete(url);
                 console.log(res.data);
                 fetchCart()
+                navigate("/s");
               } catch (error) {
                 console.log(error);
               }
